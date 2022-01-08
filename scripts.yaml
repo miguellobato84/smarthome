@@ -1,0 +1,42 @@
+script_extractor_turn_off:
+  sequence:
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - repeat:
+      while:
+      - condition: and
+        conditions:
+        - condition: device
+          type: is_on
+          device_id: 832c71355eb686dbd19b4ea81c050217
+          entity_id: light.extractor_on_off
+          domain: light
+        - condition: numeric_state
+          entity_id: sensor.temp_and_humid1_humidity
+          above: '65'
+      sequence:
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+  - type: turn_off
+    device_id: 832c71355eb686dbd19b4ea81c050217
+    entity_id: light.extractor_on_off
+    domain: light
+  mode: queued
+  alias: Extractor Turn Off
+  icon: mdi:fan-off
+  max: 10
+test:
+  sequence:
+  - service: input_text.set_value
+    target:
+      entity_id: input_text.cube_current_side
+    data:
+      value: '1'
+  mode: single
+  alias: test

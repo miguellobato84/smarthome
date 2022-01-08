@@ -1,0 +1,455 @@
+- id: '1641064196796'
+  alias: Run bathroom extractor
+  description: ''
+  trigger:
+  - type: humidity
+    platform: device
+    device_id: 7fbe82c6fc8cfa498ea99b9457c956b4
+    entity_id: sensor.temp_and_humid1_humidity
+    domain: sensor
+    above: 65
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 832c71355eb686dbd19b4ea81c050217
+    entity_id: light.extractor_on_off
+    domain: light
+  mode: single
+- id: '1641247207072'
+  alias: Aqara Magic Cube
+  description: ''
+  use_blueprint:
+    path: brent/zha-aqara-magic-cube-57-actions.yaml
+    input:
+      remote: de7540b873b6e241ae1157c155ed1e1f
+      flip_any: true
+      five_to_five: []
+      cube_flip_5: []
+      slide_on_five: []
+      three_to_three: []
+      cube_flip_3: []
+      slide_on_three: []
+      two_to_two: []
+      cube_flip_2:
+      - service: input_text.set_value
+        target:
+          entity_id: input_text.cube_current_side
+        data:
+          value: '2'
+      slide_on_two: []
+      cube_flip_1:
+      - service: input_text.set_value
+        target:
+          entity_id: input_text.cube_current_side
+        data:
+          value: '1'
+      rotate_right:
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: input_text.cube_current_side
+            state: '1'
+          sequence:
+          - service: light.turn_on
+            target:
+              device_id: 48babe39343fa4a3d2f82aed449ffd65
+            data:
+              brightness_step:
+                '[object Object]':
+        default: []
+      rotate_left:
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: input_text.cube_current_side
+            state: '1'
+          sequence:
+          - service: light.turn_on
+            target:
+              device_id: 48babe39343fa4a3d2f82aed449ffd65
+            data:
+              brightness_step: -1 * {{ flip_degrees }}
+        default: []
+- id: '1641397979270'
+  alias: New Automation
+  description: ''
+  trigger:
+  - device_id: a355f756d603b974ae27c211d4001d29
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: left
+  condition: []
+  action:
+  - type: turn_off
+    device_id: aed3cfaadafc6ff811d7c6707aa981f8
+    entity_id: light.sofa_reading_bulb_022974fe_level_light_color_on_off
+    domain: light
+  mode: single
+- id: '1641398151500'
+  alias: Remote Living Room
+  description: ''
+  use_blueprint:
+    path: EPMatt/ikea_e2001_e2002.yaml
+    input:
+      integration: ZHA
+      helper_last_controller_event: input_text.remote_state_storage
+      action_button_left_short:
+      - choose:
+        - conditions:
+          - condition: device
+            type: is_off
+            device_id: aed3cfaadafc6ff811d7c6707aa981f8
+            entity_id: light.sofa_reading_bulb_022974fe_level_light_color_on_off
+            domain: light
+          sequence:
+          - type: turn_on
+            device_id: aed3cfaadafc6ff811d7c6707aa981f8
+            entity_id: light.sofa_reading_bulb_022974fe_level_light_color_on_off
+            domain: light
+          - type: turn_off
+            device_id: 51cafeeb433738b7e7dfb0547437ffed
+            entity_id: light.balcony_bulb_level_on_off
+            domain: light
+        default:
+        - type: turn_off
+          device_id: aed3cfaadafc6ff811d7c6707aa981f8
+          entity_id: light.sofa_reading_bulb_022974fe_level_light_color_on_off
+          domain: light
+        - type: turn_on
+          device_id: 51cafeeb433738b7e7dfb0547437ffed
+          entity_id: light.balcony_bulb_level_on_off
+          domain: light
+      controller_device: a355f756d603b974ae27c211d4001d29
+      action_button_up_short:
+      - choose:
+        - conditions:
+          - condition: or
+            conditions:
+            - condition: device
+              type: is_on
+              device_id: 51cafeeb433738b7e7dfb0547437ffed
+              entity_id: light.balcony_bulb_level_on_off
+              domain: light
+            - condition: device
+              type: is_on
+              device_id: aed3cfaadafc6ff811d7c6707aa981f8
+              entity_id: light.sofa_reading_bulb_022974fe_level_light_color_on_off
+              domain: light
+          sequence:
+          - service: light.turn_off
+            target:
+              area_id: living_room
+        default:
+        - service: light.turn_on
+          target:
+            area_id: living_room
+      action_button_left_long: []
+      action_button_left_double: []
+      action_button_right_short:
+      - choose:
+        - conditions:
+          - condition: device
+            type: is_off
+            device_id: 4a7a0fe896121c624055d919afb961a9
+            entity_id: light.lampara_abuelo_level_on_off
+            domain: light
+          sequence:
+          - type: turn_on
+            device_id: 4a7a0fe896121c624055d919afb961a9
+            entity_id: light.lampara_abuelo_level_on_off
+            domain: light
+          - type: turn_off
+            device_id: 67b30374782cb26fd604a06a246c5006
+            entity_id: light.cestita_level_on_off
+            domain: light
+        default:
+        - type: turn_off
+          device_id: 4a7a0fe896121c624055d919afb961a9
+          entity_id: light.lampara_abuelo_level_on_off
+          domain: light
+        - type: turn_on
+          device_id: 67b30374782cb26fd604a06a246c5006
+          entity_id: light.cestita_level_on_off
+          domain: light
+      action_button_down_short:
+      - choose:
+        - conditions:
+          - condition: or
+            conditions:
+            - condition: device
+              type: is_on
+              device_id: 4a7a0fe896121c624055d919afb961a9
+              entity_id: light.lampara_abuelo_level_on_off
+              domain: light
+            - condition: device
+              type: is_on
+              device_id: 67b30374782cb26fd604a06a246c5006
+              entity_id: light.cestita_level_on_off
+              domain: light
+          sequence:
+          - service: light.turn_off
+            target:
+              area_id: dinner_room
+        default:
+        - service: light.turn_on
+          target:
+            area_id: dinner_room
+      button_up_long_loop: true
+      button_up_double_press: false
+      action_button_up_long:
+      - choose:
+        - conditions:
+          - condition: or
+            conditions:
+            - condition: numeric_state
+              entity_id: light.sofa_reading_bulb_022974fe_level_light_color_on_off
+              attribute: brightness
+              above: '250'
+            - condition: numeric_state
+              entity_id: light.balcony_bulb_level_on_off
+              attribute: brightness
+              above: '250'
+          sequence:
+          - service: light.turn_on
+            target:
+              area_id: living_room
+            data:
+              brightness: 1
+        default:
+        - service: light.turn_on
+          target:
+            area_id: living_room
+          data:
+            brightness_step: 10
+      button_up_long_max_loop_repeats: 500
+      button_left_double_press: false
+      action_button_up_double: []
+      action_button_right_long: []
+      action_button_down_long:
+      - choose:
+        - conditions:
+          - condition: or
+            conditions:
+            - condition: numeric_state
+              attribute: brightness
+              above: '250'
+              entity_id: light.lampara_abuelo_level_on_off
+            - condition: numeric_state
+              attribute: brightness
+              above: '250'
+              entity_id: light.cestita_level_on_off
+          sequence:
+          - service: light.turn_on
+            data:
+              brightness: 1
+            target:
+              area_id: dinner_room
+        default:
+        - service: light.turn_on
+          data:
+            brightness_step: 10
+          target:
+            area_id: dinner_room
+      button_down_long_loop: true
+- id: '1641424947277'
+  alias: Extractor Auto Turn Off
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 832c71355eb686dbd19b4ea81c050217
+    entity_id: light.extractor_on_off
+    domain: light
+  condition: []
+  action:
+  - service: script.script_extractor_turn_off
+  mode: single
+- id: '1641507081316'
+  alias: Wake-up Miguel
+  description: ''
+  use_blueprint:
+    path: sbyx/wake-up-light-alarm-with-sunrise-effect.yaml
+    input:
+      manual_time: 07:00:00
+      light_entity: light.bedside_miguel_level_light_color_on_off
+      timestamp_sensor: sensor.m2101k9ag_next_alarm
+      sunrise_duration: 15
+      pre_sunrise_actions: []
+      post_sunrise_actions:
+      - service: light.turn_on
+        target:
+          device_id: 48babe39343fa4a3d2f82aed449ffd65
+        data:
+          kelvin: 2500
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - service: light.turn_on
+        data:
+          brightness_pct: 30
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - type: turn_off
+        device_id: 48babe39343fa4a3d2f82aed449ffd65
+        entity_id: light.bedside_miguel_level_light_color_on_off
+        domain: light
+- id: '1641559651589'
+  alias: Motion run lights
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: da0ebf0f0f09e09e5ce5dfc8b958d54a
+    entity_id: binary_sensor.motion_sensor_on_off
+    domain: binary_sensor
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 7f2f36dbb0293c7ea7cb994aa1b04c97
+    entity_id: light.pasillo_on_off
+    domain: light
+  - repeat:
+      while:
+      - type: is_motion
+        condition: device
+        device_id: da0ebf0f0f09e09e5ce5dfc8b958d54a
+        entity_id: binary_sensor.motion_sensor_on_off
+        domain: binary_sensor
+      sequence:
+      - delay:
+          hours: 0
+          minutes: 2
+          seconds: 0
+          milliseconds: 0
+  - type: turn_off
+    device_id: 7f2f36dbb0293c7ea7cb994aa1b04c97
+    entity_id: light.pasillo_on_off
+    domain: light
+  mode: single
+- id: '1641559810476'
+  alias: Motion Off
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: da0ebf0f0f09e09e5ce5dfc8b958d54a
+    entity_id: binary_sensor.motion_sensor_on_off
+    domain: binary_sensor
+  condition: []
+  action:
+  - device_id: b7d6431db2163a7e843315ccc28afd31
+    domain: mobile_app
+    type: notify
+    message: 'off'
+  mode: single
+- id: '1641601517946'
+  alias: Remote Bedroom
+  description: ''
+  use_blueprint:
+    path: EPMatt/ikea_e2001_e2002.yaml
+    input:
+      integration: ZHA
+      controller_device: e17d6655bc640e2a8f616d45a3243865
+      helper_last_controller_event: input_text.remote_bedroom_state
+      button_left_long_loop: true
+      button_right_long_loop: true
+      button_up_long_loop: true
+      action_button_left_short:
+      - type: toggle
+        device_id: 0ffc9386b7d715219320ea37b9284acb
+        entity_id: light.bedside_alba_level_light_color_on_off
+        domain: light
+      action_button_left_long:
+      - choose:
+        - conditions:
+          - condition: numeric_state
+            entity_id: light.bedside_alba_level_light_color_on_off
+            attribute: brightness
+            above: '250'
+          sequence:
+          - service: light.turn_on
+            data:
+              brightness: 10
+            target:
+              device_id: 0ffc9386b7d715219320ea37b9284acb
+        default:
+        - service: light.turn_on
+          target:
+            device_id: 0ffc9386b7d715219320ea37b9284acb
+          data:
+            brightness_step: 10
+      action_button_right_short:
+      - type: toggle
+        device_id: 48babe39343fa4a3d2f82aed449ffd65
+        entity_id: light.bedside_miguel_level_light_color_on_off
+        domain: light
+      action_button_right_long:
+      - choose:
+        - conditions:
+          - condition: numeric_state
+            entity_id: light.bedside_miguel_level_light_color_on_off
+            attribute: brightness
+            above: '250'
+          sequence:
+          - service: light.turn_on
+            target:
+              device_id: 48babe39343fa4a3d2f82aed449ffd65
+            data:
+              brightness: 1
+        default:
+        - service: light.turn_on
+          target:
+            device_id: 48babe39343fa4a3d2f82aed449ffd65
+          data:
+            brightness_step: 10
+      action_button_up_short:
+      - type: toggle
+        device_id: f80a1011dbd8090bbab49118abae1c2d
+        entity_id: light.globito_light_level_on_off
+        domain: light
+      action_button_up_long:
+      - choose:
+        - conditions:
+          - condition: numeric_state
+            entity_id: light.globito_light_level_on_off
+            attribute: brightness
+            above: '250'
+          sequence:
+          - service: light.turn_on
+            target:
+              device_id: f80a1011dbd8090bbab49118abae1c2d
+            data:
+              brightness: 1
+        default:
+        - service: light.turn_on
+          target:
+            device_id: f80a1011dbd8090bbab49118abae1c2d
+          data:
+            brightness_step: 10
+- id: '1641604331980'
+  alias: New Automation
+  description: ''
+  trigger:
+  - platform: event
+    event_type: zha_event
+    event_data:
+      device_id: de7540b873b6e241ae1157c155ed1e1f
+  condition: []
+  action:
+  - device_id: 298d8e4eb69cd9f7039c5bd2239604e6
+    domain: mobile_app
+    type: notify
+    message: '{{ trigger.event.data.command }}'
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ trigger.event.data.command }}'
+      sequence: []
+    default: []
+  mode: single

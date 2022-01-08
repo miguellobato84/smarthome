@@ -1,0 +1,11 @@
+secrets.yaml
+*.log
+*.xml
+*.db
+*.sqlite
+.storage/
+OZW_Log.txt
+harmony_harmony_hub.conf
+known_devices.yaml
+home-assistant.log.*
+home-assistant_v2.*
