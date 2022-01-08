@@ -31,12 +31,3 @@ script_extractor_turn_off:
   alias: Extractor Turn Off
   icon: mdi:fan-off
   max: 10
-test:
-  sequence:
-  - service: input_text.set_value
-    target:
-      entity_id: input_text.cube_current_side
-    data:
-      value: '1'
-  mode: single
-  alias: test

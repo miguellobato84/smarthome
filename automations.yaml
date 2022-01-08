@@ -15,77 +15,6 @@
     entity_id: light.extractor_on_off
     domain: light
   mode: single
-- id: '1641247207072'
-  alias: Aqara Magic Cube
-  description: ''
-  use_blueprint:
-    path: brent/zha-aqara-magic-cube-57-actions.yaml
-    input:
-      remote: de7540b873b6e241ae1157c155ed1e1f
-      flip_any: true
-      five_to_five: []
-      cube_flip_5: []
-      slide_on_five: []
-      three_to_three: []
-      cube_flip_3: []
-      slide_on_three: []
-      two_to_two: []
-      cube_flip_2:
-      - service: input_text.set_value
-        target:
-          entity_id: input_text.cube_current_side
-        data:
-          value: '2'
-      slide_on_two: []
-      cube_flip_1:
-      - service: input_text.set_value
-        target:
-          entity_id: input_text.cube_current_side
-        data:
-          value: '1'
-      rotate_right:
-      - choose:
-        - conditions:
-          - condition: state
-            entity_id: input_text.cube_current_side
-            state: '1'
-          sequence:
-          - service: light.turn_on
-            target:
-              device_id: 48babe39343fa4a3d2f82aed449ffd65
-            data:
-              brightness_step:
-                '[object Object]':
-        default: []
-      rotate_left:
-      - choose:
-        - conditions:
-          - condition: state
-            entity_id: input_text.cube_current_side
-            state: '1'
-          sequence:
-          - service: light.turn_on
-            target:
-              device_id: 48babe39343fa4a3d2f82aed449ffd65
-            data:
-              brightness_step: -1 * {{ flip_degrees }}
-        default: []
-- id: '1641397979270'
-  alias: New Automation
-  description: ''
-  trigger:
-  - device_id: a355f756d603b974ae27c211d4001d29
-    domain: zha
-    platform: device
-    type: remote_button_short_press
-    subtype: left
-  condition: []
-  action:
-  - type: turn_off
-    device_id: aed3cfaadafc6ff811d7c6707aa981f8
-    entity_id: light.sofa_reading_bulb_022974fe_level_light_color_on_off
-    domain: light
-  mode: single
 - id: '1641398151500'
   alias: Remote Living Room
   description: ''
@@ -332,22 +261,6 @@
     entity_id: light.pasillo_on_off
     domain: light
   mode: single
-- id: '1641559810476'
-  alias: Motion Off
-  description: ''
-  trigger:
-  - type: no_motion
-    platform: device
-    device_id: da0ebf0f0f09e09e5ce5dfc8b958d54a
-    entity_id: binary_sensor.motion_sensor_on_off
-    domain: binary_sensor
-  condition: []
-  action:
-  - device_id: b7d6431db2163a7e843315ccc28afd31
-    domain: mobile_app
-    type: notify
-    message: 'off'
-  mode: single
 - id: '1641601517946'
   alias: Remote Bedroom
   description: ''
@@ -432,24 +345,4 @@
             device_id: f80a1011dbd8090bbab49118abae1c2d
           data:
             brightness_step: 10
-- id: '1641604331980'
-  alias: New Automation
-  description: ''
-  trigger:
-  - platform: event
-    event_type: zha_event
-    event_data:
-      device_id: de7540b873b6e241ae1157c155ed1e1f
-  condition: []
-  action:
-  - device_id: 298d8e4eb69cd9f7039c5bd2239604e6
-    domain: mobile_app
-    type: notify
-    message: '{{ trigger.event.data.command }}'
-  - choose:
-    - conditions:
-      - condition: template
-        value_template: '{{ trigger.event.data.command }}'
-      sequence: []
-    default: []
-  mode: single
+
