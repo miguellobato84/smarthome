@@ -345,4 +345,19 @@
             device_id: f80a1011dbd8090bbab49118abae1c2d
           data:
             brightness_step: 10
+- id: '1641655469467'
+  alias: Cube actions
+  description: ''
+  use_blueprint:
+    path: miguellobato84/zha-aqara-magic-cube.yaml
+    input:
+      remote: de7540b873b6e241ae1157c155ed1e1f
+      helper_last_face: input_text.cube_current_side
+      rotate_1:
+      - service: light.turn_on
+        target:
+          device_id: 48babe39343fa4a3d2f82aed449ffd65
+        data:
+          brightness_step: '{{ relative_degrees | float }}'
+
 
