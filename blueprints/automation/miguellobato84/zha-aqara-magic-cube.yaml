@@ -196,7 +196,7 @@ action:
       {% endif %}
 - choose:
   - conditions:
-    - '{{ command == ''flip'' or command == ''slide'' }}'
+    - '{{ command == ''flip'' or command == ''slide'' or command = ''knock'' }}'
     sequence:
       - service: input_text.set_value
         data:
