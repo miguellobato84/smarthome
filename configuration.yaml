@@ -22,3 +22,14 @@ sensor:
       - 'time_date'
       - 'time_utc'
       - 'beat'
+
+  - platform: template
+    sensors:
+      minutes_next_alarm:
+        friendly_name: "Minutes until Next Alarm"
+        unit_of_measurement: 'm'
+        entity_id: sensor.time
+        value_template: "{{((states('sensor.m2101k9ag_next_alarm')|as_timestamp|int - now()|as_timestamp|int)/60)|int}}"
+        availability_template: "{{ not is_state('sensor.m2101k9ag_next_alarm','unavailable') }}"
+        attribute_templates:
+          time: "{{ state_attr('sensor.m2101k9ag_next_alarm','Local Time') }}"
