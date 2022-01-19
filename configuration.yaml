@@ -11,6 +11,9 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 
+media_player:
+  - platform: xiaomi_tv
+  
 sensor:
   - platform: time_date
     display_options:
