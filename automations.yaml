@@ -360,52 +360,20 @@
         entity_id: light.globito_light_level_on_off
         domain: light
       action_button_up_long: []
-- id: '1641655469467'
-  alias: Cube actions
-  description: xx
-  use_blueprint:
-    path: miguellobato84/zha-aqara-magic-cube.yaml
-    input:
-      remote: de7540b873b6e241ae1157c155ed1e1f
-      helper_last_face: input_text.cube_current_side
-      rotate_1:
-      - service: light.turn_on
-        target:
-          device_id: 48babe39343fa4a3d2f82aed449ffd65
-        data:
-          brightness_step: '{{ relative_degrees | float }}'
-      rotate_2:
-      - service: light.turn_on
-        target:
-          device_id: 0ffc9386b7d715219320ea37b9284acb
-        data:
-          brightness_step: '{{ relative_degrees | float }}'
 - id: '1641941964879'
   alias: Extractor Timeout
   description: ''
   trigger:
-  - platform: device
-    type: turned_on
-    device_id: 832c71355eb686dbd19b4ea81c050217
-    entity_id: light.extractor_on_off
-    domain: light
+  - platform: numeric_state
+    entity_id: sensor.extractor_uptime
+    above: '30'
   condition: []
   action:
-  - delay:
-      hours: 0
-      minutes: 30
-      seconds: 0
-      milliseconds: 0
-  - condition: device
-    type: is_on
-    device_id: 832c71355eb686dbd19b4ea81c050217
-    entity_id: light.extractor_on_off
-    domain: light
   - type: turn_off
     device_id: 832c71355eb686dbd19b4ea81c050217
     entity_id: light.extractor_on_off
     domain: light
-  mode: parallel
+  mode: single
   max: 10
 - id: '1642026382322'
   alias: Sunrise
@@ -413,8 +381,11 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.minutes_next_alarm
-    below: '10'
-  condition: []
+    below: '20'
+  condition:
+  - condition: state
+    entity_id: sensor.is_morning
+    state: 'on'
   action:
   - service: light.turn_on
     data:
