@@ -11,20 +11,10 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 
-media_player:
-  - platform: xiaomi_tv
-  
 sensor:
   - platform: time_date
     display_options:
       - 'time'
-      - 'date'
-      - 'date_time'
-      - 'date_time_utc'
-      - 'date_time_iso'
-      - 'time_date'
-      - 'time_utc'
-      - 'beat'
 
   - platform: template
     sensors:
@@ -36,3 +26,11 @@ sensor:
         availability_template: "{{ not is_state('sensor.m2101k9ag_next_alarm','unavailable') }}"
         attribute_templates:
           time: "{{ state_attr('sensor.m2101k9ag_next_alarm','Local Time') }}"
+      is_morning:
+        friendly_name: "Is Morning"
+        entity_id: sensor.time
+        value_template: "{{ 'on' if 6 <= now()|as_timestamp|timestamp_custom('%H')|int <= 10 else 'off'  }}"
+      extractor_uptime:
+        friendly_name: "Extractor running time"
+        entity_id: sensor.time
+        value_template: "{{ -1 if is_state('light.extractor_on_off', 'off') else (now()|as_timestamp|int - states.light.extractor_on_off.last_changed|as_timestamp|int)/60 }}"
