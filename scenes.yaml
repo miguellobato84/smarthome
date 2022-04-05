@@ -10,12 +10,6 @@
       friendly_name: Sofa Reading Bulb 022974fe level, light_color, on_off
       supported_features: 43
       state: 'off'
-    button.ikea_of_sweden_tradfri_bulb_e14_ws_470lm_022974fe_identify:
-      restored: true
-      device_class: update
-      friendly_name: IKEA of Sweden TRADFRI bulb E14 WS 470lm 022974fe identify
-      supported_features: 0
-      state: unavailable
     light.balcony_bulb_level_on_off:
       supported_color_modes:
       - brightness
@@ -23,12 +17,6 @@
       friendly_name: Balcony bulb level, on_off
       supported_features: 41
       state: 'off'
-    button.ikea_of_sweden_tradfri_bulb_e27_ww_806lm_02069dfe_identify:
-      restored: true
-      device_class: update
-      friendly_name: IKEA of Sweden TRADFRI bulb E27 WW 806lm 02069dfe identify
-      supported_features: 0
-      state: unavailable
     light.cestita_level_on_off:
       supported_color_modes:
       - brightness
@@ -36,12 +24,6 @@
       friendly_name: Cestita level, on_off
       supported_features: 41
       state: 'off'
-    button.ikea_of_sweden_tradfri_bulb_e27_ww_806lm_16b32bfe_identify:
-      restored: true
-      device_class: update
-      friendly_name: IKEA of Sweden TRADFRI bulb E27 WW 806lm 16b32bfe identify
-      supported_features: 0
-      state: unavailable
     light.lampara_abuelo_level_on_off:
       supported_color_modes:
       - brightness
@@ -49,19 +31,13 @@
       friendly_name: Lámpara Abuelo level, on_off
       supported_features: 41
       state: 'off'
-    button.ikea_of_sweden_tradfri_bulb_e27_ww_806lm_244b06fe_identify:
-      restored: true
-      device_class: update
-      friendly_name: IKEA of Sweden TRADFRI bulb E27 WW 806lm 244b06fe identify
-      supported_features: 0
-      state: unavailable
     light.bedside_miguel_level_light_color_on_off:
       min_mireds: 250
       max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode: color_temp
-      brightness: 133
+      brightness: 204
       color_temp: 400
       hs_color:
       - 28.874
@@ -83,7 +59,7 @@
       supported_color_modes:
       - color_temp
       color_mode: color_temp
-      brightness: 71
+      brightness: 204
       color_temp: 400
       hs_color:
       - 28.874
@@ -106,9 +82,3 @@
       friendly_name: Globito Light level, on_off
       supported_features: 41
       state: 'off'
-    button.ikea_of_sweden_tradfri_bulb_e27_ww_806lm_270309fe_identify:
-      restored: true
-      device_class: update
-      friendly_name: IKEA of Sweden TRADFRI bulb E27 WW 806lm 270309fe identify
-      supported_features: 0
-      state: unavailable
