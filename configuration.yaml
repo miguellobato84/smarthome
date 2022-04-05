@@ -12,6 +12,10 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 
 sensor:
+  - platform: systemmonitor
+    resources:
+      - type: last_boot
+      
   - platform: time_date
     display_options:
       - 'time'
@@ -26,10 +30,23 @@ sensor:
         availability_template: "{{ not is_state('sensor.m2101k9ag_next_alarm','unavailable') }}"
         attribute_templates:
           time: "{{ state_attr('sensor.m2101k9ag_next_alarm','Local Time') }}"
+      minutes_next_sunrise:
+        friendly_name: "Minutes until Next Sunrise"
+        unit_of_measurement: 'm'
+        entity_id: sensor.time
+        value_template: "{{((state_attr('sun.sun', 'next_rising')|as_timestamp|int - now()|as_timestamp|int)/60)|int}}"
       is_morning:
         friendly_name: "Is Morning"
         entity_id: sensor.time
         value_template: "{{ 'on' if 6 <= now()|as_timestamp|timestamp_custom('%H')|int <= 10 else 'off'  }}"
+      is_pre_weekday:
+        friendly_name: "Is the day before of Weekday"
+        entity_id: sensor.time
+        value_template: "{{ 'on' if 0 <= now()|as_timestamp|timestamp_custom('%w')|int < 5 else 'off'  }}"
+      is_weekday:
+        friendly_name: "Is Weekday"
+        entity_id: sensor.time
+        value_template: "{{ 'on' if 0 < now()|as_timestamp|timestamp_custom('%w')|int < 6 else 'off'  }}"
       extractor_uptime:
         friendly_name: "Extractor running time"
         entity_id: sensor.time
