@@ -31,3 +31,191 @@ script_extractor_turn_off:
   alias: Extractor Turn Off
   icon: mdi:fan-off
   max: 10
+test:
+  alias: test
+  icon: mdi:party-popper
+  description: Turns on the bedroom lights and then the living room lights after a
+    delay
+  variables:
+    turn_on_entity: light.estudio_miguel_light
+  sequence:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ is_state(turn_on_entity, "on") }}'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: '{{ turn_on_entity }}'
+        data:
+          brightness: 120
+          kelvin: 2500
+on_off_light:
+  alias: on_off_light
+  mode: parallel
+  icon: mdi:lightbulb-auto
+  description: '2 levels light: on, off'
+  max: 10
+  variables:
+    turn_on_entity:
+    - light.estudio_alba_light
+    kelvin: 2500
+    level_max: 200
+  sequence:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ turn_on_entity | select(''is_state'', ''off'') | list
+          | count == turn_on_entity | list | count }}'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: '{{ turn_on_entity }}'
+        data:
+          brightness: '{{ level_max }}'
+          kelvin: '{{ kelvin }}'
+    default:
+    - service: light.turn_off
+      target:
+        entity_id: '{{ turn_on_entity }}'
+      data: {}
+3_level_light:
+  alias: 3_level_light
+  mode: parallel
+  icon: mdi:lightbulb-auto
+  description: '3 levels light: 70, 30, off'
+  max: 10
+  variables:
+    turn_on_entity:
+    - light.estudio_miguel_light
+    - light.globito_light_level_on_off
+    kelvin: 2500
+    level_max: 170
+    level_mid: 70
+  sequence:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ turn_on_entity | select(''is_state'', ''off'') | list
+          | count == turn_on_entity | list | count }}'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: '{{ turn_on_entity }}'
+        data:
+          brightness: '{{ level_max }}'
+          kelvin: '{{ kelvin }}'
+    - conditions:
+      - condition: template
+        value_template: '{{ turn_on_entity | select(''is_state'', ''on'') | list |
+          count == turn_on_entity | list | count }}'
+      - condition: template
+        value_template: '{{ turn_on_entity | map(''state_attr'', ''brightness'') |
+          select(''=='', level_max) | list | count == turn_on_entity | list | count
+          }}'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: '{{ turn_on_entity }}'
+        data:
+          brightness: '{{ level_mid }}'
+    default:
+    - service: light.turn_off
+      target:
+        entity_id: '{{ turn_on_entity }}'
+      data: {}
+4_level_light:
+  alias: 4_level_light
+  mode: parallel
+  icon: mdi:lightbulb-auto
+  description: '3 levels light: 154, 170, 70, off'
+  max: 10
+  variables:
+    turn_on_entity:
+    - light.estudio_miguel_light
+    - light.globito_light_level_on_off
+    kelvin: 2500
+    level_max: 254
+    level_mid: 170
+    level_low: 70
+  sequence:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ turn_on_entity | select(''is_state'', ''off'') | list
+          | count == turn_on_entity | list | count }}'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: '{{ turn_on_entity }}'
+        data:
+          brightness: '{{ level_max }}'
+          kelvin: '{{ kelvin }}'
+    - conditions:
+      - condition: template
+        value_template: '{{ turn_on_entity | select(''is_state'', ''on'') | list |
+          count == turn_on_entity | list | count }}'
+      - condition: template
+        value_template: '{{ turn_on_entity | map(''state_attr'', ''brightness'') |
+          select(''=='', level_max) | list | count == turn_on_entity | list | count
+          }}'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: '{{ turn_on_entity }}'
+        data:
+          brightness: '{{ level_mid }}'
+    - conditions:
+      - condition: template
+        value_template: '{{ turn_on_entity | select(''is_state'', ''on'') | list |
+          count == turn_on_entity | list | count }}'
+      - condition: template
+        value_template: '{{ turn_on_entity | map(''state_attr'', ''brightness'') |
+          select(''=='', level_mid) | list | count == turn_on_entity | list | count
+          }}'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: '{{ turn_on_entity }}'
+        data:
+          brightness: '{{ level_low }}'
+    default:
+    - service: light.turn_off
+      target:
+        entity_id: '{{ turn_on_entity }}'
+      data: {}
+2_level_light:
+  alias: 2_level_light
+  mode: parallel
+  icon: mdi:lightbulb-auto
+  description: Switch between the 2 level values
+  max: 10
+  variables:
+    turn_on_entity:
+    - light.estudio_miguel_light
+    - light.globito_light_level_on_off
+    kelvin: 2500
+    level_max: 170
+    level_mid: 70
+  sequence:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ turn_on_entity | select(''is_state'', ''on'') | list |
+          count == turn_on_entity | list | count }}'
+      - condition: template
+        value_template: '{{ turn_on_entity | map(''state_attr'', ''brightness'') |
+          select(''=='', level_max) | list | count == turn_on_entity | list | count
+          }}'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: '{{ turn_on_entity }}'
+        data:
+          brightness: '{{ level_mid }}'
+    default:
+    - service: light.turn_on
+      target:
+        entity_id: '{{ turn_on_entity }}'
+      data:
+        brightness: '{{ level_max }}'
