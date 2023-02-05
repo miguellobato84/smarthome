@@ -2,14 +2,57 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
+homeassistant: 
+  external_url: !secret public_endpoint
+  internal_url: http://192.168.0.26:8123
+
+http:
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
+  
 # Text to speech
 tts:
   - platform: google_translate
+
+# https://www.home-assistant.io/integrations/google_assistant/
+google_assistant:
+ project_id: hassio-22216
+ service_account: !include SERVICE_ACCOUNT.json
+ report_state: true
+ expose_by_default: true
+ exposed_domains:
+    - scene
+    - light
+    - script
+    - sensor
+    - climate
 
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
+
+climate:
+  - platform: generic_thermostat
+    unique_id: climate.calefaccion
+    name: calefaccion
+    heater: switch.termostato
+    target_sensor: sensor.ble_temperature_termometro_salon_1a_de
+    min_temp: 15
+    max_temp: 23
+    ac_mode: false
+    target_temp: 21
+    cold_tolerance: 0.3
+    hot_tolerance: 0
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    initial_hvac_mode: "off"
+    away_temp: 16
+    precision: 0.1
 
 sensor:
   - platform: systemmonitor
@@ -22,14 +65,6 @@ sensor:
 
   - platform: template
     sensors:
-      minutes_next_alarm:
-        friendly_name: "Minutes until Next Alarm"
-        unit_of_measurement: 'm'
-        entity_id: sensor.time
-        value_template: "{{((states('sensor.m2101k9ag_next_alarm')|as_timestamp|int - now()|as_timestamp|int)/60)|int}}"
-        availability_template: "{{ not is_state('sensor.m2101k9ag_next_alarm','unavailable') }}"
-        attribute_templates:
-          time: "{{ state_attr('sensor.m2101k9ag_next_alarm','Local Time') }}"
       minutes_next_sunrise:
         friendly_name: "Minutes until Next Sunrise"
         unit_of_measurement: 'm'

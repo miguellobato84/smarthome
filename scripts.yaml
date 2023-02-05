@@ -219,3 +219,103 @@ on_off_light:
         entity_id: '{{ turn_on_entity }}'
       data:
         brightness: '{{ level_max }}'
+federico_dormitorio:
+  alias: federico_dormitorio
+  sequence:
+  - service: xiaomi_miio.vacuum_clean_segment
+    data:
+      segments: 17
+    target:
+      entity_id: vacuum.federico
+  mode: single
+  icon: mdi:robot-vacuum
+federico_volver:
+  alias: federico_volver
+  sequence:
+  - service: vacuum.return_to_base
+    data: {}
+    target:
+      entity_id: vacuum.federico
+  mode: single
+  icon: mdi:robot-vacuum
+federico_limpieza:
+  alias: federico_limpieza
+  sequence:
+  - service: xiaomi_miio.vacuum_goto
+    data:
+      x_coord: '18300'
+      y_coord: '24700'
+    target:
+      entity_id: vacuum.federico
+  mode: single
+  icon: mdi:robot-vacuum
+federico_start:
+  alias: federico_start
+  sequence:
+  - service: vacuum.start
+    data: {}
+    target:
+      entity_id: vacuum.federico
+  mode: single
+  icon: mdi:robot-vacuum
+federico_estudio:
+  alias: federico_estudio
+  sequence:
+  - service: xiaomi_miio.vacuum_clean_segment
+    data:
+      segments: 16
+    target:
+      entity_id: vacuum.federico
+  mode: single
+  icon: mdi:robot-vacuum
+federico_pasillo:
+  alias: federico_pasillo
+  sequence:
+  - service: xiaomi_miio.vacuum_clean_segment
+    data:
+      segments: 18
+    target:
+      entity_id: vacuum.federico
+  mode: single
+  icon: mdi:robot-vacuum
+federico_cocina:
+  alias: federico_cocina
+  sequence:
+  - service: xiaomi_miio.vacuum_clean_segment
+    data:
+      segments: 19
+    target:
+      entity_id: vacuum.federico
+  mode: single
+  icon: mdi:robot-vacuum
+federico_salon:
+  alias: federico_salon
+  sequence:
+  - service: xiaomi_miio.vacuum_clean_segment
+    data:
+      segments: 20
+    target:
+      entity_id: vacuum.federico
+  mode: single
+  icon: mdi:robot-vacuum
+federico_location:
+  alias: federico_location
+  sequence:
+  - service: vacuum.locate
+    data: {}
+    target:
+      entity_id: vacuum.federico
+  mode: single
+  icon: mdi:robot-vacuum
+test_google_home:
+  alias: test_google_home
+  sequence:
+  - service: google_assistant_sdk.send_text_command
+    data:
+      command: Tell me a joke
+      media_player: media_player.smartclock
+  - service: google_assistant_sdk.send_text_command
+    data:
+      command: tell me a joke
+      media_player: media_player.living_room_speaker
+  mode: single

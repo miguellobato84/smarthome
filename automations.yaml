@@ -92,6 +92,7 @@
   - condition: time
     before: '23:00:00'
     after: 07:00:00
+    enabled: false
   action:
   - type: turn_on
     device_id: 7f2f36dbb0293c7ea7cb994aa1b04c97
@@ -171,13 +172,16 @@
   description: ''
   trigger:
   - platform: time
-    at: 06:45:00
+    at: input_datetime.next_alarm
   condition:
   - condition: state
     state: 'off'
     entity_id: light.bedside_alba_level_light_color_on_off
   - condition: state
     entity_id: sensor.is_weekday
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.alarm_enable
     state: 'on'
   action:
   - service: light.turn_on
@@ -196,6 +200,12 @@
       device_id:
       - 48babe39343fa4a3d2f82aed449ffd65
       - 0ffc9386b7d715219320ea37b9284acb
+  - service: light.turn_on
+    data: {}
+    target:
+      device_id:
+      - 4a7a0fe896121c624055d919afb961a9
+      - 85c7ca660fc6c3642337e9a5315ff50c
   mode: single
 - id: '1649194914897'
   alias: Activate Sleep
@@ -207,43 +217,15 @@
   - condition: state
     entity_id: sensor.is_pre_weekday
     state: 'on'
-  - condition: or
-    conditions:
-    - condition: device
-      type: is_on
-      device_id: 4a7a0fe896121c624055d919afb961a9
-      entity_id: light.lampara_abuelo_level_on_off
-      domain: light
-    - condition: device
-      type: is_on
-      device_id: 67b30374782cb26fd604a06a246c5006
-      entity_id: light.cestita_level_on_off
-      domain: light
   action:
   - scene: scene.sleep
-  - if:
-    - condition: and
-      conditions:
-      - condition: device
-        type: is_off
-        device_id: 0ffc9386b7d715219320ea37b9284acb
-        entity_id: light.bedside_alba_level_light_color_on_off
-        domain: light
-      - condition: device
-        type: is_off
-        device_id: 48babe39343fa4a3d2f82aed449ffd65
-        entity_id: light.bedside_miguel_level_light_color_on_off
-        domain: light
-    then:
-    - service: scene.turn_on
-      target:
-        entity_id: scene.sleep
-      metadata: {}
-    else:
-    - service: scene.turn_on
-      target:
-        entity_id: scene.turn_off_all_but_bedroom
-      metadata: {}
+  - service: scene.turn_on
+    data: {}
+    target:
+      entity_id: scene.turn_off_all_but_bedroom
+  - service: notify.google_assistant_sdk
+    data:
+      message: Es la hora de dormir
   mode: single
 - id: '1668980926653'
   alias: Remote Studio
@@ -377,3 +359,66 @@
           - light.estudio_miguel_light
           - light.globito_light_level_on_off
           level_max: 150
+- id: '1670964720391'
+  alias: Sunset
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 0
+  condition: []
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      device_id:
+      - 4a7a0fe896121c624055d919afb961a9
+      - aed3cfaadafc6ff811d7c6707aa981f8
+  mode: single
+- id: '1674158622506'
+  alias: limit-calefaccion
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.ble_temperature_termometro_dormitorio_e8_65
+    from: '20'
+  condition: []
+  action:
+  - service: notify.mobile_app_21051182g
+    data:
+      message: hola
+  mode: single
+- id: '1674158622506'
+  alias: limit-calefaccion
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.ble_temperature_termometro_dormitorio_e8_65
+    from: '20'
+  condition: []
+  action:
+  - service: notify.mobile_app_21051182g
+    data:
+      message: hola
+  mode: single
+- id: '1674236728866'
+  alias: 'alba bedside switch '
+  description: ''
+  use_blueprint:
+    path: Xelloss99/zha-ikea-tradfri-on-off-switch.yaml
+    input:
+      remote: d70899a72a22601e633b0ba5fcbdad94
+      button_on_short:
+      - service: light.turn_on
+        data:
+          kelvin: 2000
+          brightness: 5
+        target:
+          device_id: 48babe39343fa4a3d2f82aed449ffd65
+      button_off_short:
+      - service: light.turn_off
+        data: {}
+        target:
+          device_id: 48babe39343fa4a3d2f82aed449ffd65
