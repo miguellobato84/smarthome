@@ -1,85 +1,3 @@
-- id: '1644102411777'
-  name: Sleep
-  entities:
-    light.bedside_miguel_level_light_color_on_off:
-      min_color_temp_kelvin: 2202
-      max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
-      supported_color_modes:
-      - color_temp
-      color_mode: color_temp
-      brightness: 26
-      color_temp_kelvin: 2500
-      color_temp: 400
-      hs_color:
-      - 28.874
-      - 72.522
-      rgb_color:
-      - 255
-      - 159
-      - 70
-      xy_color:
-      - 0.546
-      - 0.389
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Bedside Miguel level, light_color, on_off
-      supported_features: 40
-      state: 'on'
-    light.bedside_alba_level_light_color_on_off:
-      min_color_temp_kelvin: 2202
-      max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
-      supported_color_modes:
-      - color_temp
-      color_mode: color_temp
-      brightness: 26
-      color_temp_kelvin: 2500
-      color_temp: 400
-      hs_color:
-      - 28.874
-      - 72.522
-      rgb_color:
-      - 255
-      - 159
-      - 70
-      xy_color:
-      - 0.546
-      - 0.389
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Bedside Alba level, light_color, on_off
-      supported_features: 40
-      state: 'on'
-    light.bolondrio_light:
-      min_color_temp_kelvin: 2202
-      max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
-      supported_color_modes:
-      - color_temp
-      color_mode: color_temp
-      brightness: 128
-      color_temp_kelvin: 2398
-      color_temp: 417
-      hs_color:
-      - 29.157
-      - 76.348
-      rgb_color:
-      - 255
-      - 154
-      - 60
-      xy_color:
-      - 0.559
-      - 0.389
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Bolondrio Light
-      supported_features: 40
-      state: 'on'
-  metadata: {}
 - id: '1651646275758'
   name: AllOff
   entities:
@@ -299,62 +217,6 @@
       supported_features: 8
       state: 'off'
   metadata: {}
-- id: '1663877899520'
-  name: Turn off all but bedroom
-  entities:
-    light.sofa_reading_bulb_022974fe_level_light_color_on_off:
-      min_color_temp_kelvin: 2202
-      max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
-      supported_color_modes:
-      - color_temp
-      off_with_transition: false
-      off_brightness: 170
-      friendly_name: Sofa Reading Bulb 022974fe level, light_color, on_off
-      supported_features: 40
-      state: 'off'
-    light.balcony_bulb_level_on_off:
-      supported_color_modes:
-      - brightness
-      off_with_transition: false
-      off_brightness: 170
-      friendly_name: Balcony bulb level, on_off
-      supported_features: 40
-      state: 'off'
-    light.cestita_level_on_off:
-      supported_color_modes:
-      - brightness
-      off_with_transition: false
-      off_brightness: 70
-      friendly_name: Cestita level, on_off
-      supported_features: 40
-      state: 'off'
-    light.lampara_abuelo_level_on_off:
-      supported_color_modes:
-      - brightness
-      off_with_transition: false
-      off_brightness: 70
-      friendly_name: Lámpara Abuelo level, on_off
-      supported_features: 40
-      state: 'off'
-    light.globito_light_level_on_off:
-      supported_color_modes:
-      - brightness
-      off_with_transition: false
-      off_brightness: 70
-      friendly_name: Globito Light level, on_off
-      supported_features: 40
-      state: 'off'
-    light.cocina_light:
-      supported_color_modes:
-      - onoff
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Cocina Light
-      supported_features: 8
-      state: 'off'
-  metadata: {}
 - id: '1673781904804'
   name: Tarde
   entities:
@@ -414,4 +276,162 @@
       friendly_name: Balcony bulb level, on_off
       supported_features: 40
       state: 'on'
+  metadata: {}
+- id: '1675715450315'
+  name: Dormir
+  entities:
+    light.bedside_miguel_level_light_color_on_off:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Bedside Miguel level, light_color, on_off
+      supported_features: 40
+      color_mode: color_temp
+      brightness: 26
+      color_temp_kelvin: 2500
+      color_temp: 400
+      hs_color:
+      - 28.874
+      - 72.522
+      rgb_color:
+      - 255
+      - 159
+      - 70
+      xy_color:
+      - 0.546
+      - 0.389
+      state: 'on'
+    light.bedside_alba_level_light_color_on_off:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Bedside Alba level, light_color, on_off
+      supported_features: 40
+      color_mode: color_temp
+      brightness: 26
+      color_temp_kelvin: 2500
+      color_temp: 400
+      hs_color:
+      - 28.874
+      - 72.522
+      rgb_color:
+      - 255
+      - 159
+      - 70
+      xy_color:
+      - 0.546
+      - 0.389
+      state: 'on'
+    light.bolondrio_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Bolondrio Light
+      supported_features: 40
+      color_mode: color_temp
+      brightness: 128
+      color_temp_kelvin: 2398
+      color_temp: 417
+      hs_color:
+      - 29.157
+      - 76.348
+      rgb_color:
+      - 255
+      - 154
+      - 60
+      xy_color:
+      - 0.559
+      - 0.389
+      state: 'on'
+    light.sofa_reading_bulb_022974fe_level_light_color_on_off:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      off_with_transition: false
+      off_brightness: 105
+      friendly_name: Sofa Reading Bulb 022974fe level, light_color, on_off
+      supported_features: 40
+      state: 'off'
+    light.balcony_bulb_level_on_off:
+      supported_color_modes:
+      - brightness
+      off_with_transition: false
+      off_brightness: 102
+      friendly_name: Balcony bulb level, on_off
+      supported_features: 40
+      state: 'off'
+    light.cestita_level_on_off:
+      supported_color_modes:
+      - brightness
+      off_with_transition: false
+      off_brightness: 128
+      friendly_name: Cestita level, on_off
+      supported_features: 40
+      state: 'off'
+    light.lampara_abuelo_level_on_off:
+      supported_color_modes:
+      - brightness
+      off_with_transition: false
+      off_brightness: 128
+      friendly_name: Lámpara Abuelo level, on_off
+      supported_features: 40
+      state: 'off'
+    light.cocina_light:
+      supported_color_modes:
+      - onoff
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Cocina Light
+      supported_features: 8
+      state: 'off'
+    light.estudio_alba_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      off_with_transition: false
+      off_brightness: 150
+      friendly_name: Estudio Alba Light
+      supported_features: 40
+      state: 'off'
+    light.estudio_miguel_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      off_with_transition: false
+      off_brightness: 150
+      friendly_name: Estudio Miguel Light
+      supported_features: 40
+      state: 'off'
+    light.globito_light_level_on_off:
+      supported_color_modes:
+      - brightness
+      off_with_transition: false
+      off_brightness: 128
+      friendly_name: Globito Light level, on_off
+      supported_features: 40
+      state: 'off'
   metadata: {}

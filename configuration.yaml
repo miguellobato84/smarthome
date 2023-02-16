@@ -1,39 +1,162 @@
-
-# Configure a default setup of Home Assistant (frontend, api, etc)
-default_config:
-
-homeassistant: 
-  external_url: !secret public_endpoint
-  internal_url: http://192.168.0.26:8123
-
-http:
-  ssl_certificate: /ssl/fullchain.pem
-  ssl_key: /ssl/privkey.pem
-  ip_ban_enabled: true
-  login_attempts_threshold: 5
-  
-# Text to speech
-tts:
-  - platform: google_translate
-
-# https://www.home-assistant.io/integrations/google_assistant/
-google_assistant:
- project_id: hassio-22216
- service_account: !include SERVICE_ACCOUNT.json
- report_state: true
- expose_by_default: true
- exposed_domains:
-    - scene
-    - light
-    - script
-    - sensor
-    - climate
-
+default_config: null
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 
+################# HTTP #################
+# homeassistant:
+#  external_url: !secret public_endpoint
+#  internal_url: 'http://192.168.0.26:8123'
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.33.0/24
+#http:
+#  ssl_certificate: /ssl/fullchain.pem
+#  ssl_key: /ssl/privkey.pem
+#  ip_ban_enabled: true
+#  login_attempts_threshold: 5
+
+################# Google Assistant #################
+google_assistant:
+  project_id: hassio-22216
+  service_account: !include SERVICE_ACCOUNT.json
+  report_state: true
+  expose_by_default: false
+  exposed_domains:
+    - sensor
+  entity_config:
+    ####### Climate
+    climate.calefaccion:
+      expose: true
+      name: "Calefacción"
+      room: "Salón"
+    climate.aire_acondicionado:
+      expose: true
+      name: "Aire Acondicionado"
+      room: "Salón"
+      
+    ####### Escenas
+    scene.tarde:
+      expose: true
+      name: "Escena Tarde"
+    scene.dormir:
+      expose: true
+      name: "Escena Dormir"
+
+    ####### Luces
+    light.balcony_bulb_level_on_off:
+      expose: true
+      name: "Balcón"
+      room: "Salón"
+    light.bedside_alba_level_light_color_on_off:
+      expose: true
+      name: "Cama Alba"
+      room: "Dormitorio"
+    light.bedside_miguel_level_light_color_on_off:
+      expose: true
+      name: "Cama Miguel"
+      room: "Dormitorio"
+    light.bolondrio_light:
+      expose: true
+      name: "Bolondrio"
+      room: "Dormitorio"
+    light.cestita_level_on_off:
+      expose: true
+      name: "Cestita"
+      room: "Comedor"
+    light.cocina_light:
+      expose: true
+      name: "Cocina"
+      room: "Cocina"
+    light.estudio_alba_light:
+      expose: true
+      name: "Estudio Alba"
+      room: "Estudio"
+    light.estudio_miguel_light:
+      expose: true
+      name: "Estudio Miguel"
+      room: "Estudio"
+    light.extractor_on_off:
+      expose: true
+      name: "Extractor"
+      room: "Baño"
+    light.globito_light_level_on_off:
+      expose: true
+      name: "Globito"
+      room: "Dormitorio"
+    light.lampara_abuelo_level_on_off:
+      expose: true
+      name: "Abuelo"
+      room: "Comedor"
+    light.pasillo_on_off:
+      expose: true
+      name: "Pasillo"
+      room: "Pasillo"
+    light.sofa_reading_bulb_022974fe_level_light_color_on_off:
+      expose: true
+      name: "Sofá"
+      room: "Salón"
+
+    ####### Scripts
+    script.federico_location:
+      expose: true
+      name: "Dónde está Federico"
+    script.federico_limpieza:
+      expose: true
+      name: "Federico toca limpieza"
+      aliases:
+        - "Federico ve al baño"
+    script.federico_volver:
+      expose: true
+      name: "Federico vuelve a la base"
+      aliases:
+        - "Federico vuelve a casa"
+    script.federico_cocina:
+      expose: true
+      name: "Federico aspira la cocina"
+    script.federico_dormitorio:
+      expose: true
+      name: "Federico aspira el dormitorio"
+    script.federico_estudio:
+      expose: true
+      name: "Federico aspira el estudio"
+    script.federico_pasillo:
+      expose: true
+      name: "Federico aspira el pasillo"
+    script.federico_salon:
+      expose: true
+      name: "Federico aspira el salón"
+    script.federico_start:
+      expose: true
+      name: "Federico aspira la casa"
+
+    ####### Sensores
+    sensor.ble_humidity_termometro_dormitorio_e8_65:
+      expose: true
+      name: "Sensor Humedad Dormitorio"
+    sensor.ble_humidity_termometro_salon_1a_de:
+      expose: true
+      name: "Sensor Humedad Salón"
+    sensor.ble_temperature_termometro_dormitorio_e8_65:
+      expose: true
+      name: "Sensor Temperatura Dormitorio"
+    sensor.ble_temperature_termometro_salon_1a_de:
+      expose: true
+      name: "Sensor Temperatura Salón"
+    sensor.temp_and_humid1_humidity:
+      expose: true
+      name: "Sensor Humedad Baño"
+    sensor.temp_and_humid1_temperature:
+      expose: true
+      name: "Sensor Temperatura Baño"
+    binary_sensor.cerrojo:
+      expose: true
+      name: "Cerrojo Puerta"
+
+################# Custom Sensors #################
 climate:
   - platform: generic_thermostat
     unique_id: climate.calefaccion
@@ -50,39 +173,33 @@ climate:
       seconds: 5
     keep_alive:
       minutes: 3
-    initial_hvac_mode: "off"
+    initial_hvac_mode: 'off'
     away_temp: 16
     precision: 0.1
+
+template:
+  binary_sensor:
+    - name: "cerrojo"
+      unique_id: cerrojo
+      state: "{{ 'off' if is_state('binary_sensor.sensor_cerrojo_iaszone', 'on') else 'on' }}"
+      device_class: opening
 
 sensor:
   - platform: systemmonitor
     resources:
       - type: last_boot
-      
   - platform: time_date
     display_options:
-      - 'time'
-
+      - time
   - platform: template
     sensors:
       minutes_next_sunrise:
-        friendly_name: "Minutes until Next Sunrise"
-        unit_of_measurement: 'm'
-        entity_id: sensor.time
         value_template: "{{((state_attr('sun.sun', 'next_rising')|as_timestamp|int - now()|as_timestamp|int)/60)|int}}"
       is_morning:
-        friendly_name: "Is Morning"
-        entity_id: sensor.time
         value_template: "{{ 'on' if 6 <= now()|as_timestamp|timestamp_custom('%H')|int <= 10 else 'off'  }}"
       is_pre_weekday:
-        friendly_name: "Is the day before of Weekday"
-        entity_id: sensor.time
         value_template: "{{ 'on' if 0 <= now()|as_timestamp|timestamp_custom('%w')|int < 5 else 'off'  }}"
       is_weekday:
-        friendly_name: "Is Weekday"
-        entity_id: sensor.time
         value_template: "{{ 'on' if 0 < now()|as_timestamp|timestamp_custom('%w')|int < 6 else 'off'  }}"
       extractor_uptime:
-        friendly_name: "Extractor running time"
-        entity_id: sensor.time
         value_template: "{{ -1 if is_state('light.extractor_on_off', 'off') else (now()|as_timestamp|int - states.light.extractor_on_off.last_changed|as_timestamp|int)/60 }}"

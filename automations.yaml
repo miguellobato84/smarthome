@@ -218,14 +218,10 @@
     entity_id: sensor.is_pre_weekday
     state: 'on'
   action:
-  - scene: scene.sleep
   - service: scene.turn_on
-    data: {}
     target:
-      entity_id: scene.turn_off_all_but_bedroom
-  - service: notify.google_assistant_sdk
-    data:
-      message: Es la hora de dormir
+      entity_id: scene.dormir
+    metadata: {}
   mode: single
 - id: '1668980926653'
   alias: Remote Studio
@@ -375,34 +371,6 @@
       - 4a7a0fe896121c624055d919afb961a9
       - aed3cfaadafc6ff811d7c6707aa981f8
   mode: single
-- id: '1674158622506'
-  alias: limit-calefaccion
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - sensor.ble_temperature_termometro_dormitorio_e8_65
-    from: '20'
-  condition: []
-  action:
-  - service: notify.mobile_app_21051182g
-    data:
-      message: hola
-  mode: single
-- id: '1674158622506'
-  alias: limit-calefaccion
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - sensor.ble_temperature_termometro_dormitorio_e8_65
-    from: '20'
-  condition: []
-  action:
-  - service: notify.mobile_app_21051182g
-    data:
-      message: hola
-  mode: single
 - id: '1674236728866'
   alias: 'alba bedside switch '
   description: ''
@@ -416,9 +384,36 @@
           kelvin: 2000
           brightness: 5
         target:
-          device_id: 48babe39343fa4a3d2f82aed449ffd65
+          device_id:
+          - 48babe39343fa4a3d2f82aed449ffd65
+          - 0ffc9386b7d715219320ea37b9284acb
       button_off_short:
       - service: light.turn_off
         data: {}
         target:
-          device_id: 48babe39343fa4a3d2f82aed449ffd65
+          device_id:
+          - 48babe39343fa4a3d2f82aed449ffd65
+          - 0ffc9386b7d715219320ea37b9284acb
+- id: '1675693392514'
+  alias: cerrojo_change_notification
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.sensor_cerrojo_iaszone
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.sensor_cerrojo_iaszone
+        state: 'off'
+      sequence:
+      - service: notify.google_assistant_sdk
+        data:
+          message: El cerrojo de la puerta está abierto
+    default:
+    - service: notify.google_assistant_sdk
+      data:
+        message: El cerrojo de la puerta está cerrado
+  mode: restart

@@ -9,3 +9,11 @@ harmony_harmony_hub.conf
 known_devices.yaml
 home-assistant.log.*
 home-assistant_v2.*
+SERVICE_ACCOUNT.json
+zigbee.db*
+custom_components/
+node-red/
+tts/
+www/
+hisense/
+image/
