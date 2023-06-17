@@ -1,7 +1,7 @@
 - id: '1651646275758'
   name: AllOff
   entities:
-    light.sofa_reading_bulb_022974fe_level_light_color_on_off:
+    light.light_sofa:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -13,7 +13,7 @@
       friendly_name: Sofa Reading Bulb 022974fe level, light_color, on_off
       supported_features: 40
       state: 'off'
-    light.balcony_bulb_level_on_off:
+    light.light_balcon:
       supported_color_modes:
       - brightness
       off_with_transition: false
@@ -21,7 +21,7 @@
       friendly_name: Balcony bulb level, on_off
       supported_features: 40
       state: 'off'
-    light.cestita_level_on_off:
+    light.light_cestita:
       supported_color_modes:
       - brightness
       off_with_transition: false
@@ -29,7 +29,7 @@
       friendly_name: Cestita level, on_off
       supported_features: 40
       state: 'off'
-    light.lampara_abuelo_level_on_off:
+    light.light_abuelo:
       supported_color_modes:
       - brightness
       off_with_transition: false
@@ -37,7 +37,7 @@
       friendly_name: Lámpara Abuelo level, on_off
       supported_features: 40
       state: 'off'
-    light.bedside_miguel_level_light_color_on_off:
+    light.light_bedside_left:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -49,7 +49,7 @@
       friendly_name: Bedside Miguel level, light_color, on_off
       supported_features: 40
       state: 'off'
-    light.bedside_alba_level_light_color_on_off:
+    light.light_bedside_right:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -61,7 +61,7 @@
       friendly_name: Bedside Alba level, light_color, on_off
       supported_features: 40
       state: 'off'
-    light.globito_light_level_on_off:
+    light.light_globito:
       supported_color_modes:
       - brightness
       off_with_transition: false
@@ -69,7 +69,7 @@
       friendly_name: Globito Light level, on_off
       supported_features: 40
       state: 'off'
-    light.bolondrio_light:
+    light.light_bolondrio:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -81,7 +81,7 @@
       friendly_name: Bolondrio Light
       supported_features: 40
       state: 'off'
-    light.estudio_alba_light:
+    light.light_studio_left:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -93,7 +93,7 @@
       friendly_name: Estudio Alba Light
       supported_features: 40
       state: 'off'
-    light.estudio_miguel_light:
+    light.light_studio_right:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -105,19 +105,19 @@
       friendly_name: Estudio Miguel Light
       supported_features: 40
       state: 'off'
-    light.cocina_light:
-      supported_color_modes:
-      - onoff
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Cocina Light
-      supported_features: 8
-      state: 'off'
+#    light.cocina_light:
+#      supported_color_modes:
+#      - onoff
+#      off_with_transition: false
+#      off_brightness:
+#      friendly_name: Cocina Light
+#      supported_features: 8
+#      state: 'off'
   metadata: {}
 - id: '1651692118955'
   name: Cine
   entities:
-    light.sofa_reading_bulb_022974fe_level_light_color_on_off:
+    light.light_sofa:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -129,7 +129,7 @@
       friendly_name: Sofa Reading Bulb 022974fe level, light_color, on_off
       supported_features: 40
       state: 'off'
-    light.balcony_bulb_level_on_off:
+    light.light_balcon:
       supported_color_modes:
       - brightness
       off_with_transition: false
@@ -137,7 +137,7 @@
       friendly_name: Balcony bulb level, on_off
       supported_features: 40
       state: 'off'
-    light.cestita_level_on_off:
+    light.light_cestita:
       supported_color_modes:
       - brightness
       off_with_transition: false
@@ -145,7 +145,7 @@
       friendly_name: Cestita level, on_off
       supported_features: 40
       state: 'off'
-    light.lampara_abuelo_level_on_off:
+    light.light_abuelo:
       supported_color_modes:
       - brightness
       off_with_transition: false
@@ -155,7 +155,7 @@
       color_mode: brightness
       brightness: 64
       state: 'on'
-    light.bedside_miguel_level_light_color_on_off:
+    light.light_bedside_left:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -167,7 +167,7 @@
       friendly_name: Bedside Miguel level, light_color, on_off
       supported_features: 40
       state: 'off'
-    light.bedside_alba_level_light_color_on_off:
+    light.light_bedside_right:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -179,7 +179,7 @@
       friendly_name: Bedside Alba level, light_color, on_off
       supported_features: 40
       state: 'off'
-    light.globito_light_level_on_off:
+    light.light_globito:
       supported_color_modes:
       - brightness
       off_with_transition: false
@@ -187,16 +187,16 @@
       friendly_name: Globito Light level, on_off
       supported_features: 40
       state: 'off'
-    light.pasillo_on_off:
-      supported_color_modes:
-      - onoff
-      off_with_transition: false
-      off_brightness:
-      icon: mdi:ceiling-light-multiple
-      friendly_name: Pasillo
-      supported_features: 8
-      state: 'off'
-    light.bolondrio_light:
+#    light.pasillo_on_off:
+#      supported_color_modes:
+#      - onoff
+#      off_with_transition: false
+#      off_brightness:
+#      icon: mdi:ceiling-light-multiple
+#      friendly_name: Pasillo
+#      supported_features: 8
+#      state: 'off'
+    light.light_bolondrio:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -208,19 +208,19 @@
       friendly_name: Bolondrio Light
       supported_features: 40
       state: 'off'
-    light.cocina_light:
-      supported_color_modes:
-      - onoff
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Cocina Light
-      supported_features: 8
-      state: 'off'
+#    light.cocina_light:
+#      supported_color_modes:
+#      - onoff
+#      off_with_transition: false
+#      off_brightness:
+#      friendly_name: Cocina Light
+#      supported_features: 8
+#      state: 'off'
   metadata: {}
 - id: '1673781904804'
   name: Tarde
   entities:
-    light.lampara_abuelo_level_on_off:
+    light.light_abuelo:
       supported_color_modes:
       - brightness
       color_mode: brightness
@@ -230,7 +230,7 @@
       friendly_name: Lámpara Abuelo level, on_off
       supported_features: 40
       state: 'on'
-    light.cestita_level_on_off:
+    light.light_cestita:
       supported_color_modes:
       - brightness
       color_mode: brightness
@@ -240,7 +240,7 @@
       friendly_name: Cestita level, on_off
       supported_features: 40
       state: 'on'
-    light.sofa_reading_bulb_022974fe_level_light_color_on_off:
+    light.light_sofa:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -266,7 +266,7 @@
       friendly_name: Sofa Reading Bulb 022974fe level, light_color, on_off
       supported_features: 40
       state: 'on'
-    light.balcony_bulb_level_on_off:
+    light.light_balcon:
       supported_color_modes:
       - brightness
       color_mode: brightness
@@ -280,7 +280,7 @@
 - id: '1675715450315'
   name: Dormir
   entities:
-    light.bedside_miguel_level_light_color_on_off:
+    light.light_bedside_right:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -306,7 +306,7 @@
       - 0.546
       - 0.389
       state: 'on'
-    light.bedside_alba_level_light_color_on_off:
+    light.light_bedside_left:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -332,7 +332,7 @@
       - 0.546
       - 0.389
       state: 'on'
-    light.bolondrio_light:
+    light.light_bolondrio:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -358,7 +358,7 @@
       - 0.559
       - 0.389
       state: 'on'
-    light.sofa_reading_bulb_022974fe_level_light_color_on_off:
+    light.light_sofa:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -370,7 +370,7 @@
       friendly_name: Sofa Reading Bulb 022974fe level, light_color, on_off
       supported_features: 40
       state: 'off'
-    light.balcony_bulb_level_on_off:
+    light.light_balcon:
       supported_color_modes:
       - brightness
       off_with_transition: false
@@ -378,7 +378,7 @@
       friendly_name: Balcony bulb level, on_off
       supported_features: 40
       state: 'off'
-    light.cestita_level_on_off:
+    light.light_cestita:
       supported_color_modes:
       - brightness
       off_with_transition: false
@@ -386,7 +386,7 @@
       friendly_name: Cestita level, on_off
       supported_features: 40
       state: 'off'
-    light.lampara_abuelo_level_on_off:
+    light.light_abuelo:
       supported_color_modes:
       - brightness
       off_with_transition: false
@@ -394,15 +394,15 @@
       friendly_name: Lámpara Abuelo level, on_off
       supported_features: 40
       state: 'off'
-    light.cocina_light:
-      supported_color_modes:
-      - onoff
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Cocina Light
-      supported_features: 8
-      state: 'off'
-    light.estudio_alba_light:
+#    light.cocina_light:
+#      supported_color_modes:
+#      - onoff
+#      off_with_transition: false
+#      off_brightness:
+#      friendly_name: Cocina Light
+#      supported_features: 8
+#      state: 'off'
+    light.light_studio_left:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -414,7 +414,7 @@
       friendly_name: Estudio Alba Light
       supported_features: 40
       state: 'off'
-    light.estudio_miguel_light:
+    light.light_studio_right:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -426,7 +426,7 @@
       friendly_name: Estudio Miguel Light
       supported_features: 40
       state: 'off'
-    light.globito_light_level_on_off:
+    light.light_globito:
       supported_color_modes:
       - brightness
       off_with_transition: false

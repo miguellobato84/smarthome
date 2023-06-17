@@ -11,11 +11,11 @@ script_extractor_turn_off:
         conditions:
         - condition: device
           type: is_on
-          device_id: 832c71355eb686dbd19b4ea81c050217
-          entity_id: light.extractor_on_off
-          domain: light
+          device_id: 763ee10ef2a11c39b837f39efa6a0b5f
+          entity_id: switch.switch_extractor
+          domain: switch
         - condition: numeric_state
-          entity_id: sensor.temp_and_humid1_humidity
+          entity_id: sensor.sensor_temp_aseo_humidity
           above: '65'
       sequence:
       - delay:
@@ -24,32 +24,13 @@ script_extractor_turn_off:
           seconds: 0
           milliseconds: 0
   - type: turn_off
-    device_id: 832c71355eb686dbd19b4ea81c050217
-    entity_id: light.extractor_on_off
-    domain: light
+    device_id: 763ee10ef2a11c39b837f39efa6a0b5f
+    entity_id: switch.switch_extractor
+    domain: switch
   mode: queued
   alias: Extractor Turn Off
   icon: mdi:fan-off
   max: 10
-test:
-  alias: test
-  icon: mdi:party-popper
-  description: Turns on the bedroom lights and then the living room lights after a
-    delay
-  variables:
-    turn_on_entity: light.estudio_miguel_light
-  sequence:
-  - choose:
-    - conditions:
-      - condition: template
-        value_template: '{{ is_state(turn_on_entity, "on") }}'
-      sequence:
-      - service: light.turn_on
-        target:
-          entity_id: '{{ turn_on_entity }}'
-        data:
-          brightness: 120
-          kelvin: 2500
 on_off_light:
   alias: on_off_light
   mode: parallel
@@ -87,8 +68,7 @@ on_off_light:
   max: 10
   variables:
     turn_on_entity:
-    - light.estudio_miguel_light
-    - light.globito_light_level_on_off
+    - light.light_studio_right
     kelvin: 2500
     level_max: 170
     level_mid: 70
@@ -111,8 +91,8 @@ on_off_light:
           count == turn_on_entity | list | count }}'
       - condition: template
         value_template: '{{ turn_on_entity | map(''state_attr'', ''brightness'') |
-          select(''=='', level_max) | list | count == turn_on_entity | list | count
-          }}'
+          select(''in'', [level_max, level_max+1, level_max-1]) | list | count ==
+          turn_on_entity | list | count }}'
       sequence:
       - service: light.turn_on
         target:
@@ -157,8 +137,8 @@ on_off_light:
           count == turn_on_entity | list | count }}'
       - condition: template
         value_template: '{{ turn_on_entity | map(''state_attr'', ''brightness'') |
-          select(''=='', level_max) | list | count == turn_on_entity | list | count
-          }}'
+          select(''in'', [level_max, level_max+1, level_max-1]) | list | count ==
+          turn_on_entity | list | count }}'
       sequence:
       - service: light.turn_on
         target:
@@ -171,8 +151,8 @@ on_off_light:
           count == turn_on_entity | list | count }}'
       - condition: template
         value_template: '{{ turn_on_entity | map(''state_attr'', ''brightness'') |
-          select(''=='', level_mid) | list | count == turn_on_entity | list | count
-          }}'
+          select(''in'', [level_mid, level_mid+1, level_mid-1]) | list | count ==
+          turn_on_entity | list | count }}'
       sequence:
       - service: light.turn_on
         target:
@@ -307,15 +287,3 @@ federico_location:
       entity_id: vacuum.federico
   mode: single
   icon: mdi:robot-vacuum
-test_google_home:
-  alias: test_google_home
-  sequence:
-  - service: google_assistant_sdk.send_text_command
-    data:
-      command: Tell me a joke
-      media_player: media_player.smartclock
-  - service: google_assistant_sdk.send_text_command
-    data:
-      command: tell me a joke
-      media_player: media_player.smartclock
-  mode: single
