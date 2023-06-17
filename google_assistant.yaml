@@ -1,0 +1,112 @@
+project_id: hassio-22216
+service_account: !include SERVICE_ACCOUNT.json
+report_state: true
+expose_by_default: false
+exposed_domains:
+  - sensor
+entity_config:
+  ####### Escenas
+  scene.tarde:
+    expose: true
+    name: "Escena Tarde"
+  scene.dormir:
+    expose: true
+    name: "Escena Dormir"
+    
+  ####### Luces
+  light.light_balcon:
+    expose: true
+    name: "Balcón"
+    room: "Salón"
+  light.light_bedside_left:
+    expose: true
+    name: "Cama Izquierda"
+    room: "Dormitorio"
+  light.light_bedside_right:
+    expose: true
+    name: "Cama Derecha"
+    room: "Dormitorio"
+  light.light_bolondrio:
+    expose: true
+    name: "Bolondrio"
+    room: "Dormitorio"
+  light.light_cestita:
+    expose: true
+    name: "Cestita"
+    room: "Comedor"
+  light.light_studio_left:
+    expose: true
+    name: "Estudio Izquierda"
+    room: "Estudio"
+  light.light_studio_right:
+    expose: true
+    name: "Estudio Derecha"
+    room: "Estudio"
+  light.light_globito:
+    expose: true
+    name: "Globito"
+    room: "Estudio"
+  light.light_abuelo:
+    expose: true
+    name: "Abuelo"
+    room: "Comedor"
+  light.light_sofa:
+    expose: true
+    name: "Sofá"
+    room: "Salón"
+  light.switch_cocina:
+    expose: true
+    name: "Cocina"
+    room: "Cocina"
+  light.switch_pasillo:
+    expose: true
+    name: "Pasillo"
+    room: "Pasillo"
+  switch.switch_extractor:
+    expose: true
+    name: "Extractor"
+    room: "Baño"
+    
+  ####### Scripts
+  script.federico_location:
+    expose: true
+    name: "Dónde está Federico"
+  script.federico_limpieza:
+    expose: true
+    name: "Federico toca limpieza"
+    aliases:
+      - "Federico ve al baño"
+  script.federico_volver:
+    expose: true
+    name: "Federico vuelve a la base"
+    aliases:
+      - "Federico vuelve a casa"
+  script.federico_cocina:
+    expose: true
+    name: "Federico aspira la cocina"
+  script.federico_dormitorio:
+    expose: true
+    name: "Federico aspira el dormitorio"
+  script.federico_estudio:
+    expose: true
+    name: "Federico aspira el estudio"
+  script.federico_pasillo:
+    expose: true
+    name: "Federico aspira el pasillo"
+  script.federico_salon:
+    expose: true
+    name: "Federico aspira el salón"
+  script.federico_start:
+    expose: true
+    name: "Federico aspira la casa"
+
+  ####### Sensores
+  sensor.sensor_temp_aseo_humidity:
+    expose: true
+    name: "Sensor Humedad Baño"
+  sensor.sensor_temp_aseo_temperature:
+    expose: true
+    name: "Sensor Temperatura Baño"
+  binary_sensor.sensor_puerta_contact:
+    expose: true
+    name: "Cerrojo Puerta"

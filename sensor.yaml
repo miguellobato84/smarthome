@@ -1,0 +1,16 @@
+- platform: systemmonitor
+  resources:
+    - type: last_boot
+- platform: time_date
+  display_options:
+    - time
+- platform: template
+  sensors:
+    minutes_next_sunrise:
+      value_template: "{{((state_attr('sun.sun', 'next_rising')|as_timestamp|int - now()|as_timestamp|int)/60)|int}}"
+    is_morning:
+      value_template: "{{ 'on' if 6 <= now()|as_timestamp|timestamp_custom('%H')|int <= 10 else 'off'  }}"
+    is_pre_weekday:
+      value_template: "{{ 'on' if 0 <= now()|as_timestamp|timestamp_custom('%w')|int < 5 else 'off'  }}"
+    is_weekday:
+      value_template: "{{ 'on' if 0 < now()|as_timestamp|timestamp_custom('%w')|int < 6 else 'off'  }}"
