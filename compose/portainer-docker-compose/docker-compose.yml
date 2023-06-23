@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    ports:
+    #  - "9000:9000"
+      - "9443:9443"
+    #  - "8000:8000"
+    volumes:
+      - /docker/portainer:/data
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Madrid
+    networks:
+      - homeassistant
+
+networks:
+  homeassistant:
+      external: true

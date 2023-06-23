@@ -2,15 +2,9 @@ default_config: null
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
-google_assistant: !include google_assistant.yaml
-sensor: !include sensor.yaml
-
-fan:
-  - platform: xiaomi_miio_fan
-    name: Xiaomi Smart Fan
-    host: 192.168.0.12
-    token: !secret mi_fan_token
-    model: 'dmaker.fan.p18'
+google_assistant: !include templates/google_assistant.yaml
+sensor: !include templates/sensor.yaml
+fan: !include templates/fan.yaml
 
 http:
   use_x_forwarded_for: true

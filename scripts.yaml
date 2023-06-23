@@ -287,3 +287,11 @@ federico_location:
       entity_id: vacuum.federico
   mode: single
   icon: mdi:robot-vacuum
+debugger:
+  alias: debugger
+  variables:
+    action: 170
+    value: 70
+  sequence:
+  - stop: action={{action}}, value={{value}}
+  mode: parallel

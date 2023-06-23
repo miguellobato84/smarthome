@@ -1,0 +1,33 @@
+version: '3.5'
+services:
+  watchtower:
+    image: v2tec/watchtower
+    container_name: watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+        - homeassistant
+
+
+  duplicati:
+    image: duplicati/duplicati
+    container_name: duplicati
+    restart: always
+
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Madrid
+    volumes:
+      - /docker/duplicati/config:/config
+      - /docker/homeassistant:/source/homeassistant:ro
+      - /docker/mqtt:/source/mqtt:ro
+      - /docker/nginx:/source/nginx:ro
+      - /docker/zigbee:/source/zigbee:ro
+    networks:
+        - homeassistant
+        
+networks:
+  homeassistant:
+      external: true

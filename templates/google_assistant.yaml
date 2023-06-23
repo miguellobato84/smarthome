@@ -66,6 +66,14 @@ entity_config:
     expose: true
     name: "Extractor"
     room: "Baño"
+
+  ####### Others
+  climate.aire_acondicionado:
+    expose: true
+    name: "aire"
+  fan.xiaomi_smart_fan:
+    expose: true
+    name: "ventilador"
     
   ####### Scripts
   script.federico_location:
