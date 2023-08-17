@@ -1,36 +1,3 @@
-script_extractor_turn_off:
-  sequence:
-  - delay:
-      hours: 0
-      minutes: 5
-      seconds: 0
-      milliseconds: 0
-  - repeat:
-      while:
-      - condition: and
-        conditions:
-        - condition: device
-          type: is_on
-          device_id: 763ee10ef2a11c39b837f39efa6a0b5f
-          entity_id: switch.switch_extractor
-          domain: switch
-        - condition: numeric_state
-          entity_id: sensor.sensor_temp_aseo_humidity
-          above: '65'
-      sequence:
-      - delay:
-          hours: 0
-          minutes: 5
-          seconds: 0
-          milliseconds: 0
-  - type: turn_off
-    device_id: 763ee10ef2a11c39b837f39efa6a0b5f
-    entity_id: switch.switch_extractor
-    domain: switch
-  mode: queued
-  alias: Extractor Turn Off
-  icon: mdi:fan-off
-  max: 10
 on_off_light:
   alias: on_off_light
   mode: parallel

@@ -1,0 +1,4 @@
+- binary_sensor:
+    - name: "sensor_puerta_inverted"
+      state: "{{ 'on' if is_state('binary_sensor.sensor_puerta_contact', 'off') else 'off' }}"
+      device_class: door

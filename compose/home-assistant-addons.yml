@@ -1,0 +1,57 @@
+version: '3.5'
+services:
+  vscode:
+    image: linuxserver/code-server
+    container_name: vscode
+    volumes:
+      - /docker/vscode/config:/config
+      - /docker:/config/workspace
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Madrid
+    restart: always
+    networks:
+      - homeassistant
+
+  hisense_ac:
+    image: deiger/aircon:0.3.14
+    container_name: hisense_ac
+    restart: always
+    healthcheck:
+      disable: true
+    ports:
+      - '8888:8888'
+    environment:
+      - CONFIG_DIR=/config
+      - OPTIONS_FILE=/config/options.json
+    volumes:
+      - /docker/hisense_ac/config:/config
+    networks:
+      - homeassistant
+
+  bluetooth:
+    image: theengs/gateway
+    container_name: bluetooth
+    privileged: true
+    restart: always
+    healthcheck:
+      disable: true
+    environment:
+      - MQTT_HOST=host.docker.internal
+      - MQTT_USERNAME=hass
+      - MQTT_PASSWORD=${MQTT_PASS}
+      - HAAS_DISCOVERY=true
+      - DISCOVERY=true
+      - PUBLISH_ALL=false
+      - DISCOVERY_TOPIC=miguel
+      - DISCOVERY_DEVICE_NAME=test
+
+    volumes:
+      - /var/run/dbus:/var/run/dbus
+    network_mode: host
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+networks:
+  homeassistant:
+    external: true

@@ -2,9 +2,12 @@ default_config: null
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
-google_assistant: !include templates/google_assistant.yaml
 sensor: !include templates/sensor.yaml
 fan: !include templates/fan.yaml
+template: !include templates/template.yaml
+google_assistant: !include templates/google_assistant.yaml
+mqtt: !include templates/mqtt.yaml
+
 
 http:
   use_x_forwarded_for: true

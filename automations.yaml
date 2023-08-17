@@ -154,22 +154,6 @@
         data:
           turn_on_entity:
           - light.light_bolondrio
-- id: '1641424947277'
-  alias: Extractor Auto Turn Off
-  description: ''
-  trigger:
-  - platform: device
-    type: turned_on
-    device_id: 763ee10ef2a11c39b837f39efa6a0b5f
-    entity_id: switch.switch_extractor
-    domain: switch
-  condition:
-  - condition: and
-    conditions: []
-  action:
-  - service: script.script_extractor_turn_off
-    data: {}
-  mode: single
 - id: '1641559651589'
   alias: Motion run lights
   description: ''
@@ -228,31 +212,103 @@
     entity_id: binary_sensor.sensor_puerta_contact
     state: 'off'
   action:
-  - repeat:
-      count: '10'
-      sequence:
-      - service: light.turn_on
-        data:
-          effect: breathe
-        target:
-          device_id: 4012747555e40d13d5d6bf0e247c9fc6
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 10
-          milliseconds: 0
-      - service: light.turn_off
-        data: {}
-        target:
-          device_id: 4012747555e40d13d5d6bf0e247c9fc6
-      - if:
-        - condition: state
-          entity_id: binary_sensor.sensor_puerta_contact
-          state: 'on'
-        then:
-        - service: light.turn_off
-          data: {}
-          target:
-            device_id: 4012747555e40d13d5d6bf0e247c9fc6
-        - stop: ''
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id: light.switch_cocina
+  mode: single
+- id: '1687789217854'
+  alias: extractor_store_on_ts
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.switch_extractor
+    to: 'on'
+  condition: []
+  action:
+  - service: input_text.set_value
+    target:
+      entity_id: input_text.switch_on_ts
+    data:
+      value: '{{ as_timestamp(utcnow())|int }}'
+  mode: single
+- id: '1687842154042'
+  alias: extractor_auto_turn_off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.extractor_uptime
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.sensor_temp_aseo_humidity
+    below: 65
+  - condition: numeric_state
+    entity_id: sensor.extractor_uptime
+    above: 300
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.switch_extractor
+  - service: input_text.set_value
+    target:
+      entity_id: input_text.switch_on_ts
+    data:
+      value: '{{ 4086862995 }}'
+  mode: single
+- id: '1690731607846'
+  alias: aire_auto_turn_on
+  description: ''
+  trigger:
+  - platform: time
+    at: '20:00:00'
+  condition:
+  - condition: numeric_state
+    entity_id: climate.aire_acondicionado
+    attribute: current_temperature
+    above: 29
+  action:
+  - service: climate.turn_on
+    data: {}
+    target:
+      device_id: 5a70c1defa5d55956977170fa5afa084
+  - service: climate.set_temperature
+    data:
+      hvac_mode: cool
+      temperature: 28
+    target:
+      device_id: 5a70c1defa5d55956977170fa5afa084
+  mode: single
+- id: '1691525830066'
+  alias: alert_door_movil
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: f6c60fcba01fda50f8901f538fa69e5f
+    entity_id: e3b5bf18e653b807e0ee657bd6ea8cfe
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: notify.mobile_app_milite11
+    data:
+      message: Puerta abierta
+  mode: single
+- id: '1691525922149'
+  alias: sensor_puerts_low_batt
+  description: ''
+  trigger:
+  - type: battery_level
+    platform: device
+    device_id: f6c60fcba01fda50f8901f538fa69e5f
+    entity_id: b158c2e6a87de6fe2fc6645bb4feb1dc
+    domain: sensor
+    below: 10
+  condition: []
+  action:
+  - service: notify.mobile_app_milite11
+    data:
+      message: batería baja sensor puerta
   mode: single

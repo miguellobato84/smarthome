@@ -1,0 +1,14 @@
+- sensor:
+    name: "salon-termometro"
+    state_topic: "home/TheengsGateway/BTtoMQTT/A4C1385A1ADE"
+    value_template: "{{ value_json.tempc }}"
+    json_attributes_topic: "home/TheengsGateway/BTtoMQTT/A4C1385A1ADE"
+    json_attributes_template: "{{ value_json | tojson }}"
+
+- sensor:
+    name: "dormitorio-termometro"
+    state_topic: "home/TheengsGateway/BTtoMQTT/A4C1384DE865"
+    value_template: "{{ value_json.tempc }}"
+    json_attributes_topic: "home/TheengsGateway/BTtoMQTT/A4C1384DE865"
+    json_attributes_template: "{{ value_json | tojson }}"
+

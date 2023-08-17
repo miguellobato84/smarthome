@@ -14,3 +14,7 @@
       value_template: "{{ 'on' if 0 <= now()|as_timestamp|timestamp_custom('%w')|int < 5 else 'off'  }}"
     is_weekday:
       value_template: "{{ 'on' if 0 < now()|as_timestamp|timestamp_custom('%w')|int < 6 else 'off'  }}"
+    extractor_uptime:
+      value_template: >
+        {% set diff = as_timestamp(utcnow())|int - as_timestamp(as_datetime(states('input_text.switch_on_ts')))|int %}
+        {{ max(0, diff) if is_state('switch.switch_extractor', 'on') else -1 }}

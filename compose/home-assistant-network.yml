@@ -1,0 +1,33 @@
+version: '3.5'
+services:
+  nginx:
+    image: jc21/nginx-proxy-manager
+    container_name: nginx
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+      #- '81:81' #for management purposes
+    volumes:
+      - /docker/nginx/data:/data
+      - /docker/nginx/letsencrypt:/etc/letsencrypt
+    networks:
+      - homeassistant
+    healthcheck:
+      test: ["CMD", "/bin/check-health"]
+      interval: 10s
+      timeout: 3s
+
+  cloudflare:
+    image: erisamoe/cloudflared
+    container_name: cloudflare
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TOKEN}
+    networks:
+      - homeassistant
+    restart: always
+
+networks:
+  homeassistant:
+      external: true

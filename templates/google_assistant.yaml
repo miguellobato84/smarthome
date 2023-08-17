@@ -5,7 +5,7 @@ expose_by_default: false
 exposed_domains:
   - sensor
 entity_config:
-  ####### Escenas
+  ####### Scenes
   scene.tarde:
     expose: true
     name: "Escena Tarde"
@@ -13,7 +13,7 @@ entity_config:
     expose: true
     name: "Escena Dormir"
     
-  ####### Luces
+  ####### lights
   light.light_balcon:
     expose: true
     name: "Balcón"
@@ -68,13 +68,15 @@ entity_config:
     room: "Baño"
 
   ####### Others
-  climate.aire_acondicionado:
-    expose: true
-    name: "aire"
   fan.xiaomi_smart_fan:
     expose: true
     name: "ventilador"
-    
+    room: "Salón"
+  climate.aire_acondicionado:
+    expose: true
+    name: "Aire Acondicionado"
+    room: "Salón"
+        
   ####### Scripts
   script.federico_location:
     expose: true
@@ -109,12 +111,21 @@ entity_config:
     name: "Federico aspira la casa"
 
   ####### Sensores
-  sensor.sensor_temp_aseo_humidity:
+  sensor.madrid_temperature:
     expose: true
-    name: "Sensor Humedad Baño"
+    name: "Sensor Temperatura Calle"
   sensor.sensor_temp_aseo_temperature:
     expose: true
     name: "Sensor Temperatura Baño"
-  binary_sensor.sensor_puerta_contact:
+    room: "Baño"
+  sensor.salon_termometro:
+    expose: true
+    name: "Sensor Temperatura Salón"
+    room: "Salón"
+  sensor.dormitorio_termometro:
+    expose: true
+    name: "Sensor Temperatura Dormitorio"
+    room: "Dormitorio"
+  binary_sensor.sensor_puerta_inverted:
     expose: true
     name: "Cerrojo Puerta"

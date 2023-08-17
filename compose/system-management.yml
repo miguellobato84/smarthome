@@ -1,26 +1,47 @@
 version: '3.5'
 services:
   watchtower:
-    image: v2tec/watchtower
+    image: containrrr/watchtower
     container_name: watchtower
     restart: always
+    command: --interval 30
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
         - homeassistant
 
+  restarter_hisense_ac:
+    image: docker
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    entrypoint: ["/bin/sh","-c"]
+    command:
+      - |
+        while true; do
+          if [ "$(date +'%H:%M')" = '17:00' ]; then
+            docker restart hisense_ac
+            echo "Restarted container at $(date +'%H:%M')"
+          fi
 
+          sleep 60
+
+        done
+        
   duplicati:
     image: duplicati/duplicati
     container_name: duplicati
     restart: always
-
+    command: /usr/bin/duplicati-server --webservice-port=8200 --webservice-interface=any --webservice-allowed-hostnames=*
+    ports:
+      - "8200:8200"
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Madrid
     volumes:
       - /docker/duplicati/config:/config
+      - /docker/duplicati/data:/data
       - /docker/homeassistant:/source/homeassistant:ro
       - /docker/mqtt:/source/mqtt:ro
       - /docker/nginx:/source/nginx:ro
