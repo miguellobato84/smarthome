@@ -105,14 +105,6 @@
       friendly_name: Estudio Miguel Light
       supported_features: 40
       state: 'off'
-#    light.cocina_light:
-#      supported_color_modes:
-#      - onoff
-#      off_with_transition: false
-#      off_brightness:
-#      friendly_name: Cocina Light
-#      supported_features: 8
-#      state: 'off'
   metadata: {}
 - id: '1651692118955'
   name: Cine
@@ -187,15 +179,6 @@
       friendly_name: Globito Light level, on_off
       supported_features: 40
       state: 'off'
-#    light.pasillo_on_off:
-#      supported_color_modes:
-#      - onoff
-#      off_with_transition: false
-#      off_brightness:
-#      icon: mdi:ceiling-light-multiple
-#      friendly_name: Pasillo
-#      supported_features: 8
-#      state: 'off'
     light.light_bolondrio:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
@@ -208,43 +191,54 @@
       friendly_name: Bolondrio Light
       supported_features: 40
       state: 'off'
-#    light.cocina_light:
-#      supported_color_modes:
-#      - onoff
-#      off_with_transition: false
-#      off_brightness:
-#      friendly_name: Cocina Light
-#      supported_features: 8
-#      state: 'off'
   metadata: {}
 - id: '1673781904804'
   name: Tarde
   entities:
     light.light_abuelo:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
       - brightness
       color_mode: brightness
       brightness: 99
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Lámpara Abuelo level, on_off
-      supported_features: 40
+      effect:
+      friendly_name: light_abuelo
+      supported_features: 44
       state: 'on'
     light.light_cestita:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
       - brightness
       color_mode: brightness
       brightness: 102
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Cestita level, on_off
-      supported_features: 40
+      effect:
+      friendly_name: light_cestita
+      supported_features: 44
       state: 'on'
     light.light_sofa:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
       max_mireds: 454
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
       - color_temp
       color_mode: color_temp
@@ -261,20 +255,25 @@
       xy_color:
       - 0.546
       - 0.389
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Sofa Reading Bulb 022974fe level, light_color, on_off
-      supported_features: 40
+      effect:
+      friendly_name: light_sofa
+      supported_features: 44
       state: 'on'
     light.light_balcon:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
       - brightness
       color_mode: brightness
       brightness: 102
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Balcony bulb level, on_off
-      supported_features: 40
+      effect:
+      friendly_name: light_balcon
+      supported_features: 44
       state: 'on'
   metadata: {}
 - id: '1675715450315'
@@ -285,153 +284,246 @@
       max_color_temp_kelvin: 4000
       min_mireds: 250
       max_mireds: 454
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
       - color_temp
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Bedside Miguel level, light_color, on_off
-      supported_features: 40
-      color_mode: color_temp
-      brightness: 26
-      color_temp_kelvin: 2500
-      color_temp: 400
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
       hs_color:
-      - 28.874
-      - 72.522
       rgb_color:
-      - 255
-      - 159
-      - 70
       xy_color:
-      - 0.546
-      - 0.389
-      state: 'on'
+      effect:
+      friendly_name: light_bedside_right
+      supported_features: 44
+      state: 'off'
     light.light_bedside_left:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
       max_mireds: 454
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
       - color_temp
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Bedside Alba level, light_color, on_off
-      supported_features: 40
-      color_mode: color_temp
-      brightness: 26
-      color_temp_kelvin: 2500
-      color_temp: 400
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
       hs_color:
-      - 28.874
-      - 72.522
       rgb_color:
-      - 255
-      - 159
-      - 70
       xy_color:
-      - 0.546
-      - 0.389
-      state: 'on'
+      effect:
+      friendly_name: light_bedside_left
+      supported_features: 44
+      state: 'off'
     light.light_bolondrio:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
       max_mireds: 454
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
       - color_temp
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Bolondrio Light
-      supported_features: 40
       color_mode: color_temp
-      brightness: 128
-      color_temp_kelvin: 2398
-      color_temp: 417
+      brightness: 172
+      color_temp_kelvin: 2202
+      color_temp: 454
       hs_color:
-      - 29.157
-      - 76.348
+      - 29.79
+      - 84.553
       rgb_color:
       - 255
-      - 154
-      - 60
+      - 146
+      - 39
       xy_color:
-      - 0.559
-      - 0.389
+      - 0.579
+      - 0.388
+      effect:
+      friendly_name: light_bolondrio
+      supported_features: 44
       state: 'on'
     light.light_sofa:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
       max_mireds: 454
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
       - color_temp
-      off_with_transition: false
-      off_brightness: 105
-      friendly_name: Sofa Reading Bulb 022974fe level, light_color, on_off
-      supported_features: 40
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
+      friendly_name: light_sofa
+      supported_features: 44
       state: 'off'
     light.light_balcon:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
       - brightness
-      off_with_transition: false
-      off_brightness: 102
-      friendly_name: Balcony bulb level, on_off
-      supported_features: 40
-      state: 'off'
+      color_mode: brightness
+      brightness: 3
+      effect:
+      friendly_name: light_balcon
+      supported_features: 44
+      state: 'on'
     light.light_cestita:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
       - brightness
-      off_with_transition: false
-      off_brightness: 128
-      friendly_name: Cestita level, on_off
-      supported_features: 40
+      color_mode:
+      brightness:
+      effect:
+      friendly_name: light_cestita
+      supported_features: 44
       state: 'off'
     light.light_abuelo:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
       - brightness
-      off_with_transition: false
-      off_brightness: 128
-      friendly_name: Lámpara Abuelo level, on_off
-      supported_features: 40
-      state: 'off'
-#    light.cocina_light:
-#      supported_color_modes:
-#      - onoff
-#      off_with_transition: false
-#      off_brightness:
-#      friendly_name: Cocina Light
-#      supported_features: 8
-#      state: 'off'
+      color_mode: brightness
+      brightness: 3
+      effect:
+      friendly_name: light_abuelo
+      supported_features: 44
+      state: 'on'
     light.light_studio_left:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
       max_mireds: 454
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
       - color_temp
-      off_with_transition: false
-      off_brightness: 150
-      friendly_name: Estudio Alba Light
-      supported_features: 40
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
+      friendly_name: light_studio_left
+      supported_features: 44
       state: 'off'
     light.light_studio_right:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
       max_mireds: 454
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
       - color_temp
-      off_with_transition: false
-      off_brightness: 150
-      friendly_name: Estudio Miguel Light
-      supported_features: 40
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
+      friendly_name: light_studio_right
+      supported_features: 44
       state: 'off'
     light.light_globito:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
       - brightness
-      off_with_transition: false
-      off_brightness: 128
-      friendly_name: Globito Light level, on_off
-      supported_features: 40
+      color_mode: brightness
+      brightness: 28
+      effect:
+      friendly_name: light_globito
+      supported_features: 44
+      state: 'on'
+    switch.switch_cocina:
+      friendly_name: switch_cocina
+      state: 'off'
+    light.switch_cocina:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: switch_cocina
+      supported_features: 0
+      state: 'off'
+    switch.switch_pasillo:
+      friendly_name: switch_pasillo
+      state: 'off'
+    light.switch_pasillo:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: switch_pasillo
+      supported_features: 0
+      state: 'off'
+    switch.0x3425b4fffed4e203:
+      friendly_name: switch_navidad_arbol
+      state: 'off'
+    switch.switch_navidad_estanteria:
+      friendly_name: switch_navidad_estanteria
       state: 'off'
   metadata: {}

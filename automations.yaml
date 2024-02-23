@@ -1,69 +1,3 @@
-- id: '1641064196796'
-  alias: Run bathroom extractor
-  description: ''
-  trigger:
-  - type: humidity
-    platform: device
-    device_id: 3334a9a1e4bf20ae35164d1d098fec38
-    entity_id: sensor.sensor_temp_aseo_humidity
-    domain: sensor
-    above: 65
-  condition: []
-  action:
-  - type: turn_on
-    device_id: 763ee10ef2a11c39b837f39efa6a0b5f
-    entity_id: switch.switch_extractor
-    domain: switch
-  mode: single
-- id: '1682139080064'
-  alias: alba bedside switch
-  description: ''
-  use_blueprint:
-    path: ikea/generic_ikea_remote_control.yaml
-    input:
-      remote: sensor.0xf082c0fffe33f2b2_action
-      on_button_short:
-      - choose:
-        - conditions:
-          - condition: numeric_state
-            entity_id: light.light_bedside_left
-            attribute: brightness
-            above: 1
-            below: 30
-          sequence:
-          - service: light.turn_on
-            data:
-              brightness_pct: 30
-            target:
-              device_id: 3589b504148ebe168e6b256c0570ce9e
-        - conditions:
-          - condition: numeric_state
-            entity_id: light.light_bedside_right
-            attribute: brightness
-            above: 1
-            below: 30
-          sequence:
-          - service: light.turn_on
-            data:
-              kelvin: 2000
-              brightness: 5
-            target:
-              device_id: d37f20f5d648b0a974f67186b84ea244
-        default:
-        - service: light.turn_on
-          data:
-            kelvin: 2000
-            brightness: 5
-          target:
-            device_id: 98a7dc93e4e60656029e612692d36027
-      off_button_short:
-      - service: light.turn_off
-        data: {}
-        target:
-          device_id:
-          - 98a7dc93e4e60656029e612692d36027
-          - d37f20f5d648b0a974f67186b84ea244
-          - 3589b504148ebe168e6b256c0570ce9e
 - id: '1682141174553'
   alias: Remote Studio
   description: ''
@@ -89,13 +23,13 @@
           turn_on_entity:
           - light.light_studio_left
           - light.light_studio_right
-          - light.light_globito
+          - light.light_bolondrio
           level_max: 150
       off_button_short:
       - service: script.3_level_light
         data:
           turn_on_entity:
-          - light.light_globito
+          - light.light_bolondrio
 - id: '1682350290532'
   alias: Remote Living Room
   description: ''
@@ -145,15 +79,11 @@
         target:
           entity_id: scene.alloff
         metadata: {}
-      - service: scene.turn_on
-        target:
-          entity_id: scene.sleep
-        metadata: {}
       on_button_short:
       - service: script.4_level_light
         data:
           turn_on_entity:
-          - light.light_bolondrio
+          - light.light_globito
 - id: '1641559651589'
   alias: Motion run lights
   description: ''
@@ -170,7 +100,7 @@
     entity_id: switch.switch_pasillo
     domain: switch
   - condition: time
-    before: '21:00:00'
+    before: '20:00:00'
     after: 07:00:00
   action:
   - type: turn_on
@@ -200,63 +130,18 @@
   description: ''
   trigger:
   - platform: time
-    at: '22:00:00'
-  - platform: time
-    at: '22:15:00'
-  - platform: time
-    at: '22:30:00'
-  - platform: time
-    at: '23:00:00'
+    at: '22:05:00'
   condition:
   - condition: state
     entity_id: binary_sensor.sensor_puerta_contact
     state: 'off'
   action:
-  - service: light.turn_on
-    data: {}
-    target:
-      entity_id: light.switch_cocina
-  mode: single
-- id: '1687789217854'
-  alias: extractor_store_on_ts
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - switch.switch_extractor
-    to: 'on'
-  condition: []
-  action:
-  - service: input_text.set_value
-    target:
-      entity_id: input_text.switch_on_ts
+  - service: notify.mobile_app_milite11
     data:
-      value: '{{ as_timestamp(utcnow())|int }}'
-  mode: single
-- id: '1687842154042'
-  alias: extractor_auto_turn_off
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - sensor.extractor_uptime
-  condition:
-  - condition: numeric_state
-    entity_id: sensor.sensor_temp_aseo_humidity
-    below: 65
-  - condition: numeric_state
-    entity_id: sensor.extractor_uptime
-    above: 300
-  action:
-  - service: switch.turn_off
-    data: {}
-    target:
-      entity_id: switch.switch_extractor
-  - service: input_text.set_value
-    target:
-      entity_id: input_text.switch_on_ts
+      message: 'Recordatorio: el cerrojo de la puerta está abierto'
+  - service: notify.mobile_app_alba_s_iphone
     data:
-      value: '{{ 4086862995 }}'
+      message: 'Recordatorio: el cerrojo de la puerta está abierto'
   mode: single
 - id: '1690731607846'
   alias: aire_auto_turn_on
@@ -294,7 +179,10 @@
   action:
   - service: notify.mobile_app_milite11
     data:
-      message: Puerta abierta
+      message: Puerta abierta {{ now() }}
+  - service: notify.mobile_app_alba_s_iphone
+    data:
+      message: Puerta abierta {{ now() }}
   mode: single
 - id: '1691525922149'
   alias: sensor_puerts_low_batt
@@ -311,4 +199,122 @@
   - service: notify.mobile_app_milite11
     data:
       message: batería baja sensor puerta
+  mode: single
+- id: '1697104095099'
+  alias: sunset_lights
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 00:30:00
+  condition: []
+  action:
+  - service: scene.turn_on
+    data: {}
+    target:
+      entity_id: scene.tarde
+  - service: switch.turn_on
+    target:
+      device_id:
+      - 383b720bd5c0eef0b673db1820b83a5f
+      - 98b55e631d48ca7bf3991107b9f6ca77
+    data: {}
+    enabled: true
+  mode: single
+- id: '1699049561818'
+  alias: alert_low_battery
+  description: ''
+  use_blueprint:
+    path: sbyx/low-battery-level-detection-notification-for-all-battery-sensors.yaml
+    input:
+      day: 0
+      actions:
+      - service: notify.mobile_app_milite11
+        data:
+          title: 'Low battery '
+          data: hola
+- id: '1700301989268'
+  alias: extractor_auto_turn_off
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.extractor_remaining
+    below: 0
+  - platform: numeric_state
+    entity_id:
+    - sensor.extractor_uptime
+    above: 1200
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.switch_extractor
+  mode: single
+- id: '1700302082864'
+  alias: extractor_auto_turn_on
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.bathroom_to_salon_humidity
+    above: 4
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.switch_extractor
+  mode: single
+- id: '1703665154718'
+  alias: alert_btesensor_error
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:00:00
+  condition:
+  - condition: template
+    value_template: '{{ (as_timestamp(now()) - as_timestamp(states.sensor.salon_termometro.last_changed))
+      > 86400 }}'
+  action:
+  - service: notify.mobile_app_milite11
+    data:
+      message: 'Bluetooth sensors doesn''t seem to work '
+  mode: single
+- id: '1705821752299'
+  alias: Remote Bedside
+  description: ''
+  use_blueprint:
+    path: ikea/generic_ikea_remote_control.yaml
+    input:
+      remote: sensor.switch_bedside_action
+      on_button_short:
+      - service: light.turn_on
+        data:
+          brightness_pct: 1
+        target:
+          entity_id: light.light_globito
+      off_button_short:
+      - service: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.light_globito
+- id: '1705851630895'
+  alias: webhook_tarde
+  description: ''
+  trigger:
+  - platform: webhook
+    allowed_methods:
+    - POST
+    - PUT
+    local_only: false
+    webhook_id: -tC5Jw70OzC4YTNYl4DsqhTOW
+  condition: []
+  action:
+  - service: scene.turn_on
+    metadata: {}
+    target:
+      entity_id: scene.tarde
   mode: single

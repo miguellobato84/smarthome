@@ -29,7 +29,7 @@ entity_config:
   light.light_bolondrio:
     expose: true
     name: "Bolondrio"
-    room: "Dormitorio"
+    room: "Estudio"
   light.light_cestita:
     expose: true
     name: "Cestita"
@@ -45,7 +45,7 @@ entity_config:
   light.light_globito:
     expose: true
     name: "Globito"
-    room: "Estudio"
+    room: "Dormitorio"
   light.light_abuelo:
     expose: true
     name: "Abuelo"
@@ -72,10 +72,10 @@ entity_config:
     expose: true
     name: "ventilador"
     room: "Salón"
-  climate.aire_acondicionado:
-    expose: true
-    name: "Aire Acondicionado"
-    room: "Salón"
+  #climate.aire_acondicionado:
+  #  expose: true
+  #  name: "Aire Acondicionado"
+  #  room: "Salón"
         
   ####### Scripts
   script.federico_location:
