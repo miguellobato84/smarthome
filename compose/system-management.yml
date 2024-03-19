@@ -31,6 +31,15 @@ services:
     networks:
       - homeassistant
 
+  adguard:
+    image: adguard/adguardhome
+    container_name: adguard
+    restart: unless-stopped
+    volumes:
+      - /docker/adguard/work:/opt/adguardhome/work
+      - /docker/adguard/conf:/opt/adguardhome/conf
+    network_mode: host
+
 networks:
   homeassistant:
     external: true
