@@ -1,0 +1,69 @@
+version: "3.9"
+services:
+  radarr:
+    container_name: radarr
+    image: lscr.io/linuxserver/radarr
+    networks:
+      - homeassistant
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+    ports:
+      - 9001:7878
+    volumes:
+      - /docker/radarr-config:/config
+      - /home/miguel/Videos:/downloads
+    restart: "unless-stopped"
+
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    networks:
+      - homeassistant
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+    volumes:
+      - /docker/sonarr-config:/config
+      - /home/miguel/Videos:/downloads
+    ports:
+      - 9002:8989
+    restart: unless-stopped
+
+  prowlarr:
+    container_name: prowlarr
+    image: linuxserver/prowlarr
+    networks:
+      - homeassistant
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+    volumes:
+      - /docker/prowlarr-config:/config
+    ports:
+      - 9003:9696
+    restart: unless-stopped
+
+  bazarr:
+    image: ghcr.io/linuxserver/bazarr
+    container_name: bazarr
+    networks:
+      - homeassistant
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Warsaw
+    volumes:
+      - /docker/bazarr-config:/config
+      - /home/miguel/Videos/movies:/downloads/movies
+      - /home/miguel/Videos/tvshows:/downloads/tvshows
+    ports:
+      - 9004:6767
+    restart: unless-stopped
+
+networks:
+  homeassistant:
+    external: true

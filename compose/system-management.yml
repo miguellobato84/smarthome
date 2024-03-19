@@ -1,37 +1,19 @@
-version: '3.5'
+version: "3.5"
 services:
   watchtower:
     image: containrrr/watchtower
     container_name: watchtower
-    restart: always
+    restart: unless-stopped
     command: --interval 30
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-        - homeassistant
+      - homeassistant
 
-  restarter_hisense_ac:
-    image: docker
-    restart: unless-stopped
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    entrypoint: ["/bin/sh","-c"]
-    command:
-      - |
-        while true; do
-          if [ "$(date +'%H:%M')" = '17:00' ]; then
-            docker restart hisense_ac
-            echo "Restarted container at $(date +'%H:%M')"
-          fi
-
-          sleep 60
-
-        done
-        
   duplicati:
     image: duplicati/duplicati
     container_name: duplicati
-    restart: always
+    restart: unless-stopped
     command: /usr/bin/duplicati-server --webservice-port=8200 --webservice-interface=any --webservice-allowed-hostnames=*
     ports:
       - "8200:8200"
@@ -47,8 +29,8 @@ services:
       - /docker/nginx:/source/nginx:ro
       - /docker/zigbee:/source/zigbee:ro
     networks:
-        - homeassistant
-        
+      - homeassistant
+
 networks:
   homeassistant:
-      external: true
+    external: true

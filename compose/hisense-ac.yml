@@ -1,0 +1,39 @@
+version: "3.5"
+services:
+  hisense_ac:
+    image: deiger/aircon:0.3.14
+    container_name: hisense_ac
+    #restart: always
+    healthcheck:
+      disable: true
+    ports:
+      - "8888:8888"
+    environment:
+      - CONFIG_DIR=/config
+      - OPTIONS_FILE=/config/options.json
+    volumes:
+      - /docker/hisense_ac/config:/config
+    networks:
+      - homeassistant
+
+  restarter_hisense_ac:
+    image: docker
+    restart: unless-stopped
+    container_name: hisense_ac_restarter
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        while true; do
+          if [ "$(date +'%H:%M')" = '17:00' ]; then
+            docker restart hisense_ac
+            echo "Restarted container at $(date +'%H:%M')"
+          fi
+
+          sleep 60
+        done
+
+networks:
+  homeassistant:
+    external: true
