@@ -10,7 +10,7 @@ services:
       - PGID=1000
       - TZ=UTC
     ports:
-      - 9001:7878
+      - 9021:7878
     volumes:
       - /docker/radarr-config:/config
       - /home/miguel/Videos:/downloads
@@ -29,7 +29,7 @@ services:
       - /docker/sonarr-config:/config
       - /home/miguel/Videos:/downloads
     ports:
-      - 9002:8989
+      - 9022:8989
     restart: unless-stopped
 
   prowlarr:
@@ -44,7 +44,7 @@ services:
     volumes:
       - /docker/prowlarr-config:/config
     ports:
-      - 9003:9696
+      - 9023:9696
     restart: unless-stopped
 
   bazarr:
@@ -61,7 +61,7 @@ services:
       - /home/miguel/Videos/movies:/downloads/movies
       - /home/miguel/Videos/tvshows:/downloads/tvshows
     ports:
-      - 9004:6767
+      - 9024:6767
     restart: unless-stopped
 
 networks:

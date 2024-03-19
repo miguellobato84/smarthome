@@ -3,7 +3,7 @@ services:
   hisense_ac:
     image: deiger/aircon:0.3.14
     container_name: hisense_ac
-    #restart: always
+    restart: unless-stopped
     healthcheck:
       disable: true
     ports:

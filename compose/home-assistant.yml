@@ -29,8 +29,8 @@ services:
       - "/dev/ttyUSB0" #lsusb -> Silicon Labs CP210x UART Bridge
     networks:
       - homeassistant
-    #ports:
-    #    - 8080:8080
+    ports:
+      - 9010:8080
 
   mqtt:
     image: eclipse-mosquitto

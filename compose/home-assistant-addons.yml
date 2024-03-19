@@ -6,6 +6,8 @@ services:
     volumes:
       - /docker/vscode/config:/config
       - /docker:/config/workspace
+    ports:
+      - 9003:8443
     environment:
       - PUID=1000
       - PGID=1000
@@ -30,7 +32,6 @@ services:
       - PUBLISH_ALL=false
       - DISCOVERY_TOPIC=miguel
       - DISCOVERY_DEVICE_NAME=test
-
     volumes:
       - /var/run/dbus:/var/run/dbus
     network_mode: host

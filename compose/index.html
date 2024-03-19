@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Dashboard</title>
+    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .column {
+            border: 2px solid;
+            margin: 10px;
+            padding: 20px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .column h2 {
+            margin-top: 0;
+        }
+
+        .reddish {
+            color: #db5a6b;
+            border-color: #db5a6b;
+        }
+
+        .blueish {
+            color: #6b8edb;
+            border-color: #6b8edb;
+        }
+
+        .greenish {
+            color: #6bdb8e;
+            border-color: #6bdb8e;
+        }
+
+        .column a {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+        }
+
+        .column a:hover {
+            opacity: 0.7;
+        }
+
+        .mdi-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 800px) {
+            .column {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="column greenish">
+            <h2>Server Management</h2>
+            <a href="http://192.168.1.2:9000">
+                <span class="mdi mdi-docker mdi-icon"></span> Portainer
+            </a>
+            <a href="http://192.168.1.2:9001">
+                <span class="mdi mdi-monitor-dashboard mdi-icon"></span> System Monitor
+            </a>
+            <a href="http://192.168.1.2:9002">
+                <span class="mdi mdi-web mdi-icon"></span> Nginx
+            </a>
+            <a href="http://192.168.1.2:9003">
+                <span class="mdi mdi-microsoft-visual-studio-code mdi-icon"></span> Code
+            </a>
+            <a href="http://192.168.1.2:9004">
+                <span class="mdi mdi-backup-restore mdi-icon"></span> Backups
+            </a>
+        </div>
+        <div class="column reddish">
+            <h2>Media Server</h2>
+            <a href="http://192.168.1.2:9020">
+                <span class="mdi mdi-filmstrip mdi-icon"></span> Jellyfin
+            </a>
+            <a href="http://192.168.1.2:9021">
+                <span class="mdi mdi-movie-roll mdi-icon"></span> Movies
+            </a>
+            <a href="http://192.168.1.2:9022">
+                <span class="mdi mdi-television-classic mdi-icon"></span> TV Shows
+            </a>
+            <a href="http://192.168.1.2:9023">
+                <span class="mdi mdi-magnify mdi-icon"></span> Indexer
+            </a>
+            <a href="http://192.168.1.2:9024">
+                <span class="mdi mdi-subtitles-outline mdi-icon"></span> Subtitles
+            </a>
+            <a href="http://192.168.1.2:9025">
+                <span class="mdi mdi-download-network mdi-icon"></span> Torrent
+            </a>
+        </div>
+        <div class="column blueish">
+            <h2>Home Assistant</h2>
+            <a href="https://casa.miguellobato.com">
+                <span class="mdi mdi-home-assistant mdi-icon"></span> Home assistant
+            </a>
+            <a href="http://192.168.1.2:9010">
+                <span class="mdi mdi-zigbee mdi-icon"></span> zigbee2mqtt
+            </a>
+            <a href="http://192.168.1.2:8888">
+                <span class="mdi mdi-hvac mdi-icon"></span> HiSense AC
+            </a>
+        </div>
+
+    </div>
+</body>
+
+</html>

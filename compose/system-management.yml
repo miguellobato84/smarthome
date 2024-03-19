@@ -4,7 +4,7 @@ services:
     image: containrrr/watchtower
     container_name: watchtower
     restart: unless-stopped
-    command: --interval 30
+    command: --schedule "0 0 4 * * *" --cleanup --remove-volumes
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
     command: /usr/bin/duplicati-server --webservice-port=8200 --webservice-interface=any --webservice-allowed-hostnames=*
     ports:
-      - "8200:8200"
+      - "9004:8200"
     environment:
       - PUID=1000
       - PGID=1000

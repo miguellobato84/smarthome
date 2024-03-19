@@ -7,7 +7,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "81:81" #for management purposes
+      - "9002:81" #for management purposes
     volumes:
       - /docker/nginx/data:/data
       - /docker/nginx/letsencrypt:/etc/letsencrypt
