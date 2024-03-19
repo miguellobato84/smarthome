@@ -74,6 +74,24 @@ services:
       - 9024:6767
     restart: unless-stopped
 
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - WEBUI_PORT=9025
+      - TORRENTING_PORT=6881
+    volumes:
+      - /docker/qbittorrent/config:/config
+      - /home/miguel/Videos:/downloads
+    ports:
+      - 9025:9025
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+
 networks:
   homeassistant:
     external: true
