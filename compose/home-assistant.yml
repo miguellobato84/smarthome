@@ -5,9 +5,8 @@ services:
     image: "ghcr.io/home-assistant/home-assistant:stable"
     volumes:
       - /docker/homeassistant:/config
-      - /docker/homeassistant/docker/run:/etc/services.d/home-assistant/run
+      - /docker/homeassistant/docker/run:/etc/services.d/home-assistant/run #https://github.com/tribut/homeassistant-docker-venv
       - /etc/localtime:/etc/localtime:ro
-      #- /run/dbus:/run/dbus:ro
     restart: always
     networks:
       - homeassistant
@@ -17,6 +16,8 @@ services:
         - PGID=1000
         - UMASK=007
         - PACKAGES=iputils
+    #ports:
+    #    - 8443:8443
 
   zigbee2mqtt:
     image: koenkk/zigbee2mqtt
@@ -28,6 +29,8 @@ services:
       - "/dev/ttyUSB0" #lsusb -> Silicon Labs CP210x UART Bridge
     networks:
         - homeassistant
+    #ports:
+    #    - 8080:8080
 
   mqtt:
     image: eclipse-mosquitto
