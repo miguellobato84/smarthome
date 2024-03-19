@@ -1,5 +1,15 @@
 version: "3.9"
 services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    ports:
+      - 9020:8096
+    volumes:
+      - /docker/jellyfin/config:/config
+      - /home/miguel/Videos:/media
+    restart: "unless-stopped"
+
   radarr:
     container_name: radarr
     image: lscr.io/linuxserver/radarr
