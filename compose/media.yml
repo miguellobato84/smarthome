@@ -9,6 +9,8 @@ services:
       - /docker/jellyfin/config:/config
       - /home/miguel/Videos:/media
     restart: "unless-stopped"
+    networks:
+      - homeassistant
 
   radarr:
     container_name: radarr
@@ -91,6 +93,8 @@ services:
       - 6881:6881
       - 6881:6881/udp
     restart: unless-stopped
+    networks:
+      - homeassistant
 
 networks:
   homeassistant:
