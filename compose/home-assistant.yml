@@ -1,4 +1,4 @@
-version: '3.5'
+version: "3.5"
 services:
   homeassistant:
     container_name: homeassistant
@@ -11,34 +11,34 @@ services:
     networks:
       - homeassistant
     environment:
-        - TZ=America/New_York
-        - PUID=1000
-        - PGID=1000
-        - UMASK=007
-        - PACKAGES=iputils
+      - TZ=America/New_York
+      - PUID=1000
+      - PGID=1000
+      - UMASK=007
+      - PACKAGES=iputils
     #ports:
     #    - 8443:8443
 
   zigbee2mqtt:
     image: koenkk/zigbee2mqtt
-    container_name: zigbee2mqtt 
+    container_name: zigbee2mqtt
     restart: always
     volumes:
       - /docker/zigbee/:/app/data/
     devices:
       - "/dev/ttyUSB0" #lsusb -> Silicon Labs CP210x UART Bridge
     networks:
-        - homeassistant
+      - homeassistant
     #ports:
     #    - 8080:8080
 
   mqtt:
     image: eclipse-mosquitto
-    container_name: mqtt 
+    container_name: mqtt
     networks:
-        - homeassistant
+      - homeassistant
     ports:
-        - "1883:1883"
+      - "1883:1883"
     volumes:
       - /docker/mqtt:/mosquitto
       - /docker/mqtt/data:/mosquitto/data
@@ -47,4 +47,4 @@ services:
 
 networks:
   homeassistant:
-      external: true
+    external: true

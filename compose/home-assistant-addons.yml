@@ -1,4 +1,4 @@
-version: '3.5'
+version: "3.5"
 services:
   vscode:
     image: linuxserver/code-server
@@ -11,22 +11,6 @@ services:
       - PGID=1000
       - TZ=Europe/Madrid
     restart: always
-    networks:
-      - homeassistant
-
-  hisense_ac:
-    image: deiger/aircon:0.3.14
-    container_name: hisense_ac
-    restart: always
-    healthcheck:
-      disable: true
-    ports:
-      - '8888:8888'
-    environment:
-      - CONFIG_DIR=/config
-      - OPTIONS_FILE=/config/options.json
-    volumes:
-      - /docker/hisense_ac/config:/config
     networks:
       - homeassistant
 
