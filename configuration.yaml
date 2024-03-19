@@ -14,28 +14,6 @@ http:
   trusted_proxies:
     - 172.18.0.0/24
 
-panel_iframe:
-  vscode:
-    title: "Visual Studio Code"
-    url: "https://vscode.miguellobato.com"
-    icon: "mdi:microsoft-visual-studio-code"
-  zigbee:
-    title: "Zigbee2mqtt"
-    url: "https://zigbee.miguellobato.com"
-    icon: "mdi:zigbee"
-  nginx:
-    title: "nginx"
-    url: "https://nginx.miguellobato.com"
-    icon: "mdi:server-network"
-  backup:
-    title: "backup"
-    url: "https://backup.miguellobato.com"
-    icon: "mdi:cloud-upload"
-  portainer:
-    title: "portainer"
-    url: "https://portainer.miguellobato.com"
-    icon: "mdi:docker"
-
 frontend:
   themes: !include_dir_merge_named themes
 

@@ -85,7 +85,7 @@
           turn_on_entity:
           - light.light_globito
 - id: '1641559651589'
-  alias: Motion run lights
+  alias: pasillo_movement_lights_on
   description: ''
   trigger:
   - type: motion
@@ -94,11 +94,6 @@
     entity_id: binary_sensor.sensor_movimiento_pasillo_occupancy
     domain: binary_sensor
   condition:
-  - condition: device
-    type: is_off
-    device_id: 2bd8219b27d1b8093d12397c2422517d
-    entity_id: switch.switch_pasillo
-    domain: switch
   - condition: time
     before: '20:00:00'
     after: 07:00:00
@@ -107,41 +102,6 @@
     device_id: 2bd8219b27d1b8093d12397c2422517d
     entity_id: switch.switch_pasillo
     domain: switch
-  - repeat:
-      while:
-      - type: is_motion
-        condition: device
-        device_id: 40a637fde163a16c76379fcf41e59747
-        entity_id: binary_sensor.sensor_movimiento_pasillo_occupancy
-        domain: binary_sensor
-      sequence:
-      - delay:
-          hours: 0
-          minutes: 2
-          seconds: 0
-          milliseconds: 0
-  - type: turn_off
-    device_id: 2bd8219b27d1b8093d12397c2422517d
-    entity_id: switch.switch_pasillo
-    domain: switch
-  mode: single
-- id: '1683057064703'
-  alias: alert_door
-  description: ''
-  trigger:
-  - platform: time
-    at: '22:05:00'
-  condition:
-  - condition: state
-    entity_id: binary_sensor.sensor_puerta_contact
-    state: 'off'
-  action:
-  - service: notify.mobile_app_milite11
-    data:
-      message: 'Recordatorio: el cerrojo de la puerta está abierto'
-  - service: notify.mobile_app_alba_s_iphone
-    data:
-      message: 'Recordatorio: el cerrojo de la puerta está abierto'
   mode: single
 - id: '1690731607846'
   alias: aire_auto_turn_on
@@ -184,22 +144,6 @@
     data:
       message: Puerta abierta {{ now() }}
   mode: single
-- id: '1691525922149'
-  alias: sensor_puerts_low_batt
-  description: ''
-  trigger:
-  - type: battery_level
-    platform: device
-    device_id: f6c60fcba01fda50f8901f538fa69e5f
-    entity_id: b158c2e6a87de6fe2fc6645bb4feb1dc
-    domain: sensor
-    below: 10
-  condition: []
-  action:
-  - service: notify.mobile_app_milite11
-    data:
-      message: batería baja sensor puerta
-  mode: single
 - id: '1697104095099'
   alias: sunset_lights
   description: ''
@@ -221,18 +165,6 @@
     data: {}
     enabled: true
   mode: single
-- id: '1699049561818'
-  alias: alert_low_battery
-  description: ''
-  use_blueprint:
-    path: sbyx/low-battery-level-detection-notification-for-all-battery-sensors.yaml
-    input:
-      day: 0
-      actions:
-      - service: notify.mobile_app_milite11
-        data:
-          title: 'Low battery '
-          data: hola
 - id: '1700301989268'
   alias: extractor_auto_turn_off
   description: ''
@@ -317,4 +249,60 @@
     metadata: {}
     target:
       entity_id: scene.tarde
+  mode: single
+- id: '1709367767420'
+  alias: studio_movement_light_on
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: fab5fb95d98ef420468385095a218761
+    entity_id: 0df18dade1e56380da61d2ac9ef6911f
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.light_studio_right
+    data: {}
+  mode: single
+- id: '1709367833500'
+  alias: studio_movement_light_off
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: fab5fb95d98ef420468385095a218761
+    entity_id: 0df18dade1e56380da61d2ac9ef6911f
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.light_studio_right
+    data: {}
+  mode: single
+- id: '1709587425455'
+  alias: pasillo_movement_light_off
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 40a637fde163a16c76379fcf41e59747
+    entity_id: 85da8c274790d362507f96ba8f76a68b
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 2bd8219b27d1b8093d12397c2422517d
+    entity_id: bcd1335d75a94c655a4dcf117e36fa31
+    domain: switch
   mode: single
