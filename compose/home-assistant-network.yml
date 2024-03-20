@@ -11,7 +11,7 @@ services:
     volumes:
       - /docker/nginx/data:/data
       - /docker/nginx/letsencrypt:/etc/letsencrypt
-      - /docker/nginx/html:/var/www/html
+      - /docker/homeassistant/compose/index.html:/var/www/html/index.html
     networks:
       - homeassistant
     healthcheck:

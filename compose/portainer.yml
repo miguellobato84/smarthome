@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   portainer:
@@ -24,4 +24,4 @@ services:
 
 networks:
   homeassistant:
-      external: true
+    external: true
