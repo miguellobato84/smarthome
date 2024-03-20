@@ -24,10 +24,8 @@ services:
     volumes:
       - /docker/duplicati/config:/config
       - /docker/duplicati/data:/data
-      - /docker/homeassistant:/source/homeassistant:ro
-      - /docker/mqtt:/source/mqtt:ro
-      - /docker/nginx:/source/nginx:ro
-      - /docker/zigbee:/source/zigbee:ro
+      - /docker:/source:ro
+      - /media/backup:/target
     networks:
       - homeassistant
 
