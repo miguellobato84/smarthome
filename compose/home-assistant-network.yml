@@ -20,7 +20,7 @@ services:
       timeout: 3s
 
   cloudflare:
-    image: erisamoe/cloudflared
+    image: cloudflare/cloudflared
     container_name: cloudflare
     command: tunnel run
     environment:
