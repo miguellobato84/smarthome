@@ -1,13 +1,13 @@
 version: "3.5"
 services:
   hisense_ac:
-    image: deiger/aircon:0.3.14
+    image: deiger/aircon:0.3.17
     container_name: hisense_ac
     restart: unless-stopped
     healthcheck:
       disable: true
     ports:
-      - "8888:8888"
+      - "9012:9012"
     environment:
       - CONFIG_DIR=/config
       - OPTIONS_FILE=/config/options.json
