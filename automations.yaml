@@ -88,15 +88,15 @@
   alias: pasillo_movement_lights_on
   description: ''
   trigger:
-  - type: motion
+  - type: occupied
     platform: device
-    device_id: 40a637fde163a16c76379fcf41e59747
-    entity_id: binary_sensor.sensor_movimiento_pasillo_occupancy
+    device_id: 9d298cc9a493aedde6f027a1a2e0b512
+    entity_id: 856fa99cbbc31e0e07602f9c73a707fa
     domain: binary_sensor
   condition:
   - condition: time
-    before: '20:00:00'
-    after: 07:00:00
+    before: '20:30:00'
+    after: 08:00:00
   action:
   - type: turn_on
     device_id: 2bd8219b27d1b8093d12397c2422517d
@@ -112,7 +112,6 @@
   condition:
   - condition: numeric_state
     entity_id: climate.aire_acondicionado
-    attribute: current_temperature
     above: 29
   action:
   - service: climate.turn_on
@@ -122,7 +121,7 @@
   - service: climate.set_temperature
     data:
       hvac_mode: cool
-      temperature: 28
+      temperature: 26
     target:
       device_id: 5a70c1defa5d55956977170fa5afa084
   mode: single
@@ -190,8 +189,8 @@
   trigger:
   - platform: numeric_state
     entity_id:
-    - sensor.bathroom_to_salon_humidity
-    above: 4
+    - sensor.bathroom_current_to_average_humidity
+    above: 10
   condition: []
   action:
   - service: switch.turn_on
@@ -222,17 +221,21 @@
     input:
       remote: sensor.switch_bedside_action
       on_button_short:
-      - service: light.turn_on
+      - action: light.turn_on
+        metadata: {}
         data:
-          brightness_pct: 1
+          brightness_pct: 25
         target:
-          entity_id: light.light_globito
+          device_id: 24dd82b35fb54d07a3733aba557e3e64
       off_button_short:
-      - service: light.turn_off
+      - action: light.turn_off
         metadata: {}
         data: {}
         target:
-          entity_id: light.light_globito
+          device_id:
+          - 78f5cf5fc53ae7809ec2b4e2385e594e
+          - 1d1be92af67151b85975649f870d3fa8
+          - 24dd82b35fb54d07a3733aba557e3e64
 - id: '1705851630895'
   alias: webhook_tarde
   description: ''
@@ -254,50 +257,50 @@
   alias: studio_movement_light_on
   description: ''
   trigger:
-  - type: motion
+  - type: occupied
     platform: device
     device_id: fab5fb95d98ef420468385095a218761
     entity_id: 0df18dade1e56380da61d2ac9ef6911f
     domain: binary_sensor
   condition: []
   action:
-  - service: light.turn_on
-    target:
+  - target:
       entity_id: light.light_studio_right
     data: {}
+    action: light.turn_on
   mode: single
 - id: '1709367833500'
   alias: studio_movement_light_off
   description: ''
   trigger:
-  - type: no_motion
+  - type: not_occupied
     platform: device
     device_id: fab5fb95d98ef420468385095a218761
     entity_id: 0df18dade1e56380da61d2ac9ef6911f
     domain: binary_sensor
     for:
       hours: 0
-      minutes: 10
+      minutes: 5
       seconds: 0
   condition: []
   action:
-  - service: light.turn_off
-    target:
+  - target:
       entity_id: light.light_studio_right
     data: {}
+    action: light.turn_off
   mode: single
 - id: '1709587425455'
   alias: pasillo_movement_light_off
   description: ''
   trigger:
-  - type: no_motion
+  - type: not_occupied
     platform: device
-    device_id: 40a637fde163a16c76379fcf41e59747
-    entity_id: 85da8c274790d362507f96ba8f76a68b
+    device_id: 9d298cc9a493aedde6f027a1a2e0b512
+    entity_id: 856fa99cbbc31e0e07602f9c73a707fa
     domain: binary_sensor
     for:
       hours: 0
-      minutes: 10
+      minutes: 5
       seconds: 0
   condition: []
   action:

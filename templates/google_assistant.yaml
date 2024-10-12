@@ -72,10 +72,10 @@ entity_config:
     expose: true
     name: "ventilador"
     room: "Salón"
-  #climate.aire_acondicionado:
-  #  expose: true
-  #  name: "Aire Acondicionado"
-  #  room: "Salón"
+  climate.aire_acondicionado_aire_acondicionado:
+    expose: true
+    name: "Aire Acondicionado"
+    room: "Salón"
         
   ####### Scripts
   script.federico_location:

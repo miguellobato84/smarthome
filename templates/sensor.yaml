@@ -1,6 +1,10 @@
-- platform: systemmonitor
-  resources:
-    - type: last_boot
+- platform: statistics
+  name: bathroom_humidity_mean_over_last_24_hours
+  entity_id: sensor.sensor_temp_aseo_humidity
+  state_characteristic: mean
+  unique_id: sensor.bathroom_humidity_mean_over_last_24_hours
+  max_age:
+    hours: 24
 - platform: time_date
   display_options:
     - time
@@ -17,13 +21,14 @@
         {% else %}
           -1
         {% endif %}
-    bathroom_to_salon_humidity:
-      friendly_name: "Bathroom to Salon Humidity Difference"
+    bathroom_current_to_average_humidity:
+      friendly_name: "Bathroom Current to Average Humidity Difference"
+      unique_id: 'sensor.bathroom_current_to_average_humidity'
       unit_of_measurement: "%"
       value_template: >-
-        {% set bathroom_humidity = states('sensor.sensor_temp_aseo_humidity') | int %}
-        {% set salon_humidity = state_attr('sensor.salon_termometro', 'hum') | int %}
-        {{ bathroom_humidity - salon_humidity }}
+        {% set avg_humidity = states('sensor.bathroom_humidity_mean_over_last_24_hours') | int %}
+        {% set currrent_humidity = states('sensor.sensor_temp_aseo_humidity') | int %}
+        {{ currrent_humidity - avg_humidity }}
     extractor_remaining:
       value_template: >
         {% if is_state('switch.switch_extractor', 'on') %}

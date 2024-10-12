@@ -293,6 +293,7 @@
       - stop_effect
       supported_color_modes:
       - color_temp
+      effect:
       color_mode:
       brightness:
       color_temp_kelvin:
@@ -300,7 +301,6 @@
       hs_color:
       rgb_color:
       xy_color:
-      effect:
       friendly_name: light_bedside_right
       supported_features: 44
       state: 'off'
@@ -318,6 +318,7 @@
       - stop_effect
       supported_color_modes:
       - color_temp
+      effect:
       color_mode:
       brightness:
       color_temp_kelvin:
@@ -325,7 +326,6 @@
       hs_color:
       rgb_color:
       xy_color:
-      effect:
       friendly_name: light_bedside_left
       supported_features: 44
       state: 'off'
@@ -343,24 +343,17 @@
       - stop_effect
       supported_color_modes:
       - color_temp
-      color_mode: color_temp
-      brightness: 172
-      color_temp_kelvin: 2202
-      color_temp: 454
-      hs_color:
-      - 29.79
-      - 84.553
-      rgb_color:
-      - 255
-      - 146
-      - 39
-      xy_color:
-      - 0.579
-      - 0.388
       effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
       friendly_name: light_bolondrio
       supported_features: 44
-      state: 'on'
+      state: 'off'
     light.light_sofa:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
@@ -375,6 +368,7 @@
       - stop_effect
       supported_color_modes:
       - color_temp
+      effect:
       color_mode:
       brightness:
       color_temp_kelvin:
@@ -382,7 +376,6 @@
       hs_color:
       rgb_color:
       xy_color:
-      effect:
       friendly_name: light_sofa
       supported_features: 44
       state: 'off'
@@ -396,12 +389,12 @@
       - stop_effect
       supported_color_modes:
       - brightness
-      color_mode: brightness
-      brightness: 3
       effect:
+      color_mode:
+      brightness:
       friendly_name: light_balcon
       supported_features: 44
-      state: 'on'
+      state: 'off'
     light.light_cestita:
       effect_list:
       - blink
@@ -412,9 +405,9 @@
       - stop_effect
       supported_color_modes:
       - brightness
+      effect:
       color_mode:
       brightness:
-      effect:
       friendly_name: light_cestita
       supported_features: 44
       state: 'off'
@@ -428,9 +421,9 @@
       - stop_effect
       supported_color_modes:
       - brightness
+      effect:
       color_mode: brightness
       brightness: 3
-      effect:
       friendly_name: light_abuelo
       supported_features: 44
       state: 'on'
@@ -448,6 +441,7 @@
       - stop_effect
       supported_color_modes:
       - color_temp
+      effect:
       color_mode:
       brightness:
       color_temp_kelvin:
@@ -455,7 +449,6 @@
       hs_color:
       rgb_color:
       xy_color:
-      effect:
       friendly_name: light_studio_left
       supported_features: 44
       state: 'off'
@@ -473,6 +466,7 @@
       - stop_effect
       supported_color_modes:
       - color_temp
+      effect:
       color_mode:
       brightness:
       color_temp_kelvin:
@@ -480,7 +474,6 @@
       hs_color:
       rgb_color:
       xy_color:
-      effect:
       friendly_name: light_studio_right
       supported_features: 44
       state: 'off'
@@ -494,9 +487,9 @@
       - stop_effect
       supported_color_modes:
       - brightness
+      effect:
       color_mode: brightness
       brightness: 28
-      effect:
       friendly_name: light_globito
       supported_features: 44
       state: 'on'
@@ -519,11 +512,5 @@
       color_mode:
       friendly_name: switch_pasillo
       supported_features: 0
-      state: 'off'
-    switch.0x3425b4fffed4e203:
-      friendly_name: switch_navidad_arbol
-      state: 'off'
-    switch.switch_navidad_estanteria:
-      friendly_name: switch_navidad_estanteria
       state: 'off'
   metadata: {}
