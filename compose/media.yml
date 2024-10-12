@@ -105,6 +105,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
+      - FB_NOAUTH=noauth
     volumes:
       - /home/miguel/Videos:/srv
       - /docker/filebrowser/filebrowser.db:/database.db
