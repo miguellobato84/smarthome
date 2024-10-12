@@ -96,6 +96,20 @@ services:
     networks:
       - homeassistant
 
+  filebrowser:
+    image: filebrowser/filebrowser
+    container_name: filebrowser
+    networks:
+      - homeassistant
+    user: "${UID}:${GID}"
+    volumes:
+      - /home/miguel/Videos:/srv
+      - /docker/filebrowser/filebrowser.db:/database.db
+      - /docker/filebrowser/.filebrowser.json:/.filebrowser.json
+    ports:
+      - 9026:80
+    restart: unless-stopped
+
 networks:
   homeassistant:
     external: true
