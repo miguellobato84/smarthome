@@ -101,7 +101,10 @@ services:
     container_name: filebrowser
     networks:
       - homeassistant
-    user: "${UID}:${GID}"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
     volumes:
       - /home/miguel/Videos:/srv
       - /docker/filebrowser/filebrowser.db:/database.db
