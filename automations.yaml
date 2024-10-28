@@ -87,17 +87,17 @@
 - id: '1641559651589'
   alias: pasillo_movement_lights_on
   description: ''
-  trigger:
+  triggers:
   - type: occupied
-    platform: device
     device_id: 9d298cc9a493aedde6f027a1a2e0b512
     entity_id: 856fa99cbbc31e0e07602f9c73a707fa
     domain: binary_sensor
-  condition:
+    trigger: device
+  conditions:
   - condition: time
-    before: '20:30:00'
+    before: '20:00:00'
     after: 08:00:00
-  action:
+  actions:
   - type: turn_on
     device_id: 2bd8219b27d1b8093d12397c2422517d
     entity_id: switch.switch_pasillo
@@ -146,23 +146,16 @@
 - id: '1697104095099'
   alias: sunset_lights
   description: ''
-  trigger:
-  - platform: sun
-    event: sunset
+  triggers:
+  - event: sunset
     offset: 00:30:00
-  condition: []
-  action:
-  - service: scene.turn_on
-    data: {}
+    trigger: sun
+  conditions: []
+  actions:
+  - data: {}
     target:
       entity_id: scene.tarde
-  - service: switch.turn_on
-    target:
-      device_id:
-      - 383b720bd5c0eef0b673db1820b83a5f
-      - 98b55e631d48ca7bf3991107b9f6ca77
-    data: {}
-    enabled: true
+    action: scene.turn_on
   mode: single
 - id: '1700301989268'
   alias: extractor_auto_turn_off
@@ -236,23 +229,6 @@
           - 78f5cf5fc53ae7809ec2b4e2385e594e
           - 1d1be92af67151b85975649f870d3fa8
           - 24dd82b35fb54d07a3733aba557e3e64
-- id: '1705851630895'
-  alias: webhook_tarde
-  description: ''
-  trigger:
-  - platform: webhook
-    allowed_methods:
-    - POST
-    - PUT
-    local_only: false
-    webhook_id: -tC5Jw70OzC4YTNYl4DsqhTOW
-  condition: []
-  action:
-  - service: scene.turn_on
-    metadata: {}
-    target:
-      entity_id: scene.tarde
-  mode: single
 - id: '1709367767420'
   alias: studio_movement_light_on
   description: ''
@@ -308,4 +284,20 @@
     device_id: 2bd8219b27d1b8093d12397c2422517d
     entity_id: bcd1335d75a94c655a4dcf117e36fa31
     domain: switch
+  mode: single
+- id: '1729881119698'
+  alias: morning
+  description: ''
+  triggers:
+  - trigger: time
+    at: 07:45:00
+  conditions:
+  - condition: state
+    entity_id: sensor.is_weekday
+    state: 'on'
+  actions:
+  - action: scene.turn_on
+    metadata: {}
+    target:
+      entity_id: scene.tarde
   mode: single
