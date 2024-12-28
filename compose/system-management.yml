@@ -27,7 +27,6 @@ services:
       - /docker/duplicati/config:/config
       - /docker/duplicati/data:/data
       - /docker:/source:ro
-      - /media/backup:/target
     networks:
       - homeassistant
 
@@ -49,7 +48,7 @@ services:
     restart: always
     networks:
       - homeassistant
-      
+
 networks:
   homeassistant:
     external: true
