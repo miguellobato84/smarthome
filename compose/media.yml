@@ -108,9 +108,7 @@ services:
       - TZ=Etc/UTC
       - FB_NOAUTH=noauth
     volumes:
-      - /home/miguel/Videos/movies:/srv/movies
-      - /home/miguel/Videos/tvshows:/srv/tvshows
-      - /media:/srv/usb
+      - /home/miguel/Videos:/srv
       - /docker/filebrowser/filebrowser.db:/database.db
       - /docker/filebrowser/.filebrowser.json:/.filebrowser.json
     ports:
