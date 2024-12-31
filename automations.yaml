@@ -219,7 +219,7 @@
         data:
           brightness_pct: 25
         target:
-          device_id: 24dd82b35fb54d07a3733aba557e3e64
+          device_id: d37f20f5d648b0a974f67186b84ea244
       off_button_short:
       - action: light.turn_off
         metadata: {}
@@ -228,7 +228,7 @@
           device_id:
           - 78f5cf5fc53ae7809ec2b4e2385e594e
           - 1d1be92af67151b85975649f870d3fa8
-          - 24dd82b35fb54d07a3733aba557e3e64
+          - d37f20f5d648b0a974f67186b84ea244
 - id: '1709367767420'
   alias: studio_movement_light_on
   description: ''
@@ -290,7 +290,7 @@
   description: ''
   triggers:
   - trigger: time
-    at: 07:45:00
+    at: 07:30:00
   conditions:
   - condition: state
     entity_id: sensor.is_weekday
@@ -300,4 +300,36 @@
     metadata: {}
     target:
       entity_id: scene.tarde
+    data: {}
+  - action: light.turn_on
+    metadata: {}
+    data:
+      kelvin: 6500
+      brightness_pct: 1
+    target:
+      device_id: d37f20f5d648b0a974f67186b84ea244
+  mode: single
+- id: '1733088421053'
+  alias: turn_off_9am
+  description: ''
+  triggers:
+  - trigger: time
+    at: 09:00:00
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      device_id:
+      - 4012747555e40d13d5d6bf0e247c9fc6
+      - 1da5251e0fdff4bc2b9765ad18083fe0
+      - d37f20f5d648b0a974f67186b84ea244
+      - a1cb02f8c599152333367e65526d44a0
+      - e29f77b8a8d3b1b0afd4d6378efa8fd4
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      device_id: 3d21a4311b972c2c061b46c26d280590
   mode: single
