@@ -49,6 +49,20 @@ services:
     networks:
       - homeassistant
 
+  speedtest-tracker:
+      image: lscr.io/linuxserver/speedtest-tracker:latest
+      restart: unless-stopped
+      container_name: speedtest-tracker
+      ports:
+          - 9006:80
+      environment:
+          - PUID=1000
+          - PGID=1000
+          - APP_KEY=${SPEEDTEST_APP_KEY}
+          - ADMIN_PASSWORD=${SPEEDTEST_ADMIN_PASSWORD}
+          - DB_CONNECTION=sqlite
+      volumes:
+          - /docker/speedtest/data:/config
 networks:
   homeassistant:
     external: true
