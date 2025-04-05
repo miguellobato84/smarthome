@@ -70,6 +70,7 @@ services:
           - MAIL_FROM_NAME="Speedtest Tracker"
           - MAIL_SCHEME=null
           - SPEEDTEST_SCHEDULE=6 */2 * * *
+          - APP_TIMEZONE=Europe/Madrid
       volumes:
           - /docker/speedtest/data:/config
       networks:
