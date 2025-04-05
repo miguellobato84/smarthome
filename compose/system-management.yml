@@ -16,7 +16,6 @@ services:
     image: duplicati/duplicati
     container_name: duplicati
     restart: unless-stopped
-    command: duplicati-server --webservice-port=8200 --webservice-interface=any --webservice-allowed-hostnames=*
     ports:
       - "9004:8200"
     environment:
