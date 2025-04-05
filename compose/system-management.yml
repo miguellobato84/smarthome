@@ -69,6 +69,7 @@ services:
           - MAIL_FROM_ADDRESS="cuentacomun1984@gmail.com"
           - MAIL_FROM_NAME="Speedtest Tracker"
           - MAIL_SCHEME=null
+          - SPEEDTEST_SCHEDULE=6 */2 * * *
       volumes:
           - /docker/speedtest/data:/config
       networks:
