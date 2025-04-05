@@ -16,7 +16,7 @@ services:
     image: duplicati/duplicati
     container_name: duplicati
     restart: unless-stopped
-    command: /opt/duplicati/duplicati-server --disable-db-encryption --webservice-port=8200 --webservice-interface=any --webservice-allowed-hostnames=* --log-level=debug
+    command: /opt/duplicati/duplicati-server --disable-db-encryption --webservice-allowed-hostnames=* --log-level=Debug
     ports:
       - "9004:8200"
     environment:
