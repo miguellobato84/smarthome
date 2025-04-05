@@ -66,7 +66,7 @@ services:
           - MAIL_PORT=25
           - MAIL_USERNAME=null
           - MAIL_PASSWORD=null
-          - MAIL_FROM_ADDRESS="cuentacomun1984@gmail.com"
+          - MAIL_FROM_ADDRESS=${MAIL_FROM_ADDRESS}
           - MAIL_FROM_NAME="Speedtest Tracker"
           - MAIL_SCHEME=null
           - SPEEDTEST_SCHEDULE=6 */2 * * *
