@@ -61,6 +61,14 @@ services:
           - APP_KEY=${SPEEDTEST_APP_KEY}
           - ADMIN_PASSWORD=${SPEEDTEST_ADMIN_PASSWORD}
           - DB_CONNECTION=sqlite
+          - MAIL_MAILER=smtp
+          - MAIL_HOST=mailserver
+          - MAIL_PORT=25
+          - MAIL_USERNAME=null
+          - MAIL_PASSWORD=null
+          - MAIL_FROM_ADDRESS="cuentacomun1984@gmail.com"
+          - MAIL_FROM_NAME="Speedtest Tracker"
+          - MAIL_SCHEME=null
       volumes:
           - /docker/speedtest/data:/config
 networks:
