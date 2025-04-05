@@ -71,8 +71,8 @@ services:
           - MAIL_SCHEME=null
       volumes:
           - /docker/speedtest/data:/config
-    networks:
-      - homeassistant
+      networks:
+        - homeassistant
 
 networks:
   homeassistant:
