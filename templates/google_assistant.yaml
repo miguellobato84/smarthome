@@ -9,73 +9,9 @@ entity_config:
   scene.tarde:
     expose: true
     name: "Escena Tarde"
-  scene.dormir:
+  scene.dia:
     expose: true
-    name: "Escena Dormir"
-    
-  ####### lights
-  light.light_balcon:
-    expose: true
-    name: "Balcón"
-    room: "Salón"
-  light.light_bedside_left:
-    expose: true
-    name: "Cama Izquierda"
-    room: "Dormitorio"
-  light.light_bedside_right:
-    expose: true
-    name: "Cama Derecha"
-    room: "Dormitorio"
-  light.light_bolondrio:
-    expose: true
-    name: "Bolondrio"
-    room: "Estudio"
-  light.light_cestita:
-    expose: true
-    name: "Cestita"
-    room: "Comedor"
-  light.light_studio_left:
-    expose: true
-    name: "Estudio Izquierda"
-    room: "Estudio"
-  light.light_studio_right:
-    expose: true
-    name: "Estudio Derecha"
-    room: "Estudio"
-  light.light_globito:
-    expose: true
-    name: "Globito"
-    room: "Dormitorio"
-  light.light_abuelo:
-    expose: true
-    name: "Abuelo"
-    room: "Comedor"
-  light.light_sofa:
-    expose: true
-    name: "Sofá"
-    room: "Salón"
-  light.switch_cocina:
-    expose: true
-    name: "Cocina"
-    room: "Cocina"
-  light.switch_pasillo:
-    expose: true
-    name: "Pasillo"
-    room: "Pasillo"
-  switch.switch_extractor:
-    expose: true
-    name: "Extractor"
-    room: "Baño"
-
-  ####### Others
-  fan.xiaomi_smart_fan:
-    expose: true
-    name: "ventilador"
-    room: "Salón"
-  climate.aire_acondicionado_aire_acondicionado:
-    expose: true
-    name: "Aire Acondicionado"
-    room: "Salón"
+    name: "Escena Dia"
         
   ####### Scripts
   script.federico_location:
@@ -114,18 +50,3 @@ entity_config:
   sensor.madrid_temperature:
     expose: true
     name: "Sensor Temperatura Calle"
-  sensor.sensor_temp_aseo_temperature:
-    expose: true
-    name: "Sensor Temperatura Baño"
-    room: "Baño"
-  sensor.salon_termometro:
-    expose: true
-    name: "Sensor Temperatura Salón"
-    room: "Salón"
-  sensor.dormitorio_termometro:
-    expose: true
-    name: "Sensor Temperatura Dormitorio"
-    room: "Dormitorio"
-  binary_sensor.sensor_puerta_inverted:
-    expose: true
-    name: "Cerrojo Puerta"

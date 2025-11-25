@@ -4,6 +4,7 @@ DEVBASE=$2
 DEVICE="/dev/${DEVBASE}"
 LOG_FILE="/home/miguel/Videos/rsync.log"
 MOUNT_PATH="/media/PROYECTOR"
+LOCK_FILE="/home/miguel/Videos/rsync.lock"
 
 echo "$(date): Script invoked with ACTION=${ACTION}, DEVBASE=${DEVBASE}" > ${LOG_FILE}
 
@@ -73,26 +74,42 @@ case "${ACTION}" in
         ;;
 esac
 
-# Check if the MOUNT_PATH is mounted
-if /bin/mount | /bin/grep -q "${MOUNT_PATH}"; then
-    echo "$(date): ${MOUNT_PATH} is mounted. Starting rsync." >> ${LOG_FILE}
-    echo "$(date): Starting rsync" >> ${LOG_FILE}
-    rsync --verbose --recursive --stats --human-readable --ignore-existing --delete \
-        /home/miguel/Videos/tvshows/ ${MOUNT_PATH}/tvshows/ >> ${LOG_FILE}
-    rsync --verbose --recursive --stats --human-readable --ignore-existing \
-        /home/miguel/Videos/movies/ ${MOUNT_PATH}/movies/ >> ${LOG_FILE}
-    echo "$(date): Rsync completed." >> ${LOG_FILE}
+# Only execute if ACTION == add
+if [[ "${ACTION}" == "add" ]]; then
+    # Use flock to ensure only one rsync process runs
+    (
+        flock -n 9 || { 
+            echo "$(date): Another rsync process is already running. Skipping this rsync." >> ${LOG_FILE}
+            exit 1
+        }
 
-    # Get disk usage details
-    DISK_USAGE=$(df -BG ${MOUNT_PATH} | /usr/bin/tail -n 1 | /usr/bin/awk '{print $2, $4}')
-    TOTAL_SPACE=$(echo ${DISK_USAGE} | /usr/bin/awk '{print $1}')
-    FREE_SPACE=$(echo ${DISK_USAGE} | /usr/bin/awk '{print $2}')
-    echo "$(date): ${MOUNT_PATH} total space: ${TOTAL_SPACE}, free space: ${FREE_SPACE}" >> ${LOG_FILE}
+        # Check if the MOUNT_PATH is mounted
+        if /bin/mount | /bin/grep -q "${MOUNT_PATH}"; then
+            echo "$(date): ${MOUNT_PATH} is mounted. Starting rsync." >> ${LOG_FILE}
+            echo "$(date): Starting rsync" >> ${LOG_FILE}
+            rsync --verbose --recursive --stats --human-readable --ignore-existing --delete --checksum \
+                /home/miguel/Videos/tvshows/ ${MOUNT_PATH}/tvshows/ >> ${LOG_FILE}
+            rsync --verbose --recursive --stats --human-readable --ignore-existing --delete --checksum \
+                /home/miguel/Videos/movies/ ${MOUNT_PATH}/movies/ >> ${LOG_FILE}
+            echo "$(date): Rsync completed." >> ${LOG_FILE}
 
-    # Flush and unmount the MOUNT_PATH
-    echo "$(date): Flushing file system buffers for ${MOUNT_PATH}." >> ${LOG_FILE}
-    /bin/sync
-    echo "$(date): Unmounting ${MOUNT_PATH}." >> ${LOG_FILE}
-    /bin/umount ${MOUNT_PATH}
-    echo "$(date): Successfully unmounted ${MOUNT_PATH}." >> ${LOG_FILE}
+            # Get disk usage details
+            DISK_USAGE=$(df -BG ${MOUNT_PATH} | /usr/bin/tail -n 1 | /usr/bin/awk '{print $2, $4}')
+            TOTAL_SPACE=$(echo ${DISK_USAGE} | /usr/bin/awk '{print $1}')
+            FREE_SPACE=$(echo ${DISK_USAGE} | /usr/bin/awk '{print $2}')
+            echo "$(date): ${MOUNT_PATH} total space: ${TOTAL_SPACE}, free space: ${FREE_SPACE}" >> ${LOG_FILE}
+
+	    tree -h ${MOUNT_PATH} >> ${LOG_FILE}
+
+            # Flush and unmount the MOUNT_PATH
+            echo "$(date): Unmounting ${MOUNT_PATH}." >> ${LOG_FILE}
+            /bin/umount ${MOUNT_PATH}
+            echo "$(date): Successfully unmounted ${MOUNT_PATH}." >> ${LOG_FILE}
+        else
+            echo "$(date): ${MOUNT_PATH} is not mounted. Skipping rsync." >> ${LOG_FILE}
+        fi
+    ) 9>${LOCK_FILE}  # File descriptor 9 is locked
+else
+    echo "$(date): ACTION is not 'add'. Skipping rsync." >> ${LOG_FILE}
 fi
+

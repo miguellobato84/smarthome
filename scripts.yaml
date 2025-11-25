@@ -262,3 +262,93 @@ debugger:
   sequence:
   - stop: action={{action}}, value={{value}}
   mode: parallel
+radiadores_set_external:
+  alias: radiadores_set_external
+  description: Configura los selects a external y sincroniza temperaturas externas
+  mode: single
+  fields:
+    option:
+      description: 'Opción para los selects (por defecto: external)'
+      example: external
+  sequence:
+  - action: select.select_option
+    target:
+      entity_id:
+      - select.radiador_dormitorio_temperature_sensor_select
+      - select.radiador_dario_temperature_sensor_select
+      - select.radiador_estudio_temperature_sensor_select
+      - select.radiador_entrada_temperature_sensor_select
+      - select.radiador_salon_temperature_sensor_select
+    data:
+      option: '{{ option | default(''external'') }}'
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_dormitorio_external_temperature_input
+    data:
+      value: '{{ states(''sensor.sensor_temp_dormitorio_temperature'') | float(0)
+        }}'
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_dario_external_temperature_input
+    data:
+      value: '{{ states(''sensor.sensor_temp_dario_temperature'') | float(0) }}'
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_estudio_external_temperature_input
+    data:
+      value: '{{ states(''sensor.sensor_temp_estudio_temperature'') | float(0) }}'
+  - action: number.set_value
+    target:
+      entity_id:
+      - number.radiador_entrada_external_temperature_input
+      - number.radiador_salon_external_temperature_input
+    data:
+      value: '{{ states(''sensor.sensor_temp_salon_temperature'') | float(0) }}'
+set_radiador:
+  alias: Set Radiador
+  description: Establece temperatura y ajusta apertura de válvula según diferencial
+  mode: parallel
+  fields:
+    entity:
+      description: Entidad del radiador (climate.*) o lista de entidades
+      example: climate.radiador_dormitorio
+    target:
+      description: Temperatura objetivo (opcional, defecto final 19)
+      example: 21
+  variables:
+    entities: '{{ [entity] if entity is string else entity }}'
+    t_obj: '{{ (target | default(18, true) | float(18)) + 1 }}'
+  sequence:
+  - repeat:
+      for_each: '{{ entities }}'
+      sequence:
+      - variables:
+          clim_entity: '{{ repeat.item }}'
+          t_act: '{{ state_attr(clim_entity, ''current_temperature'') | float(0) }}'
+          diff: '{{ t_obj - t_act }}'
+          valve_entity: '{{ clim_entity | replace(''climate.'', ''number.'') ~ ''_valve_opening_degree''
+            }}'
+      - action: climate.set_temperature
+        target:
+          entity_id: '{{ clim_entity }}'
+        data:
+          temperature: '{{ t_obj }}'
+      - choose:
+        - conditions:
+          - condition: template
+            value_template: '{{ diff >= 1 }}'
+          sequence:
+          - action: number.set_value
+            target:
+              entity_id: '{{ valve_entity }}'
+            data:
+              value: 100
+        - conditions:
+          - condition: template
+            value_template: '{{ diff > 0 and diff < 1 }}'
+          sequence:
+          - action: number.set_value
+            target:
+              entity_id: '{{ valve_entity }}'
+            data:
+              value: 60

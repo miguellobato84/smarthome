@@ -1,136 +1,6 @@
-- id: '1651646275758'
-  name: AllOff
+- id: '1763276748073'
+  name: ambiente_off
   entities:
-    light.light_sofa:
-      min_color_temp_kelvin: 2202
-      max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - color_temp
-      effect:
-      color_mode:
-      brightness:
-      color_temp_kelvin:
-      color_temp:
-      hs_color:
-      rgb_color:
-      xy_color:
-      friendly_name: light_sofa
-      supported_features: 44
-      state: 'off'
-    light.light_balcon:
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - brightness
-      effect:
-      color_mode:
-      brightness:
-      friendly_name: light_balcon
-      supported_features: 44
-      state: 'off'
-    light.light_cestita:
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - brightness
-      effect:
-      color_mode:
-      brightness:
-      friendly_name: light_cestita
-      supported_features: 44
-      state: 'off'
-    light.light_abuelo:
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - brightness
-      effect:
-      color_mode:
-      brightness:
-      friendly_name: light_abuelo
-      supported_features: 44
-      state: 'off'
-    light.light_bedside_left:
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - brightness
-      effect:
-      color_mode:
-      brightness:
-      friendly_name: light_bedside_left
-      supported_features: 44
-      state: 'off'
-    light.light_bedside_right:
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - brightness
-      effect:
-      color_mode:
-      brightness:
-      friendly_name: light_bedside_right
-      supported_features: 44
-      state: 'off'
-    light.light_globito:
-      min_color_temp_kelvin: 2202
-      max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - color_temp
-      effect:
-      color_mode:
-      brightness:
-      color_temp_kelvin:
-      color_temp:
-      hs_color:
-      rgb_color:
-      xy_color:
-      friendly_name: light_globito
-      supported_features: 44
-      state: 'off'
     light.light_studio_right:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
@@ -153,190 +23,29 @@
       hs_color:
       rgb_color:
       xy_color:
-      friendly_name: light_studio_right
+      color_options:
+      color_temp_startup: 370
+      linkquality: 81
+      power_on_behavior:
+      update:
+        installed_version: 65554
+        latest_version: 65554
+        state: idle
+      update_available: false
+      friendly_name: luz_abuelo
       supported_features: 44
       state: 'off'
-    switch.arbol:
-      friendly_name: arbol
+    switch.luz_donut:
+      linkquality: 111
+      power_on_behavior: previous
+      update:
+        installed_version: 587765297
+        latest_version: 587765297
+        state: idle
+      update_available: false
+      friendly_name: luz_donut
       state: 'off'
-  metadata: {}
-- id: '1651692118955'
-  name: Cine
-  entities:
-    light.light_sofa:
-      min_color_temp_kelvin: 2202
-      max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
-      supported_color_modes:
-      - color_temp
-      off_with_transition: false
-      off_brightness: 170
-      friendly_name: Sofa Reading Bulb 022974fe level, light_color, on_off
-      supported_features: 40
-      state: 'off'
-    light.light_balcon:
-      supported_color_modes:
-      - brightness
-      off_with_transition: false
-      off_brightness: 170
-      friendly_name: Balcony bulb level, on_off
-      supported_features: 40
-      state: 'off'
-    light.light_cestita:
-      supported_color_modes:
-      - brightness
-      off_with_transition: false
-      off_brightness: 70
-      friendly_name: Cestita level, on_off
-      supported_features: 40
-      state: 'off'
-    light.light_abuelo:
-      supported_color_modes:
-      - brightness
-      off_with_transition: false
-      off_brightness:
-      friendly_name: Lámpara Abuelo level, on_off
-      supported_features: 40
-      color_mode: brightness
-      brightness: 64
-      state: 'on'
-    light.light_bedside_left:
-      min_color_temp_kelvin: 2202
-      max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
-      supported_color_modes:
-      - color_temp
-      off_with_transition: false
-      off_brightness: 76
-      friendly_name: Bedside Miguel level, light_color, on_off
-      supported_features: 40
-      state: 'off'
-    light.light_bedside_right:
-      min_color_temp_kelvin: 2202
-      max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
-      supported_color_modes:
-      - color_temp
-      off_with_transition: false
-      off_brightness: 148
-      friendly_name: Bedside Alba level, light_color, on_off
-      supported_features: 40
-      state: 'off'
-    light.light_globito:
-      supported_color_modes:
-      - brightness
-      off_with_transition: false
-      off_brightness: 70
-      friendly_name: Globito Light level, on_off
-      supported_features: 40
-      state: 'off'
-    light.light_bolondrio:
-      min_color_temp_kelvin: 2202
-      max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
-      supported_color_modes:
-      - color_temp
-      off_with_transition: false
-      off_brightness: 254
-      friendly_name: Bolondrio Light
-      supported_features: 40
-      state: 'off'
-  metadata: {}
-- id: '1673781904804'
-  name: Tarde
-  entities:
-    light.light_abuelo:
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - brightness
-      effect:
-      color_mode: brightness
-      brightness: 99
-      friendly_name: light_abuelo
-      supported_features: 44
-      state: 'on'
-    light.light_cestita:
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - brightness
-      effect:
-      color_mode: brightness
-      brightness: 102
-      friendly_name: light_cestita
-      supported_features: 44
-      state: 'on'
-    light.light_sofa:
-      min_color_temp_kelvin: 2202
-      max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - color_temp
-      effect:
-      color_mode: color_temp
-      brightness: 105
-      color_temp_kelvin: 2500
-      color_temp: 400
-      hs_color:
-      - 28.874
-      - 72.522
-      rgb_color:
-      - 255
-      - 159
-      - 70
-      xy_color:
-      - 0.546
-      - 0.389
-      friendly_name: light_sofa
-      supported_features: 44
-      state: 'on'
-    light.light_balcon:
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - brightness
-      effect:
-      color_mode: brightness
-      brightness: 102
-      friendly_name: light_balcon
-      supported_features: 44
-      state: 'on'
-    switch.arbol:
-      friendly_name: arbol
-      state: 'on'
-  metadata: {}
-- id: '1675715450315'
-  name: Dormir
-  entities:
-    light.light_bedside_right:
+    light.luz_mouille:
       effect_list:
       - blink
       - breathe
@@ -349,23 +58,14 @@
       effect:
       color_mode:
       brightness:
-      friendly_name: light_bedside_right
-      supported_features: 44
-      state: 'off'
-    light.light_bedside_left:
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - brightness
-      effect:
-      color_mode:
-      brightness:
-      friendly_name: light_bedside_left
+      linkquality: 60
+      power_on_behavior:
+      update:
+        installed_version: 587806257
+        latest_version: 587806257
+        state: idle
+      update_available: false
+      friendly_name: luz_mouille
       supported_features: 44
       state: 'off'
     light.light_sofa:
@@ -390,57 +90,21 @@
       hs_color:
       rgb_color:
       xy_color:
-      friendly_name: light_sofa
+      friendly_name: luz_sofa
       supported_features: 44
+      color_options:
+      linkquality: 84
+      power_on_behavior:
+      update:
+        installed_version: -1
+        latest_version: -1
+        state:
+      update_available:
       state: 'off'
-    light.light_balcon:
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - brightness
-      effect:
-      color_mode:
-      brightness:
-      friendly_name: light_balcon
-      supported_features: 44
-      state: 'off'
-    light.light_cestita:
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - brightness
-      effect:
-      color_mode:
-      brightness:
-      friendly_name: light_cestita
-      supported_features: 44
-      state: 'off'
-    light.light_abuelo:
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - brightness
-      effect:
-      color_mode: brightness
-      brightness: 3
-      friendly_name: light_abuelo
-      supported_features: 44
-      state: 'on'
+  metadata: {}
+- id: '1763276837588'
+  name: ambiente_on
+  entities:
     light.light_studio_right:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
@@ -456,69 +120,104 @@
       supported_color_modes:
       - color_temp
       effect:
-      color_mode:
-      brightness:
-      color_temp_kelvin:
-      color_temp:
-      hs_color:
-      rgb_color:
-      xy_color:
-      friendly_name: light_studio_right
-      supported_features: 44
-      state: 'off'
-    light.light_globito:
-      min_color_temp_kelvin: 2202
-      max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - color_temp
-      effect:
       color_mode: color_temp
-      brightness: 28
-      color_temp_kelvin: 2202
-      color_temp: 454
+      brightness: 143
+      color_temp_kelvin: 2702
+      color_temp: 370
       hs_color:
-      - 29.79
-      - 84.553
+      - 28.391
+      - 65.659
       rgb_color:
       - 255
-      - 146
-      - 39
+      - 167
+      - 88
       xy_color:
-      - 0.579
+      - 0.524
       - 0.388
-      friendly_name: light_globito
+      color_options:
+      color_temp_startup: 370
+      linkquality: 84
+      power_on_behavior:
+      update:
+        installed_version: 65554
+        latest_version: 65554
+        state: idle
+      update_available: false
+      friendly_name: luz_abuelo
       supported_features: 44
       state: 'on'
-    switch.switch_cocina:
-      friendly_name: switch_cocina
-      state: 'off'
-    light.switch_cocina:
+    switch.luz_donut:
+      linkquality: 99
+      power_on_behavior: previous
+      update:
+        installed_version: 587765297
+        latest_version: 587765297
+        state: idle
+      update_available: false
+      friendly_name: luz_donut
+      state: 'on'
+    light.luz_mouille:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
-      - onoff
-      color_mode:
-      friendly_name: switch_cocina
-      supported_features: 0
-      state: 'off'
-    switch.switch_pasillo:
-      friendly_name: switch_pasillo
-      state: 'off'
-    light.switch_pasillo:
+      - brightness
+      effect:
+      color_mode: brightness
+      brightness: 94
+      linkquality: 72
+      power_on_behavior:
+      update:
+        installed_version: 587806257
+        latest_version: 587806257
+        state: idle
+      update_available: false
+      friendly_name: luz_mouille
+      supported_features: 44
+      state: 'on'
+    light.light_sofa:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       supported_color_modes:
-      - onoff
-      color_mode:
-      friendly_name: switch_pasillo
-      supported_features: 0
-      state: 'off'
-    switch.arbol:
-      friendly_name: arbol
-      state: 'off'
+      - color_temp
+      effect:
+      color_mode: color_temp
+      brightness: 130
+      color_temp_kelvin: 2439
+      color_temp: 410
+      hs_color:
+      - 29.04
+      - 74.777
+      rgb_color:
+      - 255
+      - 157
+      - 64
+      xy_color:
+      - 0.553
+      - 0.39
+      friendly_name: luz_sofa
+      supported_features: 44
+      color_options:
+      linkquality: 78
+      power_on_behavior:
+      update:
+        installed_version: -1
+        latest_version: -1
+        state:
+      update_available:
+      state: 'on'
   metadata: {}
+  icon: mdi:weather-sunset

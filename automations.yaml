@@ -1,335 +1,159 @@
-- id: '1682141174553'
-  alias: Remote Studio
-  description: ''
-  use_blueprint:
-    path: ikea/generic_ikea_remote_control.yaml
-    input:
-      remote: sensor.switch_studio_action
-      arrow_left_click:
-      - service: script.on_off_light
-        data:
-          turn_on_entity:
-          - light.light_studio_left
-          level_max: 150
-      arrow_right_click:
-      - service: script.on_off_light
-        data:
-          turn_on_entity:
-          - light.light_studio_right
-          level_max: 150
-      on_button_short:
-      - service: script.on_off_light
-        data:
-          turn_on_entity:
-          - light.light_studio_left
-          - light.light_studio_right
-          - light.light_bolondrio
-          level_max: 150
-      off_button_short:
-      - service: script.3_level_light
-        data:
-          turn_on_entity:
-          - light.light_bolondrio
-- id: '1682350290532'
-  alias: Remote Living Room
-  description: ''
-  use_blueprint:
-    path: ikea/generic_ikea_remote_control.yaml
-    input:
-      remote: sensor.switch_living_room_action
-      on_button_short:
-      - service: script.3_level_light
-        data:
-          turn_on_entity:
-          - light.light_cestita
-      arrow_left_click:
-      - service: script.3_level_light
-        data:
-          turn_on_entity:
-          - light.light_balcon
-      arrow_right_click:
-      - service: script.3_level_light
-        data:
-          turn_on_entity:
-          - light.light_abuelo
-      off_button_short:
-      - service: script.3_level_light
-        data:
-          turn_on_entity:
-          - light.light_sofa
-- id: '1682351517564'
-  alias: Remote Bedroom
-  description: ''
-  use_blueprint:
-    path: ikea/generic_ikea_remote_control.yaml
-    input:
-      remote: sensor.switch_bedroom_action
-      arrow_left_click:
-      - service: script.4_level_light
-        data:
-          turn_on_entity:
-          - light.light_bedside_left
-      arrow_right_click:
-      - service: script.4_level_light
-        data:
-          turn_on_entity:
-          - light.light_bedside_right
-      off_button_short:
-      - service: scene.turn_on
-        target:
-          entity_id: scene.alloff
-        metadata: {}
-      on_button_short:
-      - service: script.4_level_light
-        data:
-          turn_on_entity:
-          - light.light_globito
-- id: '1641559651589'
-  alias: pasillo_movement_lights_on
-  description: ''
-  triggers:
-  - type: occupied
-    device_id: 9d298cc9a493aedde6f027a1a2e0b512
-    entity_id: 856fa99cbbc31e0e07602f9c73a707fa
-    domain: binary_sensor
-    trigger: device
-  conditions:
-  - condition: time
-    before: '20:00:00'
-    after: 08:00:00
-  actions:
-  - type: turn_on
-    device_id: 2bd8219b27d1b8093d12397c2422517d
-    entity_id: switch.switch_pasillo
-    domain: switch
-  mode: single
-- id: '1690731607846'
-  alias: aire_auto_turn_on
-  description: ''
-  trigger:
-  - platform: time
-    at: '20:00:00'
-  condition:
-  - condition: numeric_state
-    entity_id: climate.aire_acondicionado
-    above: 29
-  action:
-  - service: climate.turn_on
-    data: {}
-    target:
-      device_id: 5a70c1defa5d55956977170fa5afa084
-  - service: climate.set_temperature
-    data:
-      hvac_mode: cool
-      temperature: 26
-    target:
-      device_id: 5a70c1defa5d55956977170fa5afa084
-  mode: single
-- id: '1691525830066'
-  alias: alert_door_movil
-  description: ''
-  trigger:
-  - type: opened
-    platform: device
-    device_id: f6c60fcba01fda50f8901f538fa69e5f
-    entity_id: e3b5bf18e653b807e0ee657bd6ea8cfe
-    domain: binary_sensor
-  condition: []
-  action:
-  - service: notify.mobile_app_milite11
-    data:
-      message: Puerta abierta {{ now() }}
-  - service: notify.mobile_app_alba_s_iphone
-    data:
-      message: Puerta abierta {{ now() }}
-  mode: single
-- id: '1697104095099'
-  alias: sunset_lights
-  description: ''
-  triggers:
-  - event: sunset
-    offset: 00:30:00
-    trigger: sun
-  conditions: []
-  actions:
-  - data: {}
-    target:
-      entity_id: scene.tarde
-    action: scene.turn_on
-  mode: single
-- id: '1700301989268'
-  alias: extractor_auto_turn_off
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id:
-    - sensor.extractor_remaining
-    below: 0
-  - platform: numeric_state
-    entity_id:
-    - sensor.extractor_uptime
-    above: 1200
-  condition: []
-  action:
-  - service: switch.turn_off
-    data: {}
-    target:
-      entity_id: switch.switch_extractor
-  mode: single
-- id: '1700302082864'
-  alias: extractor_auto_turn_on
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id:
-    - sensor.bathroom_current_to_average_humidity
-    above: 10
-  condition: []
-  action:
-  - service: switch.turn_on
-    data: {}
-    target:
-      entity_id: switch.switch_extractor
-  mode: single
-- id: '1703665154718'
-  alias: alert_btesensor_error
-  description: ''
-  trigger:
-  - platform: time
-    at: 07:00:00
-  condition:
-  - condition: template
-    value_template: '{{ (as_timestamp(now()) - as_timestamp(states.sensor.salon_termometro.last_changed))
-      > 86400 }}'
-  action:
-  - service: notify.mobile_app_milite11
-    data:
-      message: 'Bluetooth sensors doesn''t seem to work '
-  mode: single
-- id: '1705821752299'
-  alias: Remote Bedside
-  description: ''
-  use_blueprint:
-    path: ikea/generic_ikea_remote_control.yaml
-    input:
-      remote: sensor.switch_bedside_action
-      on_button_short:
-      - action: light.turn_on
-        metadata: {}
-        data:
-          brightness_pct: 25
-        target:
-          device_id: d37f20f5d648b0a974f67186b84ea244
-      off_button_short:
-      - action: light.turn_off
-        metadata: {}
-        data: {}
-        target:
-          device_id:
-          - 78f5cf5fc53ae7809ec2b4e2385e594e
-          - 1d1be92af67151b85975649f870d3fa8
-          - d37f20f5d648b0a974f67186b84ea244
-- id: '1709367767420'
-  alias: studio_movement_light_on
-  description: ''
-  trigger:
-  - type: occupied
-    platform: device
-    device_id: fab5fb95d98ef420468385095a218761
-    entity_id: 0df18dade1e56380da61d2ac9ef6911f
-    domain: binary_sensor
-  condition: []
-  action:
-  - target:
-      entity_id: light.light_studio_right
-    data: {}
-    action: light.turn_on
-  mode: single
-- id: '1709367833500'
-  alias: studio_movement_light_off
-  description: ''
-  trigger:
-  - type: not_occupied
-    platform: device
-    device_id: fab5fb95d98ef420468385095a218761
-    entity_id: 0df18dade1e56380da61d2ac9ef6911f
-    domain: binary_sensor
-    for:
-      hours: 0
-      minutes: 5
-      seconds: 0
-  condition: []
-  action:
-  - target:
-      entity_id: light.light_studio_right
-    data: {}
-    action: light.turn_off
-  mode: single
-- id: '1709587425455'
-  alias: pasillo_movement_light_off
-  description: ''
-  trigger:
-  - type: not_occupied
-    platform: device
-    device_id: 9d298cc9a493aedde6f027a1a2e0b512
-    entity_id: 856fa99cbbc31e0e07602f9c73a707fa
-    domain: binary_sensor
-    for:
-      hours: 0
-      minutes: 5
-      seconds: 0
-  condition: []
-  action:
-  - type: turn_off
-    device_id: 2bd8219b27d1b8093d12397c2422517d
-    entity_id: bcd1335d75a94c655a4dcf117e36fa31
-    domain: switch
-  mode: single
-- id: '1729881119698'
-  alias: morning
-  description: ''
+- id: '1763196843501'
+  alias: armarios
+  description: Apagar/encender luces de los armarios según horario usando time triggers
   triggers:
   - trigger: time
-    at: 07:30:00
+    at: 08:00:00
+    id: morning_on
+  - trigger: time
+    at: '21:00:00'
+    id: night_off
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: morning_on
+      sequence:
+      - action: light.turn_on
+        target:
+          entity_id:
+          - light.armario_dormitorio
+          - light.armario_vestidor
+        data:
+          brightness: 254
+    - conditions:
+      - condition: trigger
+        id: night_off
+      sequence:
+      - action: light.turn_off
+        target:
+          entity_id:
+          - light.armario_dormitorio
+          - light.armario_vestidor
+- id: '1763276876363'
+  alias: ambiente
+  description: Cambia escenas según horario (solo si at_home está activo)
+  triggers:
+  - at: 07:30:00
+    id: morning_on
+    trigger: time
+  - at: 09:00:00
+    id: morning_off
+    trigger: time
+  - event: sunset
+    id: evening_on
+    trigger: sun
+  - at: '21:00:00'
+    id: night_off
+    trigger: time
   conditions:
   - condition: state
-    entity_id: sensor.is_weekday
+    entity_id: input_boolean.at_home
     state: 'on'
   actions:
-  - action: scene.turn_on
-    metadata: {}
-    target:
-      entity_id: scene.tarde
-    data: {}
-  - action: light.turn_on
-    metadata: {}
-    data:
-      kelvin: 6500
-      brightness_pct: 1
-    target:
-      device_id: d37f20f5d648b0a974f67186b84ea244
-  mode: single
-- id: '1733088421053'
-  alias: turn_off_9am
-  description: ''
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: morning_on
+      sequence:
+      - target:
+          entity_id: scene.ambiente_on
+        action: scene.turn_on
+    - conditions:
+      - condition: trigger
+        id: morning_off
+      sequence:
+      - target:
+          entity_id: scene.ambiente_off
+        action: scene.turn_on
+    - conditions:
+      - condition: trigger
+        id: evening_on
+      sequence:
+      - target:
+          entity_id: scene.ambiente_on
+        action: scene.turn_on
+    - conditions:
+      - condition: trigger
+        id: night_off
+      sequence:
+      - target:
+          entity_id: scene.ambiente_off
+        action: scene.turn_on
+- id: '1763357763980'
+  alias: is_holiday
+  description: Sets is_holiday to true on weekends and false on weekdays
   triggers:
-  - trigger: time
-    at: 09:00:00
+  - at: 00:00:00
+    trigger: time
   conditions: []
   actions:
-  - action: light.turn_off
-    metadata: {}
-    data: {}
-    target:
-      device_id:
-      - 4012747555e40d13d5d6bf0e247c9fc6
-      - 1da5251e0fdff4bc2b9765ad18083fe0
-      - d37f20f5d648b0a974f67186b84ea244
-      - a1cb02f8c599152333367e65526d44a0
-      - e29f77b8a8d3b1b0afd4d6378efa8fd4
-  - action: switch.turn_off
-    metadata: {}
-    data: {}
-    target:
-      device_id: 3d21a4311b972c2c061b46c26d280590
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ now().weekday() in [5, 6] }}'
+      sequence:
+      - target:
+          entity_id: input_boolean.is_holiday
+        action: input_boolean.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().weekday() in [0, 1, 2, 3, 4] }}'
+      sequence:
+      - target:
+          entity_id: input_boolean.is_holiday
+        action: input_boolean.turn_off
+  mode: single
+- id: '1763817999770'
+  alias: radiadores_external
+  description: ''
+  triggers:
+  - minutes: /30
+    trigger: time_pattern
+  - entity_id: light.luz_mouille
+    trigger: state
+  conditions: []
+  actions:
+  - action: script.radiadores_set_external
+    data:
+      option: external
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.at_home
+        state: 'off'
+      sequence:
+      - action: script.set_radiador
+        data:
+          entity:
+          - climate.radiador_dormitorio
+          - climate.radiador_dario
+          - climate.radiador_estudio
+          - climate.radiador_entrada
+          - climate.radiador_salon
+          target: 17
+    default:
+    - action: script.set_radiador
+      data:
+        entity: climate.radiador_dormitorio
+        target: '{{ 25 if 18 <= now().hour < 20 else 17 }}'
+    - action: script.set_radiador
+      data:
+        entity: climate.radiador_dario
+        target: "{% set h = now().hour %} {% if is_state('input_boolean.is_holiday','on')
+          %}\n  {{ 21 if 7 <= h < 19 }}\n{% else %}\n  {{ 21 if (7 <= h < 9) or (17
+          <= h < 20) }}\n{% endif %}\n"
+    - action: script.set_radiador
+      data:
+        entity: climate.radiador_estudio
+        target: '{{ 22 if not is_state(''input_boolean.is_holiday'',''on'') and 7
+          <= now().hour < 16 }}'
+    - action: script.set_radiador
+      data:
+        entity:
+        - climate.radiador_entrada
+        - climate.radiador_salon
+        target: '{{ 22 if is_state(''light.luz_mouille'', ''on'') or (7 <= now().hour
+          < 21) }}'
   mode: single
