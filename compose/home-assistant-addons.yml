@@ -7,7 +7,7 @@ services:
       - /docker/vscode/config:/config
       - /docker:/config/workspace
     ports:
-      - 9003:8443
+      - 9003:3000
     environment:
       - PUID=1000
       - PGID=1000
