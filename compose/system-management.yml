@@ -1,5 +1,21 @@
 version: "3.5"
 services:
+  vscode:
+    image: lscr.io/linuxserver/openvscode-server:latest
+    container_name: vscode
+    volumes:
+      - /docker/vscode/config:/config
+      - /docker:/config/workspace
+    ports:
+      - 9003:3000
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Madrid
+    restart: always
+    networks:
+      - homeassistant
+      
   watchtower:
     image: ghcr.io/nicholas-fedor/watchtower:latest
     container_name: watchtower

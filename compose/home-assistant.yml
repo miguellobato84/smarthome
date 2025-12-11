@@ -45,6 +45,48 @@ services:
       - /docker/mqtt/log:/mosquitto/log
     restart: always
 
+  esphome:
+    container_name: esphome
+    image: ghcr.io/esphome/esphome
+    volumes:
+      - /docker/esphome/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    environment:
+      - ESPHOME_DASHBOARD_USE_PING=true
+    ports:
+      - "9011:6052"
+    networks:
+      - homeassistant
+
+  nginx:
+    image: jc21/nginx-proxy-manager:2.10.4
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "9002:81" #for management purposes
+    volumes:
+      - /docker/nginx/data:/data
+      - /docker/nginx/letsencrypt:/etc/letsencrypt
+      - /docker/homeassistant/compose/index.html:/var/www/html/index.html
+    networks:
+      - homeassistant
+    healthcheck:
+      test: ["CMD", "/bin/check-health"]
+      interval: 10s
+      timeout: 3s
+
+  cloudflare:
+    image: cloudflare/cloudflared
+    container_name: cloudflare
+    command: tunnel --no-autoupdate run --token $CLOUDFLARE_TOKEN
+    environment:
+      - CLOUDFLARE_TOKEN=${CLOUDFLARE_TOKEN}
+    networks:
+      - homeassistant
+    restart: always
 networks:
   homeassistant:
     external: true
