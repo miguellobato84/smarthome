@@ -2,12 +2,8 @@ default_config: null
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
-sensor: !include templates/sensor.yaml
 fan: !include templates/fan.yaml
-template: !include templates/template.yaml
 google_assistant: !include templates/google_assistant.yaml
-mqtt: !include templates/mqtt.yaml
-
 
 http:
   use_x_forwarded_for: true
@@ -17,7 +13,8 @@ http:
 frontend:
   themes: !include_dir_merge_named themes
 
-#logger:
+logger:
+  default: info
 #  logs:
 #    custom_components.xiaomi_miio_fan: debug
 #    miio.miioprotocol: debug
