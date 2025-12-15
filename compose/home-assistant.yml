@@ -60,7 +60,7 @@ services:
       - homeassistant
 
   nginx:
-    image: jc21/nginx-proxy-manager:2.10.4
+    image: jc21/nginx-proxy-manager:latest
     container_name: nginx
     restart: always
     ports:
