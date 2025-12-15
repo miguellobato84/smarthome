@@ -109,7 +109,6 @@ services:
       - FB_NOAUTH=noauth
     volumes:
       - /home/miguel/Videos:/srv
-      - /docker/filebrowser/filebrowser.db:/database.db
       - /docker/filebrowser/.filebrowser.json:/.filebrowser.json
     ports:
       - 9026:80
