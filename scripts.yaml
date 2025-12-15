@@ -304,6 +304,16 @@ radiadores_set_external:
       - number.radiador_salon_external_temperature_input
     data:
       value: '{{ states(''sensor.sensor_temp_salon_temperature'') | float(0) }}'
+  - action: number.set_value
+    target:
+      entity_id:
+      - number.radiador_dario_temporary_mode_duration
+      - number.radiador_dormitorio_temporary_mode_duration
+      - number.radiador_estudio_temporary_mode_duration
+      - number.radiador_entrada_temporary_mode_duration
+      - number.radiador_salon_temporary_mode_duration
+    data:
+      value: 90
 set_radiador:
   alias: Set Radiador
   description: Establece temperatura y ajusta apertura de válvula según diferencial
@@ -317,7 +327,7 @@ set_radiador:
       example: 21
   variables:
     entities: '{{ [entity] if entity is string else entity }}'
-    t_obj: '{{ (target | default(18, true) | float(18)) + 1 }}'
+    t_obj: '{{ (target | default(18, true) | float(18)) }}'
   sequence:
   - repeat:
       for_each: '{{ entities }}'
@@ -328,6 +338,13 @@ set_radiador:
           diff: '{{ t_obj - t_act }}'
           valve_entity: '{{ clim_entity | replace(''climate.'', ''number.'') ~ ''_valve_opening_degree''
             }}'
+      - action: logbook.log
+        data:
+          name: Radiador Debug
+          message: 'Entity: {{ clim_entity }}, Current Temp: {{ t_act }}, Target Temp:
+            {{ t_obj }}, Diff: {{ diff }}, Valve Entity: {{ valve_entity }}
+
+            '
       - action: climate.set_temperature
         target:
           entity_id: '{{ clim_entity }}'
@@ -351,4 +368,4 @@ set_radiador:
             target:
               entity_id: '{{ valve_entity }}'
             data:
-              value: 60
+              value: 50

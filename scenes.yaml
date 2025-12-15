@@ -1,7 +1,26 @@
 - id: '1763276748073'
   name: ambiente_off
   entities:
-    light.light_studio_right:
+    switch.luz_donut:
+      friendly_name: luz_donut
+      state: 'off'
+    light.luz_mouille:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - brightness
+      effect:
+      color_mode:
+      brightness:
+      friendly_name: luz_mouille
+      supported_features: 44
+      state: 'off'
+    light.luz_globito:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -23,29 +42,17 @@
       hs_color:
       rgb_color:
       xy_color:
-      color_options:
-      color_temp_startup: 370
-      linkquality: 81
-      power_on_behavior:
-      update:
-        installed_version: 65554
-        latest_version: 65554
-        state: idle
-      update_available: false
-      friendly_name: luz_abuelo
+      friendly_name: luz_globito
       supported_features: 44
       state: 'off'
-    switch.luz_donut:
-      linkquality: 111
-      power_on_behavior: previous
-      update:
-        installed_version: 587765297
-        latest_version: 587765297
-        state: idle
-      update_available: false
-      friendly_name: luz_donut
+    switch.luz_arbol:
+      friendly_name: luz_arbol
       state: 'off'
-    light.luz_mouille:
+    light.luz_abuelo:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
       effect_list:
       - blink
       - breathe
@@ -54,21 +61,19 @@
       - finish_effect
       - stop_effect
       supported_color_modes:
-      - brightness
+      - color_temp
       effect:
       color_mode:
       brightness:
-      linkquality: 60
-      power_on_behavior:
-      update:
-        installed_version: 587806257
-        latest_version: 587806257
-        state: idle
-      update_available: false
-      friendly_name: luz_mouille
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: luz_abuelo
       supported_features: 44
       state: 'off'
-    light.light_sofa:
+    light.luz_sofa:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -92,68 +97,12 @@
       xy_color:
       friendly_name: luz_sofa
       supported_features: 44
-      color_options:
-      linkquality: 84
-      power_on_behavior:
-      update:
-        installed_version: -1
-        latest_version: -1
-        state:
-      update_available:
       state: 'off'
   metadata: {}
 - id: '1763276837588'
   name: ambiente_on
   entities:
-    light.light_studio_right:
-      min_color_temp_kelvin: 2202
-      max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - color_temp
-      effect:
-      color_mode: color_temp
-      brightness: 143
-      color_temp_kelvin: 2702
-      color_temp: 370
-      hs_color:
-      - 28.391
-      - 65.659
-      rgb_color:
-      - 255
-      - 167
-      - 88
-      xy_color:
-      - 0.524
-      - 0.388
-      color_options:
-      color_temp_startup: 370
-      linkquality: 84
-      power_on_behavior:
-      update:
-        installed_version: 65554
-        latest_version: 65554
-        state: idle
-      update_available: false
-      friendly_name: luz_abuelo
-      supported_features: 44
-      state: 'on'
     switch.luz_donut:
-      linkquality: 99
-      power_on_behavior: previous
-      update:
-        installed_version: 587765297
-        latest_version: 587765297
-        state: idle
-      update_available: false
       friendly_name: luz_donut
       state: 'on'
     light.luz_mouille:
@@ -169,17 +118,10 @@
       effect:
       color_mode: brightness
       brightness: 94
-      linkquality: 72
-      power_on_behavior:
-      update:
-        installed_version: 587806257
-        latest_version: 587806257
-        state: idle
-      update_available: false
       friendly_name: luz_mouille
       supported_features: 44
       state: 'on'
-    light.light_sofa:
+    light.luz_globito:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
       min_mireds: 250
@@ -195,7 +137,74 @@
       - color_temp
       effect:
       color_mode: color_temp
-      brightness: 130
+      brightness: 205
+      color_temp_kelvin: 2457
+      color_temp: 407
+      hs_color:
+      - 28.99
+      - 74.102
+      rgb_color:
+      - 255
+      - 157
+      - 66
+      xy_color:
+      - 0.551
+      - 0.389
+      friendly_name: luz_globito
+      supported_features: 44
+      state: 'on'
+    switch.luz_arbol:
+      friendly_name: luz_arbol
+      state: 'on'
+    light.luz_abuelo:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - color_temp
+      effect:
+      color_mode: color_temp
+      brightness: 138
+      color_temp_kelvin: 2702
+      color_temp: 370
+      hs_color:
+      - 28.391
+      - 65.659
+      rgb_color:
+      - 255
+      - 167
+      - 88
+      xy_color:
+      - 0.524
+      - 0.388
+      friendly_name: luz_abuelo
+      supported_features: 44
+      state: 'on'
+    light.luz_sofa:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - color_temp
+      effect:
+      color_mode: color_temp
+      brightness: 148
       color_temp_kelvin: 2439
       color_temp: 410
       hs_color:
@@ -210,14 +219,6 @@
       - 0.39
       friendly_name: luz_sofa
       supported_features: 44
-      color_options:
-      linkquality: 78
-      power_on_behavior:
-      update:
-        installed_version: -1
-        latest_version: -1
-        state:
-      update_available:
       state: 'on'
   metadata: {}
   icon: mdi:weather-sunset

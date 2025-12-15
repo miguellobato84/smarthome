@@ -111,7 +111,13 @@
   triggers:
   - minutes: /30
     trigger: time_pattern
-  - entity_id: light.luz_mouille
+  - entity_id: switch.luz_arbol
+    trigger: state
+  - entity_id: switch.luz_donut
+    trigger: state
+  - entity_id: light.luz_abuelo
+    trigger: state
+  - entity_id: light.luz_sofa
     trigger: state
   conditions: []
   actions:
@@ -137,7 +143,7 @@
     - action: script.set_radiador
       data:
         entity: climate.radiador_dormitorio
-        target: '{{ 25 if 18 <= now().hour < 20 else 17 }}'
+        target: '{{ 22 if 18 <= now().hour < 20 else 17 }}'
     - action: script.set_radiador
       data:
         entity: climate.radiador_dario
@@ -154,6 +160,7 @@
         entity:
         - climate.radiador_entrada
         - climate.radiador_salon
-        target: '{{ 22 if is_state(''light.luz_mouille'', ''on'') or (7 <= now().hour
-          < 21) }}'
+        target: '{{ 22 if is_state(''switch.luz_arbol'', ''on'') or is_state(''switch.luz_donut'',
+          ''on'') or is_state(''light.luz_abuelo'', ''on'') or is_state(''light.luz_sofa'',
+          ''on'') or (7 <= now().hour < 22) }}'
   mode: single
