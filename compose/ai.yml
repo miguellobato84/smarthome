@@ -1,6 +1,6 @@
 services:
   wyoming-piper:
-    image: ghcr.io/home-assistant/wyoming-piper:latest
+    image: rhasspy/wyoming-piper:latest
     container_name: wyoming-piper
     restart: unless-stopped
     ports:
@@ -15,7 +15,7 @@ services:
     # - La primera vez descargará la voz a ./piper. Puedes cambiar la voz a otra española de la lista oficial.
 
   wyoming-whisper:
-    image: ghcr.io/home-assistant/wyoming-whisper:latest
+    image: rhasspy/wyoming-whisper:latest
     container_name: wyoming-whisper
     restart: unless-stopped
     ports:
