@@ -1,4 +1,3 @@
-version: "3.5"
 services:
   homeassistant:
     container_name: homeassistant
@@ -73,6 +72,7 @@ services:
     networks:
       - homeassistant
     restart: always
+
 networks:
   homeassistant:
     external: true
