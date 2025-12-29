@@ -45,20 +45,6 @@ services:
       - /docker/mqtt/log:/mosquitto/log
     restart: always
 
-  esphome:
-    container_name: esphome
-    image: ghcr.io/esphome/esphome
-    volumes:
-      - /docker/esphome/config:/config
-      - /etc/localtime:/etc/localtime:ro
-    restart: always
-    environment:
-      - ESPHOME_DASHBOARD_USE_PING=true
-    ports:
-      - "9011:6052"
-    networks:
-      - homeassistant
-
   nginx:
     image: jc21/nginx-proxy-manager:latest
     container_name: nginx

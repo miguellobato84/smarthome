@@ -1,0 +1,51 @@
+services:
+  wyoming-piper:
+    image: ghcr.io/home-assistant/wyoming-piper:latest
+    container_name: wyoming-piper
+    restart: unless-stopped
+    ports:
+      - "9011:10200"
+    volumes:
+      - /docker/piper:/data
+    command: [
+      "--voice", "es_ES-mls_10246-low",
+      "--uri", "tcp://0.0.0.0:10200"
+    ]
+    # Notas:
+    # - La primera vez descargará la voz a ./piper. Puedes cambiar la voz a otra española de la lista oficial.
+
+  wyoming-whisper:
+    image: ghcr.io/home-assistant/wyoming-whisper:latest
+    container_name: wyoming-whisper
+    restart: unless-stopped
+    ports:
+      - "9012:10300"
+    volumes:
+      - /docker/whisper:/data
+    command: [
+      "--model", "small-int8",
+      "--language", "es",
+      "--uri", "tcp://0.0.0.0:10300"
+    ]
+    # Modelos recomendados según equipo:
+    # - tiny-int8: consumo mínimo, precisión básica
+    # - base-int8: equilibrio
+    # - small-int8: mejor precisión en CPU modesta (RPI4/N100, etc.)
+
+  # wyoming-vosk:
+  #   image: rhasspy/wyoming-vosk:latest
+  #   container_name: wyoming-vosk
+  #   restart: unless-stopped
+  #   ports:
+  #     - "10400:10400"
+  #   volumes:
+  #     - ./vosk:/data
+  #   command: [
+  #     "--uri", "tcp://0.0.0.0:10400",
+  #     "--model", "/data/es"
+  #   ]
+  #   # Antes, descarga un modelo español (muy ligero) en ./vosk/es, por ejemplo:
+  #   #   mkdir -p vosk && cd vosk
+  #   #   curl -L -O https://alphacephei.com/vosk/models/vosk-model-small-es-0.42.zip
+  #   #   unzip -q vosk-model-small-es-0.42.zip
+  #   #   mv vosk-model-small-es-0.42 es
