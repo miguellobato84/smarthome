@@ -9,7 +9,7 @@ services:
     networks:
       - homeassistant
     environment:
-      - TZ=America/New_York
+      - TZ=Europe/Madrid
     #ports:
     #    - 8443:8443
 
