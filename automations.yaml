@@ -111,7 +111,7 @@
   triggers:
   - minutes: /30
     trigger: time_pattern
-  - entity_id: switch.luz_arbol
+  - entity_id: light.luz_mouille
     trigger: state
   - entity_id: switch.luz_donut
     trigger: state
@@ -138,29 +138,184 @@
           - climate.radiador_estudio
           - climate.radiador_entrada
           - climate.radiador_salon
-          target: 17
+          target: 18
     default:
     - action: script.set_radiador
       data:
         entity: climate.radiador_dormitorio
-        target: '{{ 22 if 18 <= now().hour < 20 else 17 }}'
+        target: "{% set MIN = 13 %} {% set target_temp = states('input_number.radiador_dormitorio_target')
+          | float(21) %}\n{% if is_state('input_boolean.radiador_dormitorio_auto',
+          'on') %}\n  {{ target_temp if 18 <= now().hour < 20 else MIN }}\n{% else
+          %}\n  {{ target_temp }}\n{% endif %}"
     - action: script.set_radiador
       data:
         entity: climate.radiador_dario
-        target: "{% set h = now().hour %} {% if is_state('input_boolean.is_holiday','on')
-          %}\n  {{ 21 if 7 <= h < 19 }}\n{% else %}\n  {{ 21 if (7 <= h < 9) or (17
-          <= h < 20) }}\n{% endif %}\n"
+        target: "{% set MIN = 18 %} {% set target_temp = states('input_number.radiador_dario_target')
+          | float(21) %}\n{% if is_state('input_boolean.radiador_dario_auto', 'on')
+          %}\n  {% set h = now().hour %}\n  {% if is_state('input_boolean.is_holiday','on')
+          %}\n    {{ target_temp if 7 <= h < 19 else MIN }}\n  {% else %}\n    {{
+          target_temp if (7 <= h < 9) or (17 <= h < 20) else MIN }}\n  {% endif %}\n{%
+          else %}\n  {{ target_temp }}\n{% endif %}"
     - action: script.set_radiador
       data:
         entity: climate.radiador_estudio
-        target: '{{ 22 if not is_state(''input_boolean.is_holiday'',''on'') and 7
-          <= now().hour < 16 }}'
+        target: "{% set MIN = 19 %} {% set target_temp = states('input_number.radiador_estudio_target')
+          | float(21) %}\n{% if is_state('input_boolean.radiador_estudio_auto', 'on')
+          %}\n  {% if not is_state('input_boolean.is_holiday','on') and (7 <= now().hour
+          < 16) %}\n    {{ target_temp }}\n  {% else %}\n    {{ MIN }}\n  {% endif
+          %}\n{% else %}\n  {{ target_temp }}\n{% endif %}"
     - action: script.set_radiador
       data:
         entity:
         - climate.radiador_entrada
         - climate.radiador_salon
-        target: '{{ 22 if is_state(''switch.luz_arbol'', ''on'') or is_state(''switch.luz_donut'',
-          ''on'') or is_state(''light.luz_abuelo'', ''on'') or is_state(''light.luz_sofa'',
-          ''on'') or (7 <= now().hour < 22) }}'
+        target: "{% set MIN = 18 %} {% set target_temp = states('input_number.radiador_salon_target')
+          | float(21) %}\n{% if is_state('input_boolean.radiador_salon_auto', 'on')
+          %}\n  {{ target_temp if (\n      is_state('light.luz_mouille', 'on') or\n
+          \     is_state('switch.luz_donut', 'on') or\n      is_state('light.luz_abuelo',
+          'on') or\n      is_state('light.luz_sofa', 'on') or \n      (7 <= now().hour
+          < 22)\n     ) else MIN }}\n{% else %}\n  {{ target_temp }}\n{% endif %}"
+  mode: single
+- id: '1767577403597'
+  alias: autoenable_radiador_smart_mode
+  description: Si un radiador se pone en modo manual (auto=off), vuelve a modo smart
+    automáticamente tras 4 horas.
+  triggers:
+  - entity_id:
+    - input_boolean.radiador_estudio_auto
+    - input_boolean.radiador_dormitorio_auto
+    - input_boolean.radiador_dario_auto
+    - input_boolean.radiador_salon_auto
+    trigger: state
+    to: 'off'
+    for: 04:00:00
+  conditions: []
+  actions:
+  - action: input_boolean.turn_on
+    target:
+      entity_id: '{{ trigger.entity_id }}'
+  mode: parallel
+- id: '1768095166157'
+  alias: ac_heat_on
+  description: ''
+  triggers:
+  - trigger: time
+    at: 07:00:00
+  conditions: []
+  actions:
+  - action: climate.set_hvac_mode
+    metadata: {}
+    target:
+      entity_id: climate.melcloudhome_1986_5325
+    data:
+      hvac_mode: heat
+  mode: single
+- id: '1768095203807'
+  alias: ac_heat_off
+  description: ''
+  triggers:
+  - trigger: time
+    at: 07:35:00
+  conditions: []
+  actions:
+  - action: climate.set_hvac_mode
+    metadata: {}
+    target:
+      entity_id: climate.melcloudhome_1986_5325
+    data:
+      hvac_mode: 'off'
+  mode: single
+- id: '1770660424312'
+  alias: ventilador_dario
+  triggers:
+  - domain: mqtt
+    device_id: ef38534b5974f287ab36ab0d9bae35d3
+    type: action
+    subtype: toggle
+    trigger: device
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: switch.ventilador_dario
+        state: 'off'
+      sequence:
+      - target:
+          entity_id: switch.ventilador_dario
+        action: switch.turn_on
+    - conditions:
+      - condition: state
+        entity_id: switch.ventilador_dario
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: light.tuya_ventilador_dario
+        action: light.toggle
+  mode: single
+- id: '1770726745810'
+  alias: ventilador_dormitorio
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 58f83632f446c9d1da2ea97a14bd9478
+    type: action
+    subtype: toggle
+    trigger: device
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: switch.ventilador_dormitorio
+        state: 'off'
+      sequence:
+      - target:
+          entity_id: switch.ventilador_dormitorio
+        action: switch.turn_on
+    - conditions:
+      - condition: state
+        entity_id: switch.ventilador_dormitorio
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: light.tuya_ventilador_dormitorio
+        action: light.toggle
+  mode: single
+- id: '1770851026273'
+  alias: luz_estudio
+  description: ''
+  triggers:
+  - id: occupied
+    type: occupied
+    device_id: 9d298cc9a493aedde6f027a1a2e0b512
+    entity_id: 856fa99cbbc31e0e07602f9c73a707fa
+    domain: binary_sensor
+    trigger: device
+  - id: not_occupied
+    type: not_occupied
+    device_id: 9d298cc9a493aedde6f027a1a2e0b512
+    entity_id: 856fa99cbbc31e0e07602f9c73a707fa
+    domain: binary_sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: occupied
+      sequence:
+      - target:
+          entity_id: light.luz_estudio
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: not_occupied
+      sequence:
+      - target:
+          entity_id: light.luz_estudio
+        action: light.turn_off
   mode: single

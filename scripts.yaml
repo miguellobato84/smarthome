@@ -283,12 +283,6 @@ radiadores_set_external:
       option: '{{ option | default(''external'') }}'
   - action: number.set_value
     target:
-      entity_id: number.radiador_dormitorio_external_temperature_input
-    data:
-      value: '{{ states(''sensor.sensor_temp_dormitorio_temperature'') | float(0)
-        }}'
-  - action: number.set_value
-    target:
       entity_id: number.radiador_dario_external_temperature_input
     data:
       value: '{{ states(''sensor.sensor_temp_dario_temperature'') | float(0) }}'
@@ -314,6 +308,16 @@ radiadores_set_external:
       - number.radiador_salon_temporary_mode_duration
     data:
       value: 90
+  - action: number.set_value
+    target:
+      entity_id:
+      - number.radiador_dormitorio_temperature_accuracy
+      - number.radiador_dario_temperature_accuracy
+      - number.radiador_estudio_temperature_accuracy
+      - number.radiador_entrada_temperature_accuracy
+      - number.radiador_salon_temperature_accuracy
+    data:
+      value: -0.4
 set_radiador:
   alias: Set Radiador
   description: Establece temperatura y ajusta apertura de válvula según diferencial

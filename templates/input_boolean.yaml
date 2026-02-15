@@ -1,0 +1,12 @@
+radiador_estudio_auto:
+  name: Activa Smart mode para el radiador del estudio
+  icon: mdi:auto-mode
+radiador_dormitorio_auto:
+  name: Activa Smart mode para el radiador del dormitorio
+  icon: mdi:auto-mode
+radiador_dario_auto:
+  name: Activa Smart mode para el radiador de Darío
+  icon: mdi:auto-mode
+radiador_salon_auto:
+  name: Activa Smart mode para el radiador del salón
+  icon: mdi:auto-mode

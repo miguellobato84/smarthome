@@ -1,0 +1,36 @@
+radiador_estudio_target:
+  name: Temperatura Objetivo Estudio
+  initial: 21
+  min: 18
+  max: 22
+  step: 0.2
+  mode: slider
+  unit_of_measurement: "°C"
+  icon: mdi:thermometer-lines
+radiador_dormitorio_target:
+  name: Temperatura Objetivo Dormitorio
+  initial: 21
+  min: 18
+  max: 22
+  step: 0.2
+  mode: slider
+  unit_of_measurement: "°C"
+  icon: mdi:thermometer-lines
+radiador_dario_target:
+  name: Temperatura Objetivo Darío
+  initial: 21
+  min: 18
+  max: 22
+  step: 0.2
+  mode: slider
+  unit_of_measurement: "°C"
+  icon: mdi:thermometer-lines
+radiador_salon_target:
+  name: Temperatura Objetivo Salón
+  initial: 21
+  min: 18
+  max: 22
+  step: 0.2
+  mode: slider
+  unit_of_measurement: "°C"
+  icon: mdi:thermometer-lines

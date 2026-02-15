@@ -4,6 +4,8 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 fan: !include templates/fan.yaml
 google_assistant: !include templates/google_assistant.yaml
+input_boolean: !include templates/input_boolean.yaml
+input_number: !include templates/input_number.yaml
 
 http:
   use_x_forwarded_for: true
@@ -18,3 +20,4 @@ logger:
 #  logs:
 #    custom_components.xiaomi_miio_fan: debug
 #    miio.miioprotocol: debug
+
