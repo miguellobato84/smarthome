@@ -127,6 +127,10 @@ services:
     image: ghcr.io/netalertx/netalertx:latest
     network_mode: "host"
     restart: unless-stopped
+    cap_add:
+      - NET_RAW
+      - NET_ADMIN
+      - NET_BIND_SERVICE
     environment:
       - TZ=Europe/Madrid
       - PORT=9009
