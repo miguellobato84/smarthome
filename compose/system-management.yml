@@ -1,4 +1,3 @@
-version: "3.5"
 services:
   vscode:
     image: lscr.io/linuxserver/openvscode-server:latest
@@ -15,7 +14,7 @@ services:
     restart: always
     networks:
       - homeassistant
-      
+
   watchtower:
     image: ghcr.io/nicholas-fedor/watchtower:latest
     container_name: watchtower
@@ -32,7 +31,7 @@ services:
     image: duplicati/duplicati
     container_name: duplicati
     restart: unless-stopped
-    command: /opt/duplicati/duplicati-server --disable-db-encryption --webservice-allowed-hostnames=* --log-level=Verbose --log-console=true
+    command: /opt/duplicati/duplicati-server --disable-db-encryption --webservice-allowed-hostnames=* --log-level=Information --log-console=true
     ports:
       - "9004:8200"
     environment:
@@ -66,37 +65,37 @@ services:
       - homeassistant
 
   speedtest-tracker:
-      image: lscr.io/linuxserver/speedtest-tracker:latest
-      restart: unless-stopped
-      container_name: speedtest-tracker
-      ports:
-          - 9006:80
-      environment:
-          - PUID=1000
-          - PGID=1000
-          - APP_KEY=${SPEEDTEST_APP_KEY}
-          - ADMIN_PASSWORD=${SPEEDTEST_ADMIN_PASSWORD}
-          - DB_CONNECTION=sqlite
-          - MAIL_MAILER=smtp
-          - MAIL_HOST=mailserver
-          - MAIL_PORT=25
-          - MAIL_USERNAME=null
-          - MAIL_PASSWORD=null
-          - MAIL_FROM_ADDRESS=${MAIL_FROM_ADDRESS}
-          - MAIL_FROM_NAME="Speedtest Tracker"
-          - MAIL_SCHEME=null
-          - SPEEDTEST_SCHEDULE=6 */2 * * *
-          - APP_TIMEZONE=Europe/Madrid
-      volumes:
-          - /docker/speedtest/data:/config
-      networks:
-        - homeassistant
+    image: lscr.io/linuxserver/speedtest-tracker:latest
+    restart: unless-stopped
+    container_name: speedtest-tracker
+    ports:
+      - 9006:80
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - APP_KEY=${SPEEDTEST_APP_KEY}
+      - ADMIN_PASSWORD=${SPEEDTEST_ADMIN_PASSWORD}
+      - DB_CONNECTION=sqlite
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=mailserver
+      - MAIL_PORT=25
+      - MAIL_USERNAME=null
+      - MAIL_PASSWORD=null
+      - MAIL_FROM_ADDRESS=${MAIL_FROM_ADDRESS}
+      - MAIL_FROM_NAME="Speedtest Tracker"
+      - MAIL_SCHEME=null
+      - SPEEDTEST_SCHEDULE=6 */2 * * *
+      - APP_TIMEZONE=Europe/Madrid
+    volumes:
+      - /docker/speedtest/data:/config
+    networks:
+      - homeassistant
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     environment:
-      HOMEPAGE_ALLOWED_HOSTS: '*'
+      HOMEPAGE_ALLOWED_HOSTS: "*"
       PUID: 1000 # optional, your user id
       PGID: 1000 # optional, your group id
     ports:
@@ -125,7 +124,7 @@ services:
 
   wyl:
     container_name: wyl
-    image: aceberg/watchyourlan      
+    image: aceberg/watchyourlan
     network_mode: "host"
     restart: unless-stopped
     environment:
