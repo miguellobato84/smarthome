@@ -122,17 +122,18 @@ services:
     networks:
       - homeassistant
 
-  wyl:
-    container_name: wyl
-    image: aceberg/watchyourlan
+  netalertx:
+    container_name: netalertx
+    image: ghcr.io/netalertx/netalertx:latest
     network_mode: "host"
     restart: unless-stopped
     environment:
       - TZ=Europe/Madrid
-      - IFACES=enp2s0
       - PORT=9009
+      - SCAN_SUBNETS=192.168.0.0/24
     volumes:
-      - /docker/wyl/data:/data/WatchYourLAN
+      - /docker/netalertx:/data
+      - /etc/localtime:/etc/localtime:ro
 
 networks:
   homeassistant:
