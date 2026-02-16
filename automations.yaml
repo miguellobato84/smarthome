@@ -319,3 +319,44 @@
           entity_id: light.luz_estudio
         action: light.turn_off
   mode: single
+- id: "1771220699109"
+  alias: auto_off_extractor_bano
+  description: ""
+  triggers:
+  - trigger: state
+    entity_id: switch.extractor_bano
+    to: "on"
+    for: "00:15:00"
+  conditions:
+  - condition: state
+    entity_id: switch.extractor_bano
+    state: "on"
+  actions:
+  - action: switch.turn_off
+    target:
+      entity_id: switch.extractor_bano
+  mode: single
+- id: "1771221191925"
+  alias: humidity_rise_extractor_bano
+  description: ""
+  triggers:
+  - trigger: state
+    entity_id: sensor.sensor_temp_banod_humidity
+  conditions:
+  - condition: state
+    entity_id: switch.extractor_bano
+    state: "off"
+  - condition: template
+    value_template: >-
+      {{
+        has_value('sensor.sensor_temp_banod_humidity')
+        and has_value('sensor.humedad_bano_media_movil_1h')
+        and (states('sensor.humedad_bano_media_movil_1h') | float(0)) > 0
+        and (states('sensor.sensor_temp_banod_humidity') | float(0))
+          > ((states('sensor.humedad_bano_media_movil_1h') | float(0)) * 1.10)
+      }}
+  actions:
+  - action: switch.turn_on
+    target:
+      entity_id: switch.extractor_bano
+  mode: single

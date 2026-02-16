@@ -1,0 +1,6 @@
+- platform: statistics
+  name: humedad_bano_media_movil_1h
+  entity_id: sensor.sensor_temp_banod_humidity
+  state_characteristic: mean
+  max_age:
+    hours: 1
