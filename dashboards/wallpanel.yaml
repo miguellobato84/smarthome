@@ -1,0 +1,517 @@
+wallpanel:
+  enabled: true
+  hide_toolbar: true
+  hide_sidebar: true
+  fullscreen: false
+  idle_time: 0
+views:
+- type: sections
+  title: main
+  max_columns: 4
+  sections:
+  - type: grid
+    cards:
+    - type: picture-elements
+      elements:
+      - type: custom:mushroom-template-card
+        entity: climate.radiador_dormitorio
+        primary: "{{ states('sensor.radiador_dormitorio_local_temperature') }}°C"
+        icon: mdi:radiator
+        layout: horizontal
+        tap_action:
+          action: more-info
+        style:
+          left: 10%
+          top: 32%
+          transform: translate(-50%, -50%)
+        card_mod:
+          style: |
+            ha-card {
+              background: transparent !important;
+              box-shadow: none !important;
+              border: none !important;
+              padding: 0 !important;
+              --icon-size: 22px;
+            }
+            ha-state-icon {
+              color: {% if state_attr('climate.radiador_dormitorio', 'hvac_action') == 'heating' %}
+                       red
+                     {% else %}
+                       gray
+                     {% endif %} !important;
+              margin-right: 0 !important;
+            }
+            .content {
+              gap: 0px !important;
+            }
+            .container {
+              gap: 0px !important;
+            }
+            ha-tile-info {
+              margin-left: 0 !important;
+            }
+            ha-state-icon {
+              margin-right: 0 !important;
+            }
+      - type: state-icon
+        entity: light.tuya_ventilador_dormitorio
+        icon: mdi:dome-light
+        style:
+          left: 10%
+          top: 17%
+          transform: translate(-50%, -50%)
+        tap_action:
+          action: toggle
+      - type: state-icon
+        entity: fan.tuya_ventilador_dormitorio
+        style:
+          left: 10%
+          top: 24%
+          transform: translate(-50%, -50%)
+        tap_action:
+          action: toggle
+      - type: custom:mushroom-template-card
+        entity: climate.radiador_dario
+        primary: "{{ states('sensor.sensor_temp_dario_temperature') }}°C"
+        icon: mdi:radiator
+        layout: horizontal
+        tap_action:
+          action: more-info
+        style:
+          left: 25%
+          top: 32%
+          transform: translate(-50%, -50%)
+        card_mod:
+          style: |
+            ha-card {
+              background: transparent !important;
+              box-shadow: none !important;
+              border: none !important;
+              padding: 0 !important;
+              --icon-size: 22px;
+            }
+            .content {
+              gap: 0px !important;
+            }
+            .container {
+              gap: 0px !important;
+            }
+            ha-tile-info {
+              margin-left: 0 !important;
+            }
+            ha-state-icon {
+              margin-right: 0 !important;
+            }
+      - type: state-icon
+        entity: light.tuya_ventilador_dario
+        icon: mdi:dome-light
+        style:
+          left: 25%
+          top: 17%
+          transform: translate(-50%, -50%)
+        tap_action:
+          action: toggle
+      - type: state-icon
+        entity: fan.tuya_ventilador_dario
+        style:
+          left: 25%
+          top: 24%
+          transform: translate(-50%, -50%)
+        tap_action:
+          action: toggle
+      - type: state-icon
+        entity: switch.globo_dario
+        icon: mdi:circle
+        style:
+          left: 20%
+          top: 12%
+          transform: translate(-50%, -50%)
+        tap_action:
+          action: toggle
+      - type: custom:mushroom-template-card
+        entity: climate.radiador_estudio
+        primary: "{{ states('sensor.sensor_temp_estudio_temperature') }}°C"
+        icon: mdi:radiator
+        layout: horizontal
+        tap_action:
+          action: more-info
+        style:
+          left: 40%
+          top: 32%
+          transform: translate(-50%, -50%)
+        card_mod:
+          style: |
+            ha-card {
+              background: transparent !important;
+              box-shadow: none !important;
+              border: none !important;
+              padding: 0 !important;
+              --icon-size: 22px;
+            }
+            .content {
+              gap: 0px !important;
+            }
+            .container {
+              gap: 0px !important;
+            }
+            ha-tile-info {
+              margin-left: 0 !important;
+            }
+            ha-state-icon {
+              margin-right: 0 !important;
+            }
+      - type: state-icon
+        entity: light.luz_estudio
+        icon: mdi:desk-lamp
+        style:
+          left: 35%
+          top: 20%
+          transform: translate(-50%, -50%)
+        tap_action:
+          action: toggle
+      - type: state-icon
+        entity: switch.extractor_bano
+        icon: mdi:fan
+        style:
+          left: 33%
+          top: 58%
+          transform: translate(-50%, -50%)
+        tap_action:
+          action: toggle
+      - type: custom:mushroom-template-card
+        entity: sensor.sensor_temp_banod_temperature
+        primary: "{{ states('sensor.sensor_temp_banod_temperature') }}°C\n"
+        icon: mdi:thermometer
+        layout: horizontal
+        tap_action:
+          action: more-info
+        style:
+          left: 39%
+          top: 55%
+          transform: translate(-50%, -50%)
+        card_mod:
+          style: |
+            ha-card {
+              background: transparent !important;
+              box-shadow: none !important;
+              border: none !important;
+              padding: 0 !important;
+              --icon-size: 22px;
+            }
+            .content {
+              gap: 0px !important;
+            }
+            .container {
+              gap: 0px !important;
+            }
+            ha-tile-info {
+              margin-left: 0 !important;
+            }
+            ha-state-icon {
+              margin-right: 0 !important;
+            }
+      - type: state-icon
+        entity: switch.luz_donut
+        icon: mdi:record-circle
+        style:
+          left: 52%
+          top: 55%
+          transform: translate(-50%, -50%)
+        tap_action:
+          action: toggle
+      - type: state-icon
+        entity: light.luz_sofa
+        icon: mdi:lightbulb
+        style:
+          left: 52%
+          top: 75%
+          transform: translate(-50%, -50%)
+        tap_action:
+          action: toggle
+      - type: state-icon
+        entity: light.luz_abuelo
+        icon: mdi:floor-lamp
+        style:
+          left: 52%
+          top: 90%
+          transform: translate(-50%, -50%)
+        tap_action:
+          action: toggle
+      - type: state-icon
+        entity: light.luz_mouille
+        icon: mdi:lightbulb
+        style:
+          left: 60%
+          top: 90%
+          transform: translate(-50%, -50%)
+        tap_action:
+          action: toggle
+      - type: custom:mushroom-template-card
+        entity: climate.melcloudhome_1986_5325
+        primary: "{{ state_attr(entity, 'temperature') }}°C"
+        icon: mdi:air-filter
+        icon_color: "{% if state_attr(entity, 'hvac_mode') == 'cool' %}\n  blue\n{% elif state_attr(entity, 'hvac_mode') == 'heat' %}\n  red\n{% elif state_attr(entity, 'hvac_mode') == 'dry' %}\n  amber\n{% else %}\n  grey\n{% endif %}\n"
+        layout: horizontal
+        tap_action:
+          action: more-info
+        style:
+          left: 70%
+          top: 85%
+          transform: translate(-50%, -50%)
+        card_mod:
+          style: |
+            ha-card {
+              background: transparent !important;
+              box-shadow: none !important;
+              border: none !important;
+              padding: 0 !important;
+              --icon-size: 22px;
+            }
+            .content {
+              gap: 0px !important;
+            }
+            .container {
+              gap: 0px !important;
+            }
+            ha-tile-info {
+              margin-left: 0 !important;
+            }
+            ha-state-icon {
+              margin-right: 0 !important;
+            }
+      - type: custom:mushroom-template-card
+        entity: climate.radiador_entrada
+        primary: "{{ states('sensor.sensor_temp_salon_temperature') }}°C"
+        icon: mdi:radiator
+        layout: horizontal
+        tap_action:
+          action: more-info
+        style:
+          left: 70%
+          top: 35%
+          transform: translate(-50%, -50%)
+        card_mod:
+          style: |
+            ha-card {
+              background: transparent !important;
+              box-shadow: none !important;
+              border: none !important;
+              padding: 0 !important;
+              --icon-size: 22px;
+            }
+            .content {
+              gap: 0px !important;
+            }
+            .container {
+              gap: 0px !important;
+            }
+            ha-tile-info {
+              margin-left: 0 !important;
+            }
+            ha-state-icon {
+              margin-right: 0 !important;
+            }
+      - type: custom:mushroom-template-card
+        entity: climate.radiador_salon
+        primary: "{{ states('sensor.sensor_temp_salon_temperature') }}°C"
+        icon: mdi:radiator
+        layout: horizontal
+        tap_action:
+          action: more-info
+        style:
+          left: 70%
+          top: 90%
+          transform: translate(-50%, -50%)
+        card_mod:
+          style: |
+            ha-card {
+              background: transparent !important;
+              box-shadow: none !important;
+              border: none !important;
+              padding: 0 !important;
+              --icon-size: 22px;
+            }
+            .content {
+              gap: 0px !important;
+            }
+            .container {
+              gap: 0px !important;
+            }
+            ha-tile-info {
+              margin-left: 0 !important;
+            }
+            ha-state-icon {
+              margin-right: 0 !important;
+            }
+      image: https://casa.miguellobato.com/local/casa3.png
+      grid_options:
+        columns: 15
+        rows: 6
+    - type: custom:mushroom-template-card
+      primary: Federico
+      icon: mdi:account
+      tap_action:
+        action: navigate
+        navigation_path: /dashboard-wallpanel/federico
+      features_position: bottom
+      grid_options:
+        columns: 5
+        rows: 1
+    - type: custom:mushroom-template-card
+      primary: Automations
+      icon: mdi:robot
+      tap_action:
+        action: navigate
+        navigation_path: /dashboard-wallpanel/automations
+      features_position: bottom
+      grid_options:
+        columns: 4
+        rows: 1
+    - type: custom:mushroom-template-card
+      primary: Calefacción
+      icon: mdi:radiator
+      tap_action:
+        action: navigate
+        navigation_path: /dashboard-wallpanel/calefaccion
+      features_position: bottom
+      grid_options:
+        columns: 5
+        rows: 1
+    column_span: 4
+- type: sections
+  max_columns: 4
+  title: federico
+  path: federico
+  sections:
+  - type: grid
+    cards:
+    - type: custom:mushroom-template-card
+      primary: Volver
+      icon: mdi:arrow-left
+      features_position: bottom
+      tap_action:
+        action: navigate
+        navigation_path: /dashboard-wallpanel/0
+- type: sections
+  max_columns: 3
+  title: automations
+  path: automations
+  sections:
+  - type: grid
+    cards:
+    - type: custom:mushroom-template-card
+      primary: Volver
+      icon: mdi:arrow-left
+      features_position: bottom
+      tap_action:
+        action: navigate
+        navigation_path: /dashboard-wallpanel/0
+    - type: custom:mushroom-template-card
+      entity: input_boolean.at_home
+      primary: "{{ 'En casa' if is_state(entity, 'on') else 'Fuera de casa' }}"
+      icon: "{{ 'mdi:home' if is_state(entity, 'on') else 'mdi:home-off' }}"
+      icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
+    - type: custom:mushroom-template-card
+      entity: input_boolean.is_holiday
+      primary: "{{ 'Día festivo' if is_state(entity, 'on') else 'Día laborable' }}"
+      icon: "{{ 'mdi:beach' if is_state(entity, 'on') else 'mdi:briefcase' }}"
+      icon_color: "{{ 'green' if is_state(entity, 'on') else 'blue' }}"
+    - type: custom:mushroom-template-card
+      entity: input_datetime.alarm
+      primary: Alarma
+      secondary: Programada a las {{ states('input_datetime.alarm')[0:5] }}
+      icon: mdi:alarm
+      icon_color: red
+    - type: custom:mushroom-template-card
+      entity: automation.ac_heat_schedule
+      primary: AC calefaccion
+      secondary: "{% set alarm = states('input_datetime.alarm') %} {% if alarm in ['unknown', 'unavailable', 'none', ''] %}\n  Enciende 35 min antes de la alarma, apaga a la hora de la alarma\n{% else %}\n  {% set off = today_at(alarm) %}\n  {% set on = off - timedelta(minutes=35) %}\n  {{ on.strftime('%H:%M') }} -> {{ off.strftime('%H:%M') }}\n{% endif %}"
+      icon: mdi:radiator
+      color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    - type: custom:mushroom-template-card
+      entity: automation.ambiente
+      primary: Escenas de ambiente
+      secondary: Cambia escenas por horario cuando at_home esta activo.
+      icon: mdi:theme-light-dark
+      multiline_secondary: true
+      icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    - type: custom:mushroom-template-card
+      entity: automation.armarios
+      primary: Luces de armarios
+      secondary: Enciende a las 08:00 y apaga a las 21:00.
+      icon: mdi:wardrobe
+      multiline_secondary: true
+      icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    - type: custom:mushroom-template-card
+      entity: automation.auto_off_extractor_bano
+      primary: Auto apagado extractor
+      secondary: Apaga el extractor del bano tras 15 minutos encendido.
+      icon: mdi:fan-off
+      multiline_secondary: true
+      icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    - type: custom:mushroom-template-card
+      entity: automation.autoenable_radiador_smart_mode
+      primary: Reactivar modo smart radiador
+      secondary: Si queda en manual, vuelve a auto tras 4 horas.
+      icon: mdi:radiator
+      multiline_secondary: true
+      icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    - type: custom:mushroom-template-card
+      entity: automation.humidity_rise_extractor_bano
+      primary: Extractor por humedad
+      secondary: Enciende el extractor si la humedad sube por encima del promedio.
+      icon: mdi:water-percent-alert
+      multiline_secondary: true
+      icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    - type: custom:mushroom-template-card
+      entity: automation.is_holiday
+      primary: Estado festivo
+      secondary: Marca festivo en fin de semana y laborable entre semana.
+      icon: mdi:calendar-weekend
+      multiline_secondary: true
+      icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    - type: custom:mushroom-template-card
+      entity: automation.luz_estudio
+      primary: Luz estudio por presencia
+      secondary: Enciende por ocupacion con brillo segun hora y apaga sin presencia.
+      icon: mdi:desk-lamp
+      multiline_secondary: true
+      icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    - type: custom:mushroom-template-card
+      entity: automation.radiadores_external
+      primary: Control externo de radiadores
+      secondary: Recalcula objetivos de radiadores por horario, presencia y estado de luces.
+      icon: mdi:radiator-disabled
+      multiline_secondary: true
+      icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    - type: custom:mushroom-template-card
+      entity: automation.ventilador_dario
+      primary: Ventilador Dario
+      secondary: Encendido y luz del ventilador.
+      icon: mdi:fan
+      multiline_secondary: true
+      icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    - type: custom:mushroom-template-card
+      entity: automation.ventilador_dormitorio
+      primary: Ventilador dormitorio
+      secondary: Encendido y luz del ventilador.
+      icon: mdi:ceiling-fan
+      multiline_secondary: true
+      icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    column_span: 3
+  cards: []
+  dense_section_placement: true
+- type: sections
+  max_columns: 4
+  title: calefaccion
+  path: calefaccion
+  sections:
+  - type: grid
+    cards:
+    - type: custom:mushroom-template-card
+      primary: Volver
+      icon: mdi:arrow-left
+      features_position: bottom
+      tap_action:
+        action: navigate
+        navigation_path: /dashboard-wallpanel/0
