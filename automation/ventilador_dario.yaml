@@ -1,0 +1,27 @@
+- id: '1770660424312'
+  alias: ventilador_dario
+  triggers:
+  - domain: mqtt
+    device_id: ef38534b5974f287ab36ab0d9bae35d3
+    type: action
+    subtype: toggle
+    trigger: device
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: switch.ventilador_dario
+        state: 'off'
+      sequence:
+      - target:
+          entity_id: switch.ventilador_dario
+        action: switch.turn_on
+    - conditions:
+      - condition: state
+        entity_id: switch.ventilador_dario
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: light.tuya_ventilador_dario
+        action: light.toggle
+  mode: single

@@ -1,0 +1,44 @@
+- id: '1770851026273'
+  alias: luz_estudio
+  description: ''
+  triggers:
+  - id: occupied
+    type: occupied
+    device_id: 9d298cc9a493aedde6f027a1a2e0b512
+    entity_id: 856fa99cbbc31e0e07602f9c73a707fa
+    domain: binary_sensor
+    trigger: device
+  - id: not_occupied
+    type: not_occupied
+    device_id: 9d298cc9a493aedde6f027a1a2e0b512
+    entity_id: 856fa99cbbc31e0e07602f9c73a707fa
+    domain: binary_sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: occupied
+      - condition: state
+        entity_id: light.luz_estudio
+        state: 'off'
+      sequence:
+      - target:
+          entity_id: light.luz_estudio
+        data:
+          brightness_pct: '{% if now().hour >= 21 or now().hour < 7 %}20{% elif now().hour
+            >= 7 and now().hour < 16 %}100{% else %}70{% endif %}'
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: not_occupied
+      sequence:
+      - target:
+          entity_id: light.luz_estudio
+        action: light.turn_off
+  mode: single

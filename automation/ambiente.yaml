@@ -1,0 +1,50 @@
+- id: '1763276876363'
+  alias: ambiente
+  description: Cambia escenas según horario (solo si at_home está activo)
+  triggers:
+  - at: input_datetime.alarm
+    id: morning_on
+    trigger: time
+  - at: input_datetime.go_to_school
+    id: morning_off
+    trigger: time
+  - event: sunset
+    id: evening_on
+    trigger: sun
+  - at: input_datetime.go_to_bed
+    id: night_off
+    trigger: time
+  conditions:
+  - condition: state
+    entity_id: input_boolean.at_home
+    state: 'on'
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: morning_on
+      sequence:
+      - target:
+          entity_id: scene.ambiente_on
+        action: scene.turn_on
+    - conditions:
+      - condition: trigger
+        id: morning_off
+      sequence:
+      - target:
+          entity_id: scene.ambiente_off
+        action: scene.turn_on
+    - conditions:
+      - condition: trigger
+        id: evening_on
+      sequence:
+      - target:
+          entity_id: scene.ambiente_on
+        action: scene.turn_on
+    - conditions:
+      - condition: trigger
+        id: night_off
+      sequence:
+      - target:
+          entity_id: scene.ambiente_off
+        action: scene.turn_on

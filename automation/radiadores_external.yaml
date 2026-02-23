@@ -1,0 +1,71 @@
+- id: '1763817999770'
+  alias: radiadores_external
+  description: ''
+  triggers:
+  - minutes: /30
+    trigger: time_pattern
+  - entity_id: light.luz_mouille
+    trigger: state
+  - entity_id: switch.luz_donut
+    trigger: state
+  - entity_id: light.luz_abuelo
+    trigger: state
+  - entity_id: light.luz_sofa
+    trigger: state
+  conditions: []
+  actions:
+  - action: script.radiadores_set_external
+    data:
+      option: external
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.at_home
+        state: 'off'
+      sequence:
+      - action: script.set_radiador
+        data:
+          entity:
+          - climate.radiador_dormitorio
+          - climate.radiador_dario
+          - climate.radiador_estudio
+          - climate.radiador_entrada
+          - climate.radiador_salon
+          target: 18
+    default:
+    - action: script.set_radiador
+      data:
+        entity: climate.radiador_dormitorio
+        target: "{% set MIN = 13 %} {% set target_temp = states('input_number.radiador_dormitorio_target')\
+          \ | float(21) %}\n{% if is_state('input_boolean.radiador_dormitorio_auto',\
+          \ 'on') %}\n  {{ target_temp if 18 <= now().hour < 20 else MIN }}\n{% else\
+          \ %}\n  {{ target_temp }}\n{% endif %}"
+    - action: script.set_radiador
+      data:
+        entity: climate.radiador_dario
+        target: "{% set MIN = 18 %} {% set target_temp = states('input_number.radiador_dario_target')\
+          \ | float(21) %}\n{% if is_state('input_boolean.radiador_dario_auto', 'on')\
+          \ %}\n  {% set h = now().hour %}\n  {% if is_state('input_boolean.is_holiday','on')\
+          \ %}\n    {{ target_temp if 7 <= h < 19 else MIN }}\n  {% else %}\n    {{\
+          \ target_temp if (7 <= h < 9) or (17 <= h < 20) else MIN }}\n  {% endif\
+          \ %}\n{% else %}\n  {{ target_temp }}\n{% endif %}"
+    - action: script.set_radiador
+      data:
+        entity: climate.radiador_estudio
+        target: "{% set MIN = 19 %} {% set target_temp = states('input_number.radiador_estudio_target')\
+          \ | float(21) %}\n{% if is_state('input_boolean.radiador_estudio_auto',\
+          \ 'on') %}\n  {% if not is_state('input_boolean.is_holiday','on') and (7\
+          \ <= now().hour < 16) %}\n    {{ target_temp }}\n  {% else %}\n    {{ MIN\
+          \ }}\n  {% endif %}\n{% else %}\n  {{ target_temp }}\n{% endif %}"
+    - action: script.set_radiador
+      data:
+        entity:
+        - climate.radiador_entrada
+        - climate.radiador_salon
+        target: "{% set MIN = 18 %} {% set target_temp = states('input_number.radiador_salon_target')\
+          \ | float(21) %}\n{% if is_state('input_boolean.radiador_salon_auto', 'on')\
+          \ %}\n  {{ target_temp if (\n      is_state('light.luz_mouille', 'on') or\n\
+          \      is_state('switch.luz_donut', 'on') or\n      is_state('light.luz_abuelo',\
+          \ 'on') or\n      is_state('light.luz_sofa', 'on') or \n      (7 <= now().hour\
+          \ < 22)\n     ) else MIN }}\n{% else %}\n  {{ target_temp }}\n{% endif %}"
+  mode: single

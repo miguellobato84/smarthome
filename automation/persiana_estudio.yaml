@@ -1,0 +1,32 @@
+- id: '1771866324220'
+  alias: persiana_estudio
+  description: ''
+  triggers:
+  - trigger: time
+    at: input_datetime.alarm
+    id: alarm
+  - trigger: time
+    at: input_datetime.preparing_go_to_bed
+    id: preparing_go_to_bed
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: alarm
+      sequence:
+      - action: cover.set_cover_position
+        target:
+          entity_id: cover.persiana_estudio
+        data:
+          position: 100
+    - conditions:
+      - condition: trigger
+        id: preparing_go_to_bed
+      sequence:
+      - action: cover.set_cover_position
+        target:
+          entity_id: cover.persiana_estudio
+        data:
+          position: 0
+  mode: single

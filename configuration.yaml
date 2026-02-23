@@ -1,5 +1,5 @@
 default_config: null
-automation: !include automations.yaml
+automation: !include_dir_merge_list automation
 script: !include scripts.yaml
 scene: !include scenes.yaml
 fan: !include templates/fan.yaml
@@ -7,6 +7,9 @@ google_assistant: !include templates/google_assistant.yaml
 input_boolean: !include templates/input_boolean.yaml
 input_number: !include templates/input_number.yaml
 sensor: !include templates/sensor.yaml
+input_datetime: !include templates/input_datetime.yaml
+
+
 
 http:
   use_x_forwarded_for: true
