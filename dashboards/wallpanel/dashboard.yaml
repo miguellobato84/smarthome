@@ -1,0 +1,7 @@
+wallpanel:
+  enabled: true
+  hide_toolbar: true
+  hide_sidebar: true
+  fullscreen: false
+  idle_time: 0
+views: !include_dir_list /config/dashboards/wallpanel/views

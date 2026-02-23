@@ -1,0 +1,14 @@
+type: sections
+max_columns: 4
+title: federico
+path: federico
+sections:
+- type: grid
+  cards:
+  - type: custom:mushroom-template-card
+    primary: Volver
+    icon: mdi:arrow-left
+    features_position: bottom
+    tap_action:
+      action: navigate
+      navigation_path: /dashboard-wallpanel/0

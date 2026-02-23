@@ -36,11 +36,11 @@ lovelace:
       icon: mdi:view-dashboard
       show_in_sidebar: true
       require_admin: false
-      filename: dashboards/resumen.yaml
+      filename: dashboards/resumen/dashboard.yaml
     dashboard-wallpanel:
       mode: yaml
       title: wallpanel
       icon: mdi:tablet-dashboard
       show_in_sidebar: true
       require_admin: false
-      filename: dashboards/wallpanel.yaml
+      filename: dashboards/wallpanel/dashboard.yaml
