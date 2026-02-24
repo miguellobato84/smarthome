@@ -5,10 +5,119 @@ path: federico
 sections:
 - type: grid
   cards:
+  - type: heading
+    heading: Federico
+    heading_style: title
   - type: custom:mushroom-template-card
     primary: Volver
     icon: mdi:arrow-left
-    features_position: bottom
     tap_action:
       action: navigate
       navigation_path: /dashboard-wallpanel/0
+  - type: tile
+    entity: vacuum.federico
+    features_position: bottom
+    vertical: false
+    state_content:
+    - state
+    - battery_level
+  - type: horizontal-stack
+    cards:
+    - type: custom:mushroom-template-card
+      primary: Iniciar
+      icon: mdi:play
+      tap_action:
+        action: call-service
+        service: script.turn_on
+        target:
+          entity_id: script.federico_start
+    - type: custom:mushroom-template-card
+      primary: Volver base
+      icon: mdi:home-map-marker
+      tap_action:
+        action: call-service
+        service: script.turn_on
+        target:
+          entity_id: script.federico_volver
+    - type: custom:mushroom-template-card
+      primary: Localizar
+      icon: mdi:map-marker-radius
+      tap_action:
+        action: call-service
+        service: script.turn_on
+        target:
+          entity_id: script.federico_location
+    - type: custom:mushroom-template-card
+      primary: Limpieza spot
+      icon: mdi:spray-bottle
+      tap_action:
+        action: call-service
+        service: script.turn_on
+        target:
+          entity_id: script.federico_limpieza
+  column_span: 4
+- type: grid
+  cards:
+  - type: heading
+    heading: Mapa manual por habitaciones
+    heading_style: subtitle
+  - type: horizontal-stack
+    cards:
+    - type: custom:mushroom-template-card
+      primary: Estudio
+      icon: mdi:desk
+      icon_color: teal
+      tap_action:
+        action: call-service
+        service: script.turn_on
+        target:
+          entity_id: script.federico_estudio
+    - type: custom:mushroom-template-card
+      primary: Pasillo
+      icon: mdi:floor-plan
+      icon_color: amber
+      tap_action:
+        action: call-service
+        service: script.turn_on
+        target:
+          entity_id: script.federico_pasillo
+    - type: custom:mushroom-template-card
+      primary: Dormitorio
+      icon: mdi:bed
+      icon_color: indigo
+      tap_action:
+        action: call-service
+        service: script.turn_on
+        target:
+          entity_id: script.federico_dormitorio
+  - type: horizontal-stack
+    cards:
+    - type: custom:mushroom-template-card
+      primary: Cocina
+      icon: mdi:chef-hat
+      icon_color: orange
+      tap_action:
+        action: call-service
+        service: script.turn_on
+        target:
+          entity_id: script.federico_cocina
+    - type: custom:mushroom-template-card
+      primary: Salon
+      icon: mdi:sofa
+      icon_color: green
+      tap_action:
+        action: call-service
+        service: script.turn_on
+        target:
+          entity_id: script.federico_salon
+  - type: markdown
+    content: |
+      Segmentos usados:
+      - Estudio: 16
+      - Dormitorio: 17
+      - Pasillo: 18
+      - Cocina: 19
+      - Salon: 20
+  column_span: 4
+cards: []
+dense_section_placement: true
