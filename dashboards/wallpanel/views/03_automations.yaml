@@ -5,6 +5,10 @@ path: automations
 sections:
 - type: grid
   cards:
+  - type: heading
+    heading: Configuraciones
+    heading_style: title
+    badges: []
   - type: custom:mushroom-template-card
     primary: Volver
     icon: mdi:arrow-left
@@ -23,11 +27,30 @@ sections:
     icon: "{{ 'mdi:beach' if is_state(entity, 'on') else 'mdi:briefcase' }}"
     icon_color: "{{ 'green' if is_state(entity, 'on') else 'blue' }}"
   - type: custom:mushroom-template-card
+    entity: input_datetime.go_to_school
+    primary: Ir al colegio
+    secondary: Programada a las {{ states('input_datetime.go_to_school')[0:5] }}
+    icon: mdi:school
+    icon_color: blue
+  - type: custom:mushroom-template-card
+    entity: input_datetime.go_to_bed
+    primary: Ir a la cama
+    secondary: Programada a las {{ states('input_datetime.go_to_bed')[0:5] }}
+    icon: mdi:bed-clock
+    icon_color: indigo
+  - type: custom:mushroom-template-card
     entity: input_datetime.alarm
     primary: Alarma
     secondary: Programada a las {{ states('input_datetime.alarm')[0:5] }}
     icon: mdi:alarm
     icon_color: red
+  column_span: 3
+- type: grid
+  cards:
+  - type: heading
+    heading: Automatizaciones
+    heading_style: title
+    badges: []
   - type: custom:mushroom-template-card
     entity: automation.ac_heat_schedule
     primary: AC calefaccion
@@ -44,43 +67,17 @@ sections:
   - type: custom:mushroom-template-card
     entity: automation.ambiente
     primary: Escenas de ambiente
-    secondary: Cambia escenas por horario cuando at_home esta activo.
+    secondary: |-
+      {% set morning_on = states('input_datetime.alarm') %}
+      {% set morning_off = states('input_datetime.go_to_school') %}
+      {% set night_off = states('input_datetime.go_to_bed') %}
+      {% set sunset = as_timestamp(state_attr('sun.sun', 'next_setting')) %}
+      {% if morning_on in ['unknown', 'unavailable', 'none', ''] or morning_off in ['unknown', 'unavailable', 'none', ''] or night_off in ['unknown', 'unavailable', 'none', ''] or sunset is none %}
+        Horas no disponibles
+      {% else %}
+        {{ morning_on[0:5] }} -> {{ morning_off[0:5] }} / {{ sunset | timestamp_custom('%H:%M') }} -> {{ night_off[0:5] }}
+      {% endif %}
     icon: mdi:theme-light-dark
-    multiline_secondary: true
-    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
-  - type: custom:mushroom-template-card
-    entity: automation.armarios
-    primary: Luces de armarios
-    secondary: Enciende a las 08:00 y apaga a las 21:00.
-    icon: mdi:wardrobe
-    multiline_secondary: true
-    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
-  - type: custom:mushroom-template-card
-    entity: automation.auto_off_extractor_bano
-    primary: Auto apagado extractor
-    secondary: Apaga el extractor del bano tras 15 minutos encendido.
-    icon: mdi:fan-off
-    multiline_secondary: true
-    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
-  - type: custom:mushroom-template-card
-    entity: automation.autoenable_radiador_smart_mode
-    primary: Reactivar modo smart radiador
-    secondary: Si queda en manual, vuelve a auto tras 4 horas.
-    icon: mdi:radiator
-    multiline_secondary: true
-    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
-  - type: custom:mushroom-template-card
-    entity: automation.humidity_rise_extractor_bano
-    primary: Extractor por humedad
-    secondary: Enciende el extractor si la humedad sube por encima del promedio.
-    icon: mdi:water-percent-alert
-    multiline_secondary: true
-    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
-  - type: custom:mushroom-template-card
-    entity: automation.is_holiday
-    primary: Estado festivo
-    secondary: Marca festivo en fin de semana y laborable entre semana.
-    icon: mdi:calendar-weekend
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
   - type: custom:mushroom-template-card
@@ -97,6 +94,13 @@ sections:
     icon: mdi:radiator-disabled
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+  column_span: 3
+- type: grid
+  cards:
+  - type: heading
+    heading: Menos usadas
+    heading_style: title
+    badges: []
   - type: custom:mushroom-template-card
     entity: automation.ventilador_dario
     primary: Ventilador Dario
@@ -109,6 +113,41 @@ sections:
     primary: Ventilador dormitorio
     secondary: Encendido y luz del ventilador.
     icon: mdi:ceiling-fan
+    multiline_secondary: true
+    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+  - type: custom:mushroom-template-card
+    entity: automation.autoenable_radiador_smart_mode
+    primary: Reactivar modo smart radiador
+    secondary: Si queda en manual, vuelve a auto tras 4 horas.
+    icon: mdi:radiator
+    multiline_secondary: true
+    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+  - type: custom:mushroom-template-card
+    entity: automation.auto_off_extractor_bano
+    primary: Auto apagado extractor
+    secondary: Apaga el extractor del bano tras 15 minutos encendido.
+    icon: mdi:fan-off
+    multiline_secondary: true
+    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+  - type: custom:mushroom-template-card
+    entity: automation.armarios
+    primary: Luces de armarios
+    secondary: Enciende a las {{ states('input_datetime.alarm')[0:5] }} y apaga a las {{ states('input_datetime.go_to_bed')[0:5] }}.
+    icon: mdi:wardrobe
+    multiline_secondary: true
+    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+  - type: custom:mushroom-template-card
+    entity: automation.humidity_rise_extractor_bano
+    primary: Extractor Baño
+    secondary: Enciende si hay humedad.
+    icon: mdi:water-percent-alert
+    multiline_secondary: true
+    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+  - type: custom:mushroom-template-card
+    entity: automation.is_holiday
+    primary: Estado festivo
+    secondary: Marca festivo en fin de semana y laborable entre semana.
+    icon: mdi:calendar-weekend
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
   column_span: 3

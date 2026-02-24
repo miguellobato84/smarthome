@@ -6,8 +6,8 @@
     at: input_datetime.alarm
     id: alarm
   - trigger: time
-    at: input_datetime.preparing_go_to_bed
-    id: preparing_go_to_bed
+    at: input_datetime.go_to_bed
+    id: go_to_bed
   conditions: []
   actions:
   - choose:
@@ -22,7 +22,7 @@
           position: 100
     - conditions:
       - condition: trigger
-        id: preparing_go_to_bed
+        id: go_to_bed
       sequence:
       - action: cover.set_cover_position
         target:

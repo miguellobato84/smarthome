@@ -16,3 +16,4 @@ node-red/
 tts/
 hisense/
 image/
+.fuse_hidden*

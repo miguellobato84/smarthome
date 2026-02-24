@@ -74,6 +74,15 @@ sections:
       - left: 40%
       - top: 32%
     - type: state-icon
+      entity: cover.persiana_estudio
+      icon: mdi:blinds
+      style:
+        left: 40%
+        top: 10%
+        transform: translate(-50%, -50%)
+      tap_action:
+        action: more-info
+    - type: state-icon
       entity: light.luz_estudio
       icon: mdi:desk-lamp
       style:
@@ -100,7 +109,7 @@ sections:
       tap_action:
         action: more-info
       style:
-        left: 39%
+        left: 41%
         top: 55%
         transform: translate(-50%, -50%)
       card_mod:
