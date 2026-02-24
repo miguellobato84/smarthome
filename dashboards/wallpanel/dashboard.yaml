@@ -1,4 +1,4 @@
-# touched: 2026-02-24 22:05:20 CET - sync marker after main view go_to_bed button
+# touched: 2026-02-24 22:08:41 CET - sync marker after removing calefaccion view and references
 wallpanel:
   enabled: true
   hide_toolbar: true
