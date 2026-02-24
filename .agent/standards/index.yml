@@ -1,0 +1,30 @@
+standards:
+  - id: commits
+    title: Commit Structure
+    file: commits.md
+    tags: [git, commits, change-management]
+    description: Repo-aligned commit message structure, body requirements, and Codex trailers.
+
+  - id: home-assistant-config
+    title: Home Assistant YAML Patterns
+    file: home-assistant-config.md
+    tags: [home-assistant, yaml, automations, dashboards]
+    description: Repository-specific conventions for automations, templates, and Lovelace structure.
+
+  - id: home-assistant-git-sync
+    title: Home Assistant Git Sync Flow
+    file: home-assistant-git-sync.md
+    tags: [home-assistant, git, deployment, workflow]
+    description: Required branch and git-only synchronization workflow between local and casa.
+
+  - id: home-assistant-dashboard-design
+    title: Home Assistant Dashboard Design
+    file: home-assistant-dashboard-design.md
+    tags: [home-assistant, dashboards, lovelace, ui]
+    description: Card selection priority, layout constraints, and dashboard consistency rules.
+
+  - id: home-assistant-yaml-dry
+    title: Home Assistant YAML DRY Verification
+    file: home-assistant-yaml-dry.md
+    tags: [home-assistant, yaml, refactor, quality]
+    description: Detect and refactor duplicated trigger/condition/action/sequence logic.
