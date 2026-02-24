@@ -4,3 +4,5 @@
   url: /hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524421
 - type: module
   url: /hacsfiles/lovelace-wallpanel/wallpanel.js
+- type: module
+  url: /hacsfiles/streamline-card/streamline-card.js

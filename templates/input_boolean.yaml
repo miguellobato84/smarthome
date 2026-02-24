@@ -10,3 +10,9 @@ radiador_dario_auto:
 radiador_salon_auto:
   name: Activa Smart mode para el radiador del salón
   icon: mdi:auto-mode
+at_home:
+  name: at_home
+  icon: mdi:home-account
+is_holiday:
+  name: is_holiday
+  icon: mdi:beach
