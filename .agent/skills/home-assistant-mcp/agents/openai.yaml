@@ -1,0 +1,4 @@
+interface:
+  display_name: "Home Assistant MCP"
+  short_description: "Validate Home Assistant MCP endpoint/auth"
+  default_prompt: "Use $home-assistant-mcp to verify /api/mcp connectivity, auth, and JSON-RPC initialize behavior on casa.miguellobato.com."
