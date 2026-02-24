@@ -5,6 +5,7 @@ This repository stores Home Assistant configuration, automations, templates, das
 
 ## Project overview
 - What this repo does: manages Home Assistant behavior and related self-hosted services as code.
+- Demo reference project for examples and good practices: `/Users/miguel.lobato/projects/others/Home-AssistantConfig`.
 - Key components:
   - Home Assistant core config (`configuration.yaml`, `automation/`, `templates/`, `scripts.yaml`, `scenes.yaml`)
   - Lovelace dashboards in YAML (`dashboards/`)

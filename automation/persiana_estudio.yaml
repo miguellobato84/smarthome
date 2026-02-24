@@ -29,4 +29,25 @@
           entity_id: cover.persiana_estudio
         data:
           position: 0
+    - conditions:
+      - condition: template
+        value_template: "{{ trigger is not defined or trigger is none }}"
+      - condition: time
+        after: "07:00:00"
+        before: "19:00:00"
+      sequence:
+      - action: cover.set_cover_position
+        target:
+          entity_id: cover.persiana_estudio
+        data:
+          position: 100
+    - conditions:
+      - condition: template
+        value_template: "{{ trigger is not defined or trigger is none }}"
+      sequence:
+      - action: cover.set_cover_position
+        target:
+          entity_id: cover.persiana_estudio
+        data:
+          position: 0
   mode: single

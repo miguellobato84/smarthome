@@ -227,4 +227,16 @@ sections:
     grid_options:
       columns: 5
       rows: 1
+  - type: custom:mushroom-template-card
+    primary: Ir a la cama
+    icon: mdi:bed-clock
+    tap_action:
+      action: call-service
+      service: script.turn_on
+      target:
+        entity_id: script.go_to_bed
+    features_position: bottom
+    grid_options:
+      columns: 4
+      rows: 1
   column_span: 4
