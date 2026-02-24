@@ -1,0 +1,24 @@
+- id: '1763357763980'
+  alias: is_holiday
+  description: Sets is_holiday to true on weekends and false on weekdays
+  triggers:
+  - at: 00:00:00
+    trigger: time
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ now().weekday() in [5, 6] }}'
+      sequence:
+      - target:
+          entity_id: input_boolean.is_holiday
+        action: input_boolean.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().weekday() in [0, 1, 2, 3, 4] }}'
+      sequence:
+      - target:
+          entity_id: input_boolean.is_holiday
+        action: input_boolean.turn_off
+  mode: single

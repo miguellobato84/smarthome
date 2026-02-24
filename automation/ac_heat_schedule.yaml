@@ -1,0 +1,39 @@
+- id: '1768095166157'
+  alias: ac_heat_schedule
+  description: Enciende calefaccion AC 35 min antes de input_datetime.alarm y la apaga
+    a la hora de la alarma
+  triggers:
+  - trigger: template
+    id: heat_on
+    value_template: "{{\n  has_value('input_datetime.alarm')\n  and now().replace(second=0,\
+      \ microsecond=0)\n    == (today_at(states('input_datetime.alarm')) - timedelta(minutes=35)).replace(second=0,\
+      \ microsecond=0)\n}}"
+  - trigger: template
+    id: heat_off
+    value_template: "{{\n  has_value('input_datetime.alarm')\n  and now().replace(second=0,\
+      \ microsecond=0)\n    == today_at(states('input_datetime.alarm')).replace(second=0,\
+      \ microsecond=0)\n}}"
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: heat_on
+      sequence:
+      - action: climate.set_hvac_mode
+        metadata: {}
+        target:
+          entity_id: climate.melcloudhome_1986_5325
+        data:
+          hvac_mode: heat
+    - conditions:
+      - condition: trigger
+        id: heat_off
+      sequence:
+      - action: climate.set_hvac_mode
+        metadata: {}
+        target:
+          entity_id: climate.melcloudhome_1986_5325
+        data:
+          hvac_mode: 'off'
+  mode: single

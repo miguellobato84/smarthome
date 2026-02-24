@@ -1,0 +1,16 @@
+alarm:
+  name: alarm
+  has_date: false
+  has_time: true
+preparing_go_to_bed:
+  name: preparing_go_to_bed
+  has_date: false
+  has_time: true
+go_to_school:
+  name: go_to_school
+  has_date: false
+  has_time: true
+go_to_bed:
+  name: go_to_bed
+  has_date: false
+  has_time: true

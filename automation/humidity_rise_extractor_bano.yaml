@@ -1,0 +1,20 @@
+- id: '1771221191925'
+  alias: humidity_rise_extractor_bano
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: sensor.sensor_temp_banod_humidity
+  conditions:
+  - condition: state
+    entity_id: switch.extractor_bano
+    state: 'off'
+  - condition: template
+    value_template: "{{\n  has_value('sensor.sensor_temp_banod_humidity')\n  and has_value('sensor.humedad_bano_media_movil_1h')\n\
+      \  and (states('sensor.humedad_bano_media_movil_1h') | float(0)) > 0\n  and\
+      \ (states('sensor.sensor_temp_banod_humidity') | float(0))\n    > ((states('sensor.humedad_bano_media_movil_1h')\
+      \ | float(0)) * 1.10)\n}}"
+  actions:
+  - action: switch.turn_on
+    target:
+      entity_id: switch.extractor_bano
+  mode: single

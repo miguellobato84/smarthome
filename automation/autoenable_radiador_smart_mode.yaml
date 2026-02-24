@@ -1,0 +1,19 @@
+- id: '1767577403597'
+  alias: autoenable_radiador_smart_mode
+  description: Si un radiador se pone en modo manual (auto=off), vuelve a modo smart
+    automáticamente tras 4 horas.
+  triggers:
+  - entity_id:
+    - input_boolean.radiador_estudio_auto
+    - input_boolean.radiador_dormitorio_auto
+    - input_boolean.radiador_dario_auto
+    - input_boolean.radiador_salon_auto
+    trigger: state
+    to: 'off'
+    for: 04:00:00
+  conditions: []
+  actions:
+  - action: input_boolean.turn_on
+    target:
+      entity_id: '{{ trigger.entity_id }}'
+  mode: parallel

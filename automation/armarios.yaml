@@ -1,0 +1,33 @@
+- id: '1763196843501'
+  alias: armarios
+  description: Apagar/encender luces de los armarios según horario usando time triggers
+  triggers:
+  - trigger: time
+    at: input_datetime.alarm
+    id: morning_on
+  - trigger: time
+    at: input_datetime.go_to_bed
+    id: night_off
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: morning_on
+      sequence:
+      - action: light.turn_on
+        target:
+          entity_id:
+          - light.armario_dormitorio
+          - light.armario_vestidor
+        data:
+          brightness: 254
+    - conditions:
+      - condition: trigger
+        id: night_off
+      sequence:
+      - action: light.turn_off
+        target:
+          entity_id:
+          - light.armario_dormitorio
+          - light.armario_vestidor

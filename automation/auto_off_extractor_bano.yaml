@@ -1,0 +1,17 @@
+- id: '1771220699109'
+  alias: auto_off_extractor_bano
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: switch.extractor_bano
+    to: 'on'
+    for: 00:15:00
+  conditions:
+  - condition: state
+    entity_id: switch.extractor_bano
+    state: 'on'
+  actions:
+  - action: switch.turn_off
+    target:
+      entity_id: switch.extractor_bano
+  mode: single

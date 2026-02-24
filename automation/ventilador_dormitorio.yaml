@@ -1,0 +1,29 @@
+- id: '1770726745810'
+  alias: ventilador_dormitorio
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 58f83632f446c9d1da2ea97a14bd9478
+    type: action
+    subtype: toggle
+    trigger: device
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: switch.ventilador_dormitorio
+        state: 'off'
+      sequence:
+      - target:
+          entity_id: switch.ventilador_dormitorio
+        action: switch.turn_on
+    - conditions:
+      - condition: state
+        entity_id: switch.ventilador_dormitorio
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: light.tuya_ventilador_dormitorio
+        action: light.toggle
+  mode: single

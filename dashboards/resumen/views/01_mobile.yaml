@@ -1,0 +1,318 @@
+type: sections
+path: mobile
+max_columns: 4
+title: Mobile
+sections:
+- type: grid
+  cards:
+  - type: heading
+    heading: Iluminación
+    heading_style: title
+    badges: []
+  - type: custom:mushroom-light-card
+    entity: light.luz_mouille
+    name: Lámpara Mouille
+    icon: mdi:wall-sconce-flat
+    use_light_color: true
+    show_brightness_control: true
+    collapsible_controls: true
+  - type: custom:mushroom-light-card
+    entity: light.luz_abuelo
+    name: Abuelo
+    icon: mdi:desk-lamp
+    use_light_color: true
+    show_brightness_control: true
+    collapsible_controls: true
+  - type: custom:mushroom-light-card
+    entity: light.luz_sofa
+    name: Luz Sofá
+    icon: mdi:floor-lamp
+    use_light_color: true
+    show_brightness_control: true
+    collapsible_controls: true
+  - type: custom:mushroom-entity-card
+    entity: switch.luz_donut
+    name: Donut
+    icon: mdi:lightbulb
+    tap_action:
+      action: toggle
+    icon_color: amber
+  - type: heading
+    heading: Dario
+    heading_style: title
+    badges: []
+  - type: custom:mushroom-light-card
+    entity: light.luz_globito
+    name: Globito (Darío)
+    icon: mdi:desk-lamp
+    use_light_color: true
+    show_brightness_control: true
+    collapsible_controls: true
+  - type: tile
+    entity: switch.globo_dario
+  - type: tile
+    entity: light.tuya_ventilador_dario
+  - type: tile
+    entity: fan.tuya_ventilador_dario
+  - type: tile
+    entity: light.tuya_ventilador_dormitorio
+  - type: tile
+    entity: fan.tuya_ventilador_dormitorio
+  - type: heading
+    icon: ''
+    heading_style: title
+    heading: 'Dormitorio '
+  - type: heading
+    icon: mdi:desk-lamp
+    heading_style: title
+    heading: Estudio
+  - type: custom:mushroom-light-card
+    entity: light.luz_estudio
+    name: Luz Estudio
+    icon: mdi:desk-lamp
+    use_light_color: true
+    show_brightness_control: true
+    collapsible_controls: true
+- type: grid
+  cards:
+  - type: heading
+    heading: Radiadores
+    heading_style: title
+  - type: custom:mushroom-template-card
+    entity: climate.radiador_entrada
+    primary: |
+      Entrada ({{ states('sensor.sensor_temp_salon_temperature') }}°C {{states('sensor.sensor_temp_salon_humidity') }}% )
+    secondary: |
+      Set {{ state_attr(entity, 'temperature') }}°C  ({{ states("number.radiador_entrada_valve_closing_degree") }}vc 
+       {{ states("number.radiador_entrada_valve_opening_degree") }}vo)
+    icon: |
+      {% set a = state_attr(entity, 'hvac_action') %}  {% if a == 'idle' %}
+        mdi:radiator-disabled
+      {% else %}
+        mdi:radiator
+      {% endif %}
+    color: |
+      {% set a = state_attr(entity, 'hvac_action') %}  {% if a == 'idle' %}
+        green
+      {% else %}
+        red
+      {% endif %}
+    features_position: bottom
+    grid_options:
+      columns: 12
+      rows: 1
+  - type: custom:mushroom-template-card
+    entity: climate.radiador_salon
+    primary: |
+      Salón ({{ states('sensor.sensor_temp_salon_temperature') }}°C
+      {{states('sensor.sensor_temp_salon_humidity') }}% )
+    secondary: |
+      Set {{ state_attr(entity, 'temperature') }}°C  ({{ states("number.radiador_salon_valve_closing_degree") }}vc 
+       {{ states("number.radiador_salon_valve_opening_degree") }}vo)
+    icon: |
+      {% set a = state_attr(entity, 'hvac_action') %}  {% if a == 'idle' %}
+        mdi:radiator-disabled
+      {% else %}
+        mdi:radiator
+      {% endif %}
+    color: |
+      {% set a = state_attr(entity, 'hvac_action') %}  {% if a == 'idle' %}
+        green
+      {% else %}
+        red
+      {% endif %}
+    features_position: bottom
+    grid_options:
+      columns: 12
+      rows: 1
+  - type: custom:mushroom-template-card
+    entity: climate.radiador_estudio
+    primary: |
+      Estudio ({{ states('sensor.sensor_temp_estudio_temperature') }}°C
+      {{ states('sensor.sensor_temp_estudio_humidity') }}% )
+    secondary: |
+      {% set sp = state_attr(entity, 'temperature') %} {% set data = states('input_text.heating_state') | from_json(default={}) %} {% set ts = data.get(entity) %} {% set recent = ts is not none and (now() - as_datetime(ts)).total_seconds() < 7200 %} Set {{ sp }}°C  ({{ states("number.radiador_estudio_valve_closing_degree") }}vc 
+       {{ states("number.radiador_estudio_valve_opening_degree") }}vo)
+      {% if recent %} • ⚑ {{ relative_time(as_datetime(ts)) }} {% endif %}
+    icon: |
+      {% set a = state_attr(entity, 'hvac_action') %} {% set data = states('input_text.heating_state') | from_json(default={}) %} {% set ts = data.get(entity) %} {% set recent = ts is not none and (now() - as_datetime(ts)).total_seconds() < 7200 %} {% if recent %}
+        mdi:account-edit
+      {% elif a == 'idle' %}
+        mdi:radiator-disabled
+      {% else %}
+        mdi:radiator
+      {% endif %}
+    color: |
+      {% set a = state_attr(entity, 'hvac_action') %} {% set data = states('input_text.heating_state') | from_json(default={}) %} {% set ts = data.get(entity) %} {% set recent = ts is not none and (now() - as_datetime(ts)).total_seconds() < 7200 %} {% if recent %}
+        purple
+      {% elif a == 'idle' %}
+        green
+      {% else %}
+        red
+      {% endif %}
+    features_position: bottom
+    grid_options:
+      columns: 12
+      rows: 1
+  - type: custom:mushroom-template-card
+    entity: climate.radiador_dario
+    primary: |
+      Darío ({{ states('sensor.sensor_temp_dario_temperature') }}°C
+      {{states('sensor.sensor_temp_dario_humidity') }}% )
+    secondary: |
+      Set {{ state_attr(entity, 'temperature') }}°C  ({{ states("number.radiador_dario_valve_closing_degree") }}vc 
+       {{ states("number.radiador_dario_valve_opening_degree") }}vo)
+    icon: |
+      {% set a = state_attr(entity, 'hvac_action') %}  {% if a == 'idle' %}
+        mdi:radiator-disabled
+      {% else %}
+        mdi:radiator
+      {% endif %}
+    color: |
+      {% set a = state_attr(entity, 'hvac_action') %}  {% if a == 'idle' %}
+        green
+      {% else %}
+        red
+      {% endif %}
+    features_position: bottom
+    grid_options:
+      columns: 12
+      rows: 1
+  - type: custom:mushroom-template-card
+    entity: climate.radiador_dormitorio
+    primary: |
+      Dormitorio ({{ states('sensor.sensor_temp_dormitorio_temperature') }}°C
+      {{states('sensor.sensor_temp_dormitorio_humidity') }}% )
+    secondary: |
+      Set {{ state_attr(entity, 'temperature') }}°C  ({{ states("number.radiador_dormitorio_valve_closing_degree") }}vc 
+       {{ states("number.radiador_dormitorio_valve_opening_degree") }}vo)
+    icon: |
+      {% set a = state_attr(entity, 'hvac_action') %}  {% if a == 'idle' %}
+        mdi:radiator-disabled
+      {% else %}
+        mdi:radiator
+      {% endif %}
+    color: |
+      {% set a = state_attr(entity, 'hvac_action') %}  {% if a == 'idle' %}
+        green
+      {% else %}
+        red
+      {% endif %}
+    features_position: bottom
+    grid_options:
+      columns: 12
+      rows: 1
+- type: grid
+  cards:
+  - type: heading
+    heading: Forecast
+  - type: tile
+    entity: weather.forecast_majadahonda
+    vertical: false
+    features_position: bottom
+  - type: tile
+    entity: sensor.majadahonda_temperatura
+- type: grid
+  cards:
+  - type: heading
+    heading_style: title
+    heading: Radiadores ajuste
+  - type: tile
+    entity: input_number.radiador_salon_target
+    name: Salón
+    vertical: false
+    features_position: bottom
+  - type: tile
+    entity: input_boolean.radiador_salon_auto
+    name: Smart
+    vertical: false
+    features_position: bottom
+  - type: tile
+    entity: input_number.radiador_estudio_target
+    name: Estudio
+    vertical: false
+    features_position: inline
+  - type: tile
+    entity: input_boolean.radiador_estudio_auto
+    name: Smart
+    vertical: false
+    features_position: bottom
+  - type: tile
+    entity: input_number.radiador_dormitorio_target
+    name: Dormitorio
+    vertical: false
+    features_position: bottom
+  - type: tile
+    entity: input_boolean.radiador_dormitorio_auto
+    name: Smart
+    vertical: false
+    features_position: bottom
+  - type: tile
+    entity: input_number.radiador_dario_target
+    name: Darío
+    vertical: false
+    features_position: bottom
+  - type: tile
+    entity: input_boolean.radiador_dario_auto
+    name: Smart
+    vertical: false
+    features_position: bottom
+header:
+  layout: center
+  badges_position: top
+  badges_wrap: scroll
+badges:
+- type: custom:mushroom-template-badge
+  entity: input_boolean.at_home
+  icon: mdi:home
+  content: |
+    {% if is_state('input_boolean.at_home', 'on') %}
+      En casa
+    {% else %}
+      Fuera de casa
+    {% endif %}
+  tap_action:
+    action: toggle
+  color: |
+    {% if is_state('input_boolean.at_home', 'on') %}
+      green
+    {% else %}
+      red
+    {% endif %}
+- type: custom:mushroom-template-badge
+  entity: input_boolean.is_holiday
+  icon: |
+    {% if is_state('input_boolean.is_holiday', 'on') %}
+      mdi:palm-tree
+    {% else %}
+      mdi:calendar-remove
+    {% endif %}
+  content: |
+    {% if is_state('input_boolean.is_holiday', 'on') %}
+      Festivo
+    {% else %}
+      Laborable
+    {% endif %}
+  tap_action:
+    action: toggle
+  color: |
+    {% if is_state('input_boolean.is_holiday', 'on') %}
+      green
+    {% else %}
+      amber
+    {% endif %}
+- type: custom:mushroom-template-badge
+  entity: input_number.max_temp
+  icon: mdi:thermometer
+  content: "{{ states('input_number.max_temp') }} °C"
+  color: |
+    {% set temp = states('input_number.max_temp') | float(0) %}
+    {% if temp < 20 %}
+      blue
+    {% elif temp <= 21.5 %}
+      amber
+    {% else %}
+      red
+    {% endif %}
+  tap_action:
+    action: more-info
