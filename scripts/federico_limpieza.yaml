@@ -1,0 +1,11 @@
+federico_limpieza:
+  alias: federico_limpieza
+  sequence:
+  - service: xiaomi_miio.vacuum_goto
+    data:
+      x_coord: '18300'
+      y_coord: '24700'
+    target:
+      entity_id: vacuum.federico
+  mode: single
+  icon: mdi:robot-vacuum

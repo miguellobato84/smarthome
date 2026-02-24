@@ -1,0 +1,56 @@
+radiadores_set_external:
+  alias: radiadores_set_external
+  description: Configura los selects a external y sincroniza temperaturas externas
+  mode: single
+  fields:
+    option:
+      description: 'Opción para los selects (por defecto: external)'
+      example: external
+  sequence:
+  - action: select.select_option
+    target:
+      entity_id:
+      - select.radiador_dormitorio_temperature_sensor_select
+      - select.radiador_dario_temperature_sensor_select
+      - select.radiador_estudio_temperature_sensor_select
+      - select.radiador_entrada_temperature_sensor_select
+      - select.radiador_salon_temperature_sensor_select
+    data:
+      option: '{{ option | default(''external'') }}'
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_dario_external_temperature_input
+    data:
+      value: '{{ states(''sensor.sensor_temp_dario_temperature'') | float(0) }}'
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_estudio_external_temperature_input
+    data:
+      value: '{{ states(''sensor.sensor_temp_estudio_temperature'') | float(0) }}'
+  - action: number.set_value
+    target:
+      entity_id:
+      - number.radiador_entrada_external_temperature_input
+      - number.radiador_salon_external_temperature_input
+    data:
+      value: '{{ states(''sensor.sensor_temp_salon_temperature'') | float(0) }}'
+  - action: number.set_value
+    target:
+      entity_id:
+      - number.radiador_dario_temporary_mode_duration
+      - number.radiador_dormitorio_temporary_mode_duration
+      - number.radiador_estudio_temporary_mode_duration
+      - number.radiador_entrada_temporary_mode_duration
+      - number.radiador_salon_temporary_mode_duration
+    data:
+      value: 90
+  - action: number.set_value
+    target:
+      entity_id:
+      - number.radiador_dormitorio_temperature_accuracy
+      - number.radiador_dario_temperature_accuracy
+      - number.radiador_estudio_temperature_accuracy
+      - number.radiador_entrada_temperature_accuracy
+      - number.radiador_salon_temperature_accuracy
+    data:
+      value: -0.4

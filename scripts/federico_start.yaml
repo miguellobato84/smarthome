@@ -1,0 +1,9 @@
+federico_start:
+  alias: federico_start
+  sequence:
+  - service: vacuum.start
+    data: {}
+    target:
+      entity_id: vacuum.federico
+  mode: single
+  icon: mdi:robot-vacuum

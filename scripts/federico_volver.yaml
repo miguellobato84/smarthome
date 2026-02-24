@@ -1,0 +1,9 @@
+federico_volver:
+  alias: federico_volver
+  sequence:
+  - service: vacuum.return_to_base
+    data: {}
+    target:
+      entity_id: vacuum.federico
+  mode: single
+  icon: mdi:robot-vacuum

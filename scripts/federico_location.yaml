@@ -1,0 +1,9 @@
+federico_location:
+  alias: federico_location
+  sequence:
+  - service: vacuum.locate
+    data: {}
+    target:
+      entity_id: vacuum.federico
+  mode: single
+  icon: mdi:robot-vacuum

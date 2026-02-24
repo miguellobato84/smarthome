@@ -1,0 +1,55 @@
+set_radiador:
+  alias: Set Radiador
+  description: Establece temperatura y ajusta apertura de válvula según diferencial
+  mode: parallel
+  fields:
+    entity:
+      description: Entidad del radiador (climate.*) o lista de entidades
+      example: climate.radiador_dormitorio
+    target:
+      description: Temperatura objetivo (opcional, defecto final 19)
+      example: 21
+  variables:
+    entities: '{{ [entity] if entity is string else entity }}'
+    t_obj: '{{ (target | default(18, true) | float(18)) }}'
+  sequence:
+  - repeat:
+      for_each: '{{ entities }}'
+      sequence:
+      - variables:
+          clim_entity: '{{ repeat.item }}'
+          t_act: '{{ state_attr(clim_entity, ''current_temperature'') | float(0) }}'
+          diff: '{{ t_obj - t_act }}'
+          valve_entity: '{{ clim_entity | replace(''climate.'', ''number.'') ~ ''_valve_opening_degree''
+            }}'
+      - action: logbook.log
+        data:
+          name: Radiador Debug
+          message: 'Entity: {{ clim_entity }}, Current Temp: {{ t_act }}, Target Temp:
+            {{ t_obj }}, Diff: {{ diff }}, Valve Entity: {{ valve_entity }}
+
+            '
+      - action: climate.set_temperature
+        target:
+          entity_id: '{{ clim_entity }}'
+        data:
+          temperature: '{{ t_obj }}'
+      - choose:
+        - conditions:
+          - condition: template
+            value_template: '{{ diff >= 1 }}'
+          sequence:
+          - action: number.set_value
+            target:
+              entity_id: '{{ valve_entity }}'
+            data:
+              value: 100
+        - conditions:
+          - condition: template
+            value_template: '{{ diff > 0 and diff < 1 }}'
+          sequence:
+          - action: number.set_value
+            target:
+              entity_id: '{{ valve_entity }}'
+            data:
+              value: 50
