@@ -9,7 +9,7 @@ This repository stores Home Assistant configuration, automations, templates, das
   - Home Assistant core config (`configuration.yaml`, `automation/`, `templates/`, `scripts.yaml`, `scenes.yaml`)
   - Lovelace dashboards in YAML (`dashboards/`)
   - Supporting infrastructure stacks (`compose/`)
-  - Utility scripts (`scripts/`)
+  - Root Home Assistant state/action definitions (`scripts.yaml`, `scenes.yaml`)
 - Critical flows:
   - Entity state changes and schedules trigger automations that call Home Assistant services.
   - Dashboard YAML plus HACS resources render the UI and control flows.
