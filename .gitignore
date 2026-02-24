@@ -14,6 +14,5 @@ zigbee.db*
 custom_components/
 node-red/
 tts/
-www/
 hisense/
 image/
