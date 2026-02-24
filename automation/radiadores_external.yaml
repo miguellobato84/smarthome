@@ -12,7 +12,10 @@
     trigger: state
   - entity_id: light.luz_sofa
     trigger: state
-  conditions: []
+  conditions:
+  - condition: time
+    after: "17:00:00"
+    before: "22:00:00"
   actions:
   - action: script.radiadores_set_external
     data:
