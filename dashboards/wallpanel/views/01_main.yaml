@@ -6,46 +6,14 @@ sections:
   cards:
   - type: picture-elements
     elements:
-    - type: custom:mushroom-template-card
-      entity: climate.radiador_dormitorio
-      primary: "{{ states('sensor.radiador_dormitorio_local_temperature') }}°C"
-      icon: mdi:radiator
-      layout: horizontal
-      tap_action:
-        action: more-info
-      style:
-        left: 10%
-        top: 32%
-        transform: translate(-50%, -50%)
-      card_mod:
-        style: |
-          ha-card {
-            background: transparent !important;
-            box-shadow: none !important;
-            border: none !important;
-            padding: 0 !important;
-            --icon-size: 22px;
-          }
-          ha-state-icon {
-            color: {% if state_attr('climate.radiador_dormitorio', 'hvac_action') == 'heating' %}
-                     red
-                   {% else %}
-                     gray
-                   {% endif %} !important;
-            margin-right: 0 !important;
-          }
-          .content {
-            gap: 0px !important;
-          }
-          .container {
-            gap: 0px !important;
-          }
-          ha-tile-info {
-            margin-left: 0 !important;
-          }
-          ha-state-icon {
-            margin-right: 0 !important;
-          }
+    - type: custom:streamline-card
+      template: radiator_picture_mushroom
+      variables:
+      - entity: climate.radiador_dormitorio
+      - temp_text: "{{ states('sensor.radiador_dormitorio_local_temperature') | float(0) | round(0) }}º"
+      - icon: mdi:radiator
+      - left: 10%
+      - top: 32%
     - type: state-icon
       entity: light.tuya_ventilador_dormitorio
       icon: mdi:dome-light
@@ -63,38 +31,14 @@ sections:
         transform: translate(-50%, -50%)
       tap_action:
         action: toggle
-    - type: custom:mushroom-template-card
-      entity: climate.radiador_dario
-      primary: "{{ states('sensor.sensor_temp_dario_temperature') }}°C"
-      icon: mdi:radiator
-      layout: horizontal
-      tap_action:
-        action: more-info
-      style:
-        left: 25%
-        top: 32%
-        transform: translate(-50%, -50%)
-      card_mod:
-        style: |
-          ha-card {
-            background: transparent !important;
-            box-shadow: none !important;
-            border: none !important;
-            padding: 0 !important;
-            --icon-size: 22px;
-          }
-          .content {
-            gap: 0px !important;
-          }
-          .container {
-            gap: 0px !important;
-          }
-          ha-tile-info {
-            margin-left: 0 !important;
-          }
-          ha-state-icon {
-            margin-right: 0 !important;
-          }
+    - type: custom:streamline-card
+      template: radiator_picture_mushroom
+      variables:
+      - entity: climate.radiador_dario
+      - temp_text: "{{ states('sensor.sensor_temp_dario_temperature') | float(0) | round(0) }}º"
+      - icon: mdi:radiator
+      - left: 25%
+      - top: 32%
     - type: state-icon
       entity: light.tuya_ventilador_dario
       icon: mdi:dome-light
@@ -121,38 +65,14 @@ sections:
         transform: translate(-50%, -50%)
       tap_action:
         action: toggle
-    - type: custom:mushroom-template-card
-      entity: climate.radiador_estudio
-      primary: "{{ states('sensor.sensor_temp_estudio_temperature') }}°C"
-      icon: mdi:radiator
-      layout: horizontal
-      tap_action:
-        action: more-info
-      style:
-        left: 40%
-        top: 32%
-        transform: translate(-50%, -50%)
-      card_mod:
-        style: |
-          ha-card {
-            background: transparent !important;
-            box-shadow: none !important;
-            border: none !important;
-            padding: 0 !important;
-            --icon-size: 22px;
-          }
-          .content {
-            gap: 0px !important;
-          }
-          .container {
-            gap: 0px !important;
-          }
-          ha-tile-info {
-            margin-left: 0 !important;
-          }
-          ha-state-icon {
-            margin-right: 0 !important;
-          }
+    - type: custom:streamline-card
+      template: radiator_picture_mushroom
+      variables:
+      - entity: climate.radiador_estudio
+      - temp_text: "{{ states('sensor.sensor_temp_estudio_temperature') | float(0) | round(0) }}º"
+      - icon: mdi:radiator
+      - left: 40%
+      - top: 32%
     - type: state-icon
       entity: light.luz_estudio
       icon: mdi:desk-lamp
@@ -174,7 +94,7 @@ sections:
     - type: custom:mushroom-template-card
       entity: sensor.sensor_temp_banod_temperature
       primary: |
-        {{ states('sensor.sensor_temp_banod_temperature') }}°C
+        {{ states('sensor.sensor_temp_banod_temperature') | float(0) | round(0) }}º"
       icon: mdi:thermometer
       layout: horizontal
       tap_action:
@@ -240,112 +160,30 @@ sections:
         transform: translate(-50%, -50%)
       tap_action:
         action: toggle
-    - type: custom:mushroom-template-card
-      entity: climate.melcloudhome_1986_5325
-      primary: "{{ state_attr(entity, 'temperature') }}°C"
-      icon: mdi:air-filter
-      icon_color: |
-        {% if state_attr(entity, 'hvac_mode') == 'cool' %}
-          blue
-        {% elif state_attr(entity, 'hvac_mode') == 'heat' %}
-          red
-        {% elif state_attr(entity, 'hvac_mode') == 'dry' %}
-          amber
-        {% else %}
-          grey
-        {% endif %}
-      layout: horizontal
-      tap_action:
-        action: more-info
-      style:
-        left: 70%
-        top: 85%
-        transform: translate(-50%, -50%)
-      card_mod:
-        style: |
-          ha-card {
-            background: transparent !important;
-            box-shadow: none !important;
-            border: none !important;
-            padding: 0 !important;
-            --icon-size: 22px;
-          }
-          .content {
-            gap: 0px !important;
-          }
-          .container {
-            gap: 0px !important;
-          }
-          ha-tile-info {
-            margin-left: 0 !important;
-          }
-          ha-state-icon {
-            margin-right: 0 !important;
-          }
-    - type: custom:mushroom-template-card
-      entity: climate.radiador_entrada
-      primary: "{{ states('sensor.sensor_temp_salon_temperature') }}°C"
-      icon: mdi:radiator
-      layout: horizontal
-      tap_action:
-        action: more-info
-      style:
-        left: 70%
-        top: 35%
-        transform: translate(-50%, -50%)
-      card_mod:
-        style: |
-          ha-card {
-            background: transparent !important;
-            box-shadow: none !important;
-            border: none !important;
-            padding: 0 !important;
-            --icon-size: 22px;
-          }
-          .content {
-            gap: 0px !important;
-          }
-          .container {
-            gap: 0px !important;
-          }
-          ha-tile-info {
-            margin-left: 0 !important;
-          }
-          ha-state-icon {
-            margin-right: 0 !important;
-          }
-    - type: custom:mushroom-template-card
-      entity: climate.radiador_salon
-      primary: "{{ states('sensor.sensor_temp_salon_temperature') }}°C"
-      icon: mdi:radiator
-      layout: horizontal
-      tap_action:
-        action: more-info
-      style:
-        left: 70%
-        top: 90%
-        transform: translate(-50%, -50%)
-      card_mod:
-        style: |
-          ha-card {
-            background: transparent !important;
-            box-shadow: none !important;
-            border: none !important;
-            padding: 0 !important;
-            --icon-size: 22px;
-          }
-          .content {
-            gap: 0px !important;
-          }
-          .container {
-            gap: 0px !important;
-          }
-          ha-tile-info {
-            margin-left: 0 !important;
-          }
-          ha-state-icon {
-            margin-right: 0 !important;
-          }
+    - type: custom:streamline-card
+      template: radiator_picture_mushroom
+      variables:
+      - entity: climate.melcloudhome_1986_5325
+      - temp_text: "{{ state_attr(entity, 'temperature') | float(0) | round(0) }}º"
+      - icon: mdi:air-filter
+      - left: 70%
+      - top: 85%
+    - type: custom:streamline-card
+      template: radiator_picture_mushroom
+      variables:
+      - entity: climate.radiador_entrada
+      - temp_text: "{{ states('sensor.sensor_temp_salon_temperature') | float(0) | round(0) }}º"
+      - icon: mdi:radiator
+      - left: 70%
+      - top: 35%
+    - type: custom:streamline-card
+      template: radiator_picture_mushroom
+      variables:
+      - entity: climate.radiador_salon
+      - temp_text: "{{ states('sensor.sensor_temp_salon_temperature') | float(0) | round(0) }}º"
+      - icon: mdi:radiator
+      - left: 70%
+      - top: 90%
     image: https://casa.miguellobato.com/local/casa3.png
     grid_options:
       columns: 15
