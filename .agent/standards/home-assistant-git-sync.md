@@ -10,6 +10,7 @@
 - Push local branch to origin before syncing on `casa`.
 - Use `ssh casa` only for git operations unless explicitly requested otherwise.
 - On `casa`, if there are local pending changes, commit them on the same branch before pulling.
+- Use `--no-gpg-sign` for commits in this environment.
 - Pull with fast-forward only:
   - `git pull --ff-only origin <feature-branch>`
 - Merge to `main` only after feature completion and review.
@@ -19,14 +20,14 @@
 ```bash
 git checkout -b <feature-branch>
 git add <files>
-git commit -m "<message>"
+git commit --no-gpg-sign -m "<message>"
 git push -u origin <feature-branch>
 ```
 2. `casa` sync:
 ```bash
 ssh casa 'cd /docker/homeassistant-bind && git status -sb'
 ssh casa 'cd /docker/homeassistant-bind && git checkout <feature-branch>'
-ssh casa 'cd /docker/homeassistant-bind && git add -A && git commit -m "<message>"'
+ssh casa 'cd /docker/homeassistant-bind && git add -A && git commit --no-gpg-sign -m "<message>"'
 ssh casa 'cd /docker/homeassistant-bind && git pull --ff-only origin <feature-branch>'
 ```
 

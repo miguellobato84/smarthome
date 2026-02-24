@@ -35,7 +35,7 @@ docker ps --filter name=homeassistant
 ```bash
 git checkout -b <feature-branch>
 git add <files>
-git commit -m "<message>"
+git commit --no-gpg-sign -m "<message>"
 git push -u origin <feature-branch>
 ```
 
@@ -47,7 +47,7 @@ ssh casa 'cd /docker/homeassistant-bind && git checkout <feature-branch>'
 
 3. If `casa` has local pending changes, commit them on the same branch before pulling:
 ```bash
-ssh casa 'cd /docker/homeassistant-bind && git add -A && git commit -m "<message>"'
+ssh casa 'cd /docker/homeassistant-bind && git add -A && git commit --no-gpg-sign -m "<message>"'
 ```
 
 4. Pull branch updates on `casa`:

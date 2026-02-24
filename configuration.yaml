@@ -1,7 +1,7 @@
 default_config:
 automation: !include_dir_merge_list automation
 script: !include_dir_merge_named scripts
-scene: !include scenes.yaml
+scene: !include_dir_merge_list scenes
 fan: !include templates/fan.yaml
 google_assistant: !include templates/google_assistant.yaml
 input_boolean: !include templates/input_boolean.yaml

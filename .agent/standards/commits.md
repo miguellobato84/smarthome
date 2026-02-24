@@ -14,13 +14,14 @@
   - Common types used here: `feat`, `fix`, `refactor`, `chore`.
 - Keep the subject concise and without trailing period.
 - Even though historical commits rarely include bodies, Codex commits must include a meaningful body explaining what and why.
+- GPG signing is not available in this environment (`gpg2` missing), so Codex should create commits with `--no-gpg-sign`.
 
 ## Codex baseline rules (always apply)
 - One logical change per commit.
 - Use a blank line between subject and body.
 - In the body, explain rationale and notable decisions for non-trivial changes.
 - For multiline commit messages, prefer:
-  - `git commit -m "<subject>" -m "<full body with real line breaks, paragraphs, and trailers>"`
+  - `git commit --no-gpg-sign -m "<subject>" -m "<full body with real line breaks, paragraphs, and trailers>"`
 - Keep the full body (including trailers) in one multiline `-m` argument with actual newlines.
 - Do not compose multiline bodies with escaped `\n`.
 - AI-assisted commits from Codex must end with this trailer block (after an empty line):
