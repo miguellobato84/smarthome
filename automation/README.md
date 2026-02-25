@@ -15,3 +15,4 @@ This folder contains Home Assistant automations split by topic. Each file holds 
 - `radiadores_external.yaml`: external temperature-based radiator control.
 - `ventilador_dario.yaml`: Dario fan behavior automation.
 - `ventilador_dormitorio.yaml`: bedroom fan behavior automation.
+- `wallpanel_battery_charging.yaml`: starts/stops wallpanel charger based on battery thresholds.

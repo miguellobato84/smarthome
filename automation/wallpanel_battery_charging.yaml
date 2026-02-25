@@ -1,0 +1,30 @@
+- id: '1761813000001'
+  alias: wallpanel_battery_charging
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id: sensor.wallpanel_battery_level
+    below: 30
+    id: battery_low
+  - trigger: numeric_state
+    entity_id: sensor.wallpanel_battery_level
+    above: 80
+    id: battery_high
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: battery_low
+      sequence:
+      - action: switch.turn_on
+        target:
+          entity_id: switch.cargador_wallpanel
+    - conditions:
+      - condition: trigger
+        id: battery_high
+      sequence:
+      - action: switch.turn_off
+        target:
+          entity_id: switch.cargador_wallpanel
+  mode: single
