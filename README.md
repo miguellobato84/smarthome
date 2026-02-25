@@ -23,3 +23,10 @@ This repository contains Home Assistant configuration and related infrastructure
 
 ## Directory documentation
 Each project directory contains a local `README.md` describing its purpose and files.
+
+## Host mount layout (casa)
+- Source config directory on host: `/docker/homeassistant`
+- Home Assistant container `/config` mount source: `/docker/homeassistant-bind`
+- `/docker/homeassistant-bind` is provided by `bindfs` from `/docker/homeassistant`
+- Persistent mount service: `homeassistant-bindfs.service` (systemd, enabled at boot)
+- Why: keep writable/non-root ownership behavior for day-to-day edits while preserving host layout.
