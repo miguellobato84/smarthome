@@ -1,0 +1,33 @@
+type: sections
+max_columns: 2
+title: persianas
+path: persianas
+sections:
+- type: grid
+  cards:
+  - type: heading
+    heading: Persianas
+    heading_style: title
+  - type: custom:mushroom-template-card
+    primary: <- Volver
+    icon: mdi:arrow-left
+    tap_action:
+      action: navigate
+      navigation_path: /dashboard-wallpanel/0
+  - type: tile
+    entity: cover.persiana_estudio
+    name: Persiana estudio
+    features_position: bottom
+    vertical: false
+    features:
+    - type: cover-position
+  - type: tile
+    entity: cover.persiana_dario
+    name: Persiana darío
+    features_position: bottom
+    vertical: false
+    features:
+    - type: cover-position
+  column_span: 2
+cards: []
+dense_section_placement: true

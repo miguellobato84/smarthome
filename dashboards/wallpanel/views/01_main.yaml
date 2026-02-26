@@ -92,7 +92,8 @@ sections:
       tap_action:
         action: toggle
       hold_action:
-        action: more-info
+        action: navigate
+        navigation_path: /dashboard-wallpanel/persianas
     - type: state-icon
       entity: cover.persiana_dario
       icon: mdi:blinds
@@ -103,7 +104,8 @@ sections:
       tap_action:
         action: toggle
       hold_action:
-        action: more-info
+        action: navigate
+        navigation_path: /dashboard-wallpanel/persianas
     - type: state-icon
       entity: light.luz_estudio
       icon: mdi:desk-lamp
