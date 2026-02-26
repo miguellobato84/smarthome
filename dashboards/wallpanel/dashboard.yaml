@@ -1,4 +1,4 @@
-# touched: 2026-02-26 19:46:18 CET - sync marker after adding persianas slider view and hold navigation
+# touched: 2026-02-26 19:56:18 CET - sync marker after setting persianas back button to text-only
 wallpanel:
   enabled: true
   hide_toolbar: true
