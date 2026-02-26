@@ -1,4 +1,4 @@
-# touched: 2026-02-24 22:08:41 CET - sync marker after removing calefaccion view and references
+# touched: 2026-02-26 12:00:00 CET - sync marker after updating main view scene buttons
 wallpanel:
   enabled: true
   hide_toolbar: true
