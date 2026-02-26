@@ -108,6 +108,8 @@ sections:
         {{ states('sensor.sensor_temp_banod_temperature') | float(0) | round(0) }}º"
       icon: mdi:thermometer
       layout: horizontal
+      tap_action:
+        action: none
       style:
         left: 41%
         top: 55%

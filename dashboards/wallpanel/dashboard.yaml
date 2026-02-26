@@ -1,4 +1,4 @@
-# touched: 2026-02-26 07:41:42 CET - sync marker after main button labels and bano temp action update
+# touched: 2026-02-26 07:52:54 CET - sync marker after setting bano temp tap_action to none
 wallpanel:
   enabled: true
   hide_toolbar: true
