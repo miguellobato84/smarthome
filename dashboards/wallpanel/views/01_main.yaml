@@ -40,6 +40,15 @@ sections:
       - left: 25%
       - top: 32%
     - type: state-icon
+      entity: light.luz_globito
+      icon: mdi:lightbulb
+      style:
+        left: 20%
+        top: 32%
+        transform: translate(-50%, -50%)
+      tap_action:
+        action: toggle
+    - type: state-icon
       entity: light.tuya_ventilador_dario
       icon: mdi:dome-light
       style:
