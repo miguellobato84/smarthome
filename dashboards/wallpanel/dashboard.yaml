@@ -1,4 +1,4 @@
-# touched: 2026-02-26 19:56:18 CET - sync marker after setting persianas back button to text-only
+# touched: 2026-02-26 19:59:24 CET - sync marker after setting persianas back button icon + Volver text
 wallpanel:
   enabled: true
   hide_toolbar: true

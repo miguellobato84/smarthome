@@ -9,8 +9,9 @@ sections:
     heading: Persianas
     heading_style: title
   - type: button
-    name: <- Volver
-    show_icon: false
+    name: Volver
+    icon: mdi:arrow-left
+    show_icon: true
     tap_action:
       action: navigate
       navigation_path: /dashboard-wallpanel/0
