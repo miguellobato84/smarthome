@@ -81,6 +81,8 @@ sections:
         top: 10%
         transform: translate(-50%, -50%)
       tap_action:
+        action: toggle
+      hold_action:
         action: more-info
     - type: state-icon
       entity: light.luz_estudio
@@ -199,13 +201,13 @@ sections:
       rows: 6
   - type: custom:mushroom-template-card
     primary: Federico
-    icon: mdi:account
+    icon: mdi:robot-vacuum
     tap_action:
       action: navigate
       navigation_path: /dashboard-wallpanel/federico
     features_position: bottom
     grid_options:
-      columns: 5
+      columns: 4
       rows: 1
   - type: custom:mushroom-template-card
     primary: Automations
