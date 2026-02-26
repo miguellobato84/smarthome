@@ -31,7 +31,7 @@
       - target:
           entity_id: light.luz_estudio
         data:
-          brightness_pct: '{% if now().hour >= 21 or now().hour < 7 %}20{% elif now().hour
+          brightness_pct: '{% if now().hour >= 21 or now().hour < 7 %}50{% elif now().hour
             >= 7 and now().hour < 16 %}100{% else %}70{% endif %}'
         action: light.turn_on
     - conditions:
