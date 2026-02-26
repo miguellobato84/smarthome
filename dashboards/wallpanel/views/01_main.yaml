@@ -37,8 +37,17 @@ sections:
       - entity: climate.radiador_dario
       - temp_text: "{{ states('sensor.sensor_temp_dario_temperature') | float(0) | round(0) }}º"
       - icon: mdi:radiator
-      - left: 25%
+      - left: 27%
       - top: 32%
+    - type: state-icon
+      entity: light.luz_globito
+      icon: mdi:lightbulb
+      style:
+        left: 20%
+        top: 32%
+        transform: translate(-50%, -50%)
+      tap_action:
+        action: toggle
     - type: state-icon
       entity: light.tuya_ventilador_dario
       icon: mdi:dome-light
@@ -81,6 +90,19 @@ sections:
         top: 10%
         transform: translate(-50%, -50%)
       tap_action:
+        action: toggle
+      hold_action:
+        action: more-info
+    - type: state-icon
+      entity: cover.persiana_dario
+      icon: mdi:blinds
+      style:
+        left: 25%
+        top: 10%
+        transform: translate(-50%, -50%)
+      tap_action:
+        action: toggle
+      hold_action:
         action: more-info
     - type: state-icon
       entity: light.luz_estudio
@@ -107,7 +129,7 @@ sections:
       icon: mdi:thermometer
       layout: horizontal
       tap_action:
-        action: more-info
+        action: none
       style:
         left: 41%
         top: 55%
@@ -199,13 +221,13 @@ sections:
       rows: 6
   - type: custom:mushroom-template-card
     primary: Federico
-    icon: mdi:account
+    icon: mdi:robot-vacuum
     tap_action:
       action: navigate
       navigation_path: /dashboard-wallpanel/federico
     features_position: bottom
     grid_options:
-      columns: 5
+      columns: 4
       rows: 1
   - type: custom:mushroom-template-card
     primary: Automations
@@ -218,13 +240,25 @@ sections:
       columns: 4
       rows: 1
   - type: custom:mushroom-template-card
-    primary: Ir a la cama
-    icon: mdi:bed-clock
+    primary: Morning
+    icon: mdi:lamps
     tap_action:
       action: call-service
-      service: script.turn_on
+      service: scene.turn_on
       target:
-        entity_id: script.go_to_bed
+        entity_id: scene.ambiente_on
+    features_position: bottom
+    grid_options:
+      columns: 4
+      rows: 1
+  - type: custom:mushroom-template-card
+    primary: Sleep
+    icon: mdi:lightbulb-night
+    tap_action:
+      action: call-service
+      service: scene.turn_on
+      target:
+        entity_id: scene.ambiente_off
     features_position: bottom
     grid_options:
       columns: 4

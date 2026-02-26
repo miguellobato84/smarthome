@@ -6,7 +6,7 @@ radiator_picture_mushroom:
     icon: "[[icon]]"
     layout: horizontal
     tap_action:
-      action: more-info
+      action: none
     style:
       left: "[[left]]"
       top: "[[top]]"

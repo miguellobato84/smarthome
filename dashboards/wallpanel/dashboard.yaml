@@ -1,4 +1,4 @@
-# touched: 2026-02-24 22:08:41 CET - sync marker after removing calefaccion view and references
+# touched: 2026-02-26 16:38:05 CET - sync marker after moving radiator tap behavior into streamline template
 wallpanel:
   enabled: true
   hide_toolbar: true
