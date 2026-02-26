@@ -8,8 +8,6 @@ sections:
     elements:
     - type: custom:streamline-card
       template: radiator_picture_mushroom
-      tap_action:
-        action: none
       variables:
       - entity: climate.radiador_dormitorio
       - temp_text: "{{ states('sensor.radiador_dormitorio_local_temperature') | float(0) | round(0) }}º"
@@ -35,8 +33,6 @@ sections:
         action: toggle
     - type: custom:streamline-card
       template: radiator_picture_mushroom
-      tap_action:
-        action: none
       variables:
       - entity: climate.radiador_dario
       - temp_text: "{{ states('sensor.sensor_temp_dario_temperature') | float(0) | round(0) }}º"
@@ -80,8 +76,6 @@ sections:
         action: toggle
     - type: custom:streamline-card
       template: radiator_picture_mushroom
-      tap_action:
-        action: none
       variables:
       - entity: climate.radiador_estudio
       - temp_text: "{{ states('sensor.sensor_temp_estudio_temperature') | float(0) | round(0) }}º"
@@ -207,8 +201,6 @@ sections:
       - top: 85%
     - type: custom:streamline-card
       template: radiator_picture_mushroom
-      tap_action:
-        action: none
       variables:
       - entity: climate.radiador_entrada
       - temp_text: "{{ states('sensor.sensor_temp_salon_temperature') | float(0) | round(0) }}º"
@@ -217,8 +209,6 @@ sections:
       - top: 35%
     - type: custom:streamline-card
       template: radiator_picture_mushroom
-      tap_action:
-        action: none
       variables:
       - entity: climate.radiador_salon
       - temp_text: "{{ states('sensor.sensor_temp_salon_temperature') | float(0) | round(0) }}º"

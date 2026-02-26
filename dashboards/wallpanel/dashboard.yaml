@@ -1,4 +1,4 @@
-# touched: 2026-02-26 16:34:10 CET - sync marker after radiador and persiana dario layout update
+# touched: 2026-02-26 16:38:05 CET - sync marker after moving radiator tap behavior into streamline template
 wallpanel:
   enabled: true
   hide_toolbar: true
