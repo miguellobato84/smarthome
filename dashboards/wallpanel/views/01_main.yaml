@@ -108,8 +108,6 @@ sections:
         {{ states('sensor.sensor_temp_banod_temperature') | float(0) | round(0) }}º"
       icon: mdi:thermometer
       layout: horizontal
-      tap_action:
-        action: more-info
       style:
         left: 41%
         top: 55%
@@ -220,7 +218,7 @@ sections:
       columns: 4
       rows: 1
   - type: custom:mushroom-template-card
-    primary: Ambiente on
+    primary: Morning
     icon: mdi:lamps
     tap_action:
       action: call-service
@@ -232,7 +230,7 @@ sections:
       columns: 4
       rows: 1
   - type: custom:mushroom-template-card
-    primary: Ambiente off
+    primary: Sleep
     icon: mdi:lightbulb-night
     tap_action:
       action: call-service
