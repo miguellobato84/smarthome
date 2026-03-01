@@ -3,8 +3,8 @@ federico_limpieza:
   sequence:
   - service: xiaomi_miio.vacuum_goto
     data:
-      x_coord: '18300'
-      y_coord: '24700'
+      x_coord: '32570'
+      y_coord: '19821'
     target:
       entity_id: vacuum.federico
   mode: single

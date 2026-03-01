@@ -1,4 +1,4 @@
-# touched: 2026-02-26 19:59:24 CET - sync marker after setting persianas back button icon + Volver text
+# touched: 2026-03-01 12:17:21 CET - sync marker after restoring Federico button on main view
 wallpanel:
   enabled: true
   hide_toolbar: true

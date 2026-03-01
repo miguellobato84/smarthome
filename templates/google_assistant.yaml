@@ -27,21 +27,9 @@ entity_config:
     name: "Federico vuelve a la base"
     aliases:
       - "Federico vuelve a casa"
-  script.federico_cocina:
+  script.federico_habitacion:
     expose: true
-    name: "Federico aspira la cocina"
-  script.federico_dormitorio:
-    expose: true
-    name: "Federico aspira el dormitorio"
-  script.federico_estudio:
-    expose: true
-    name: "Federico aspira el estudio"
-  script.federico_pasillo:
-    expose: true
-    name: "Federico aspira el pasillo"
-  script.federico_salon:
-    expose: true
-    name: "Federico aspira el salón"
+    name: "Federico aspira una habitación"
   script.federico_start:
     expose: true
     name: "Federico aspira la casa"

@@ -7,7 +7,9 @@
 
 ## Rules
 - Do all file edits locally, then commit to a non-`main` branch.
+- In iterative sessions, do one commit per completed user-requested change set and push that commit immediately.
 - Push local branch to origin before syncing on `casa`.
+- Do not accumulate multiple finished requests locally without push, unless the user explicitly asks for batching.
 - Use `ssh casa` only for git operations unless explicitly requested otherwise.
 - On `casa`, if there are local pending changes, commit them on the same branch before pulling.
 - Use `--no-gpg-sign` for commits in this environment.
@@ -22,6 +24,12 @@ git checkout -b <feature-branch>
 git add <files>
 git commit --no-gpg-sign -m "<message>"
 git push -u origin <feature-branch>
+```
+For subsequent requests on the same branch:
+```bash
+git add -A
+git commit --no-gpg-sign -m "<message>"
+git push origin <feature-branch>
 ```
 2. `casa` sync:
 ```bash

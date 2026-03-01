@@ -1,0 +1,43 @@
+federico_habitacion:
+  alias: federico_habitacion
+  description: Limpia una habitacion de Federico resolviendo el segmento desde un mapa interno.
+  mode: single
+  icon: mdi:robot-vacuum
+  fields:
+    habitacion:
+      name: Habitacion
+      description: Nombre de la habitacion o segmento (ej. salon, cocina, banera, ducha).
+      required: true
+      selector:
+        text:
+  sequence:
+  - variables:
+      room_key: >-
+        {{ habitacion | default('') | string | lower | trim
+        | replace('á','a') | replace('é','e') | replace('í','i')
+        | replace('ó','o') | replace('ú','u') | replace(' ','_') }}
+      segment_map:
+        banera: 1
+        ducha: 2
+        salon: 16
+        estudio: 17
+        cocina: 18
+        dormitorio: 19
+        terraza: 20
+        dario: 23
+      segment: "{{ segment_map.get(room_key) }}"
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: "{{ segment is number }}"
+      sequence:
+      - service: xiaomi_miio.vacuum_clean_segment
+        data:
+          segments: "{{ segment | int }}"
+        target:
+          entity_id: vacuum.federico
+    default:
+    - service: persistent_notification.create
+      data:
+        title: Federico - habitacion no reconocida
+        message: "No se encontro segmento para '{{ habitacion }}' (clave: '{{ room_key }}')."

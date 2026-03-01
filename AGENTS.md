@@ -62,6 +62,8 @@ This repository stores Home Assistant configuration, automations, templates, das
 ## Commit & Pull Request Guidelines
 - Commit conventions: see `.agent/standards/commits.md`
 - In this repo environment, use unsigned commits (`--no-gpg-sign`) unless told otherwise.
+- In iterative work, after each user-requested change set is finished, commit and push the current feature branch to `origin` immediately (do not batch multiple requests without push).
+- After each push, run the `casa` git-sync flow unless the user explicitly asks to skip it.
 - PR expectations: include behavior summary, impacted entities, and validation steps.
 - Home Assistant git-sync workflow: see `.agent/standards/home-assistant-git-sync.md`
 
