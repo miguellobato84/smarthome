@@ -1,4 +1,4 @@
-# touched: 2026-03-01 12:17:21 CET - sync marker after restoring Federico button on main view
+# touched: 2026-03-01 12:40:26 CET - sync marker after adding wallpanel radiadores view and main navigation button
 wallpanel:
   enabled: true
   hide_toolbar: true

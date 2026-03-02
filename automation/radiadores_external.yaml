@@ -76,6 +76,15 @@
               \ < 22)\n     ) else MIN }}\n{% else %}\n  {{ target_temp }}\n{% endif\
               \ %}"
     default:
+    - action: script.set_radiador
+      data:
+        entity:
+        - climate.radiador_dormitorio
+        - climate.radiador_dario
+        - climate.radiador_estudio
+        - climate.radiador_entrada
+        - climate.radiador_salon
+        target: 7
     - action: climate.set_hvac_mode
       target:
         entity_id:

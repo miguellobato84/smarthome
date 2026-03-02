@@ -54,3 +54,13 @@ radiadores_set_external:
       - number.radiador_salon_temperature_accuracy
     data:
       value: -0.4
+  - action: number.set_value
+    target:
+      entity_id:
+      - number.radiador_dormitorio_frost_protection_temperature
+      - number.radiador_dario_frost_protection_temperature
+      - number.radiador_estudio_frost_protection_temperature
+      - number.radiador_entrada_frost_protection_temperature
+      - number.radiador_salon_frost_protection_temperature
+    data:
+      value: 4

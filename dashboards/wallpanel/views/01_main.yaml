@@ -242,6 +242,16 @@ sections:
       columns: 4
       rows: 1
   - type: custom:mushroom-template-card
+    primary: Radiadores
+    icon: mdi:radiator
+    tap_action:
+      action: navigate
+      navigation_path: /dashboard-wallpanel/radiadores
+    features_position: bottom
+    grid_options:
+      columns: 4
+      rows: 1
+  - type: custom:mushroom-template-card
     primary: Morning
     icon: mdi:lamps
     tap_action:

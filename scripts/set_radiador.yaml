@@ -53,3 +53,9 @@ set_radiador:
               entity_id: '{{ valve_entity }}'
             data:
               value: 50
+        default:
+        - action: number.set_value
+          target:
+            entity_id: '{{ valve_entity }}'
+          data:
+            value: 0

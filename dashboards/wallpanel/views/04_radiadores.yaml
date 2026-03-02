@@ -1,0 +1,188 @@
+type: sections
+max_columns: 4
+title: radiadores
+path: radiadores
+sections:
+- type: grid
+  cards:
+  - type: heading
+    heading: Radiadores
+    heading_style: title
+    badges: []
+  - type: custom:mushroom-template-card
+    primary: Volver
+    icon: mdi:arrow-left
+    tap_action:
+      action: navigate
+      navigation_path: /dashboard-wallpanel/0
+  - type: custom:mushroom-template-card
+    entity: automation.radiadores_external
+    primary: Automatización radiadores
+    secondary: Activa de 17:00 a 22:00. Fuera de ese horario apaga todos los radiadores.
+    icon: mdi:radiator-disabled
+    multiline_secondary: true
+    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+  - type: custom:mushroom-template-card
+    entity: input_boolean.at_home
+    primary: Presencia
+    secondary: "{{ 'En casa' if is_state(entity, 'on') else 'Fuera de casa (todos a 18°C de 17:00 a 22:00)' }}"
+    icon: "{{ 'mdi:home' if is_state(entity, 'on') else 'mdi:home-off' }}"
+    icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
+    multiline_secondary: true
+  - type: custom:mushroom-template-card
+    entity: input_boolean.is_holiday
+    primary: Tipo de día
+    secondary: "{{ 'Festivo' if is_state(entity, 'on') else 'Laborable' }}"
+    icon: "{{ 'mdi:calendar-weekend' if is_state(entity, 'on') else 'mdi:calendar' }}"
+    icon_color: "{{ 'green' if is_state(entity, 'on') else 'blue' }}"
+  column_span: 4
+- type: grid
+  cards:
+  - type: heading
+    heading: Dormitorio
+    heading_style: subtitle
+  - type: custom:mushroom-template-card
+    entity: climate.radiador_dormitorio
+    primary: Radiador dormitorio
+    secondary: >
+      Actual {{ state_attr(entity, 'current_temperature') }}°C · Set {{
+      state_attr(entity, 'temperature') }}°C · {{ state_attr(entity, 'hvac_action')
+      or 'idle' }}
+    icon: mdi:radiator
+    icon_color: |-
+      {% set mode = states(entity) %}
+      {% set a = state_attr(entity, 'hvac_action') %}
+      {% if a == 'heating' and mode not in ['off', 'unknown', 'unavailable'] %}
+        red
+      {% else %}
+        gray
+      {% endif %}
+    multiline_secondary: true
+  - type: tile
+    entity: input_boolean.radiador_dormitorio_auto
+    name: Smart dormitorio
+    icon: mdi:creation
+    features_position: bottom
+  - type: tile
+    entity: input_number.radiador_dormitorio_target
+    name: Target dormitorio
+    features_position: bottom
+  - type: heading
+    heading: Darío
+    heading_style: subtitle
+  - type: custom:mushroom-template-card
+    entity: climate.radiador_dario
+    primary: Radiador Darío
+    secondary: >
+      Actual {{ state_attr(entity, 'current_temperature') }}°C · Set {{
+      state_attr(entity, 'temperature') }}°C · {{ state_attr(entity, 'hvac_action')
+      or 'idle' }}
+    icon: mdi:radiator
+    icon_color: |-
+      {% set mode = states(entity) %}
+      {% set a = state_attr(entity, 'hvac_action') %}
+      {% if a == 'heating' and mode not in ['off', 'unknown', 'unavailable'] %}
+        red
+      {% else %}
+        gray
+      {% endif %}
+    multiline_secondary: true
+  - type: tile
+    entity: input_boolean.radiador_dario_auto
+    name: Smart Darío
+    icon: mdi:creation
+    features_position: bottom
+  - type: tile
+    entity: input_number.radiador_dario_target
+    name: Target Darío
+    features_position: bottom
+  - type: heading
+    heading: Estudio
+    heading_style: subtitle
+  - type: custom:mushroom-template-card
+    entity: climate.radiador_estudio
+    primary: Radiador estudio
+    secondary: >
+      Actual {{ state_attr(entity, 'current_temperature') }}°C · Set {{
+      state_attr(entity, 'temperature') }}°C · {{ state_attr(entity, 'hvac_action')
+      or 'idle' }}
+    icon: mdi:radiator
+    icon_color: |-
+      {% set mode = states(entity) %}
+      {% set a = state_attr(entity, 'hvac_action') %}
+      {% if a == 'heating' and mode not in ['off', 'unknown', 'unavailable'] %}
+        red
+      {% else %}
+        gray
+      {% endif %}
+    multiline_secondary: true
+  - type: tile
+    entity: input_boolean.radiador_estudio_auto
+    name: Smart estudio
+    icon: mdi:creation
+    features_position: bottom
+  - type: tile
+    entity: input_number.radiador_estudio_target
+    name: Target estudio
+    features_position: bottom
+  - type: heading
+    heading: Entrada
+    heading_style: subtitle
+  - type: custom:mushroom-template-card
+    entity: climate.radiador_entrada
+    primary: Radiador entrada
+    secondary: >
+      Comparte control smart/target con salón en la automatización. Actual {{
+      state_attr(entity, 'current_temperature') }}°C · Set {{ state_attr(entity,
+      'temperature') }}°C · {{ state_attr(entity, 'hvac_action') or 'idle' }}
+    icon: mdi:radiator
+    icon_color: |-
+      {% set mode = states(entity) %}
+      {% set a = state_attr(entity, 'hvac_action') %}
+      {% if a == 'heating' and mode not in ['off', 'unknown', 'unavailable'] %}
+        red
+      {% else %}
+        gray
+      {% endif %}
+    multiline_secondary: true
+  - type: tile
+    entity: input_boolean.radiador_salon_auto
+    name: Smart entrada (compartido)
+    icon: mdi:creation
+    features_position: bottom
+  - type: tile
+    entity: input_number.radiador_salon_target
+    name: Target entrada (compartido)
+    features_position: bottom
+  - type: heading
+    heading: Salón
+    heading_style: subtitle
+  - type: custom:mushroom-template-card
+    entity: climate.radiador_salon
+    primary: Radiador salón
+    secondary: >
+      Actual {{ state_attr(entity, 'current_temperature') }}°C · Set {{
+      state_attr(entity, 'temperature') }}°C · {{ state_attr(entity, 'hvac_action')
+      or 'idle' }}
+    icon: mdi:radiator
+    icon_color: |-
+      {% set mode = states(entity) %}
+      {% set a = state_attr(entity, 'hvac_action') %}
+      {% if a == 'heating' and mode not in ['off', 'unknown', 'unavailable'] %}
+        red
+      {% else %}
+        gray
+      {% endif %}
+    multiline_secondary: true
+  - type: tile
+    entity: input_boolean.radiador_salon_auto
+    name: Smart salón
+    icon: mdi:creation
+    features_position: bottom
+  - type: tile
+    entity: input_number.radiador_salon_target
+    name: Target salón
+    features_position: bottom
+  column_span: 4
+cards: []
+dense_section_placement: true

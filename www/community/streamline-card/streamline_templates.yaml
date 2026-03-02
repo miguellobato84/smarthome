@@ -33,10 +33,11 @@ radiator_picture_mushroom:
           margin-right: 0 !important;
         }
     icon_color: |-
+      {% set mode = states("[[entity]]") %}
       {% set a = state_attr("[[entity]]", "hvac_action") %}
-      {% if a == "heating" %}
+      {% if a == "heating" and mode not in ["off", "unknown", "unavailable"] %}
         red
-      {% elif a == "cooling" %}
+      {% elif a == "cooling" and mode not in ["off", "unknown", "unavailable"] %}
         blue
       {% else %}
         gray
