@@ -1,5 +1,5 @@
 - id: '1771866324220'
-  alias: persiana_estudio
+  alias: persianas_auto
   description: ''
   triggers:
   - trigger: time
@@ -17,7 +17,9 @@
       sequence:
       - action: cover.set_cover_position
         target:
-          entity_id: cover.persiana_estudio
+          entity_id:
+          - cover.persiana_estudio
+          - cover.persiana_dario
         data:
           position: 100
     - conditions:
@@ -26,7 +28,9 @@
       sequence:
       - action: cover.set_cover_position
         target:
-          entity_id: cover.persiana_estudio
+          entity_id:
+          - cover.persiana_estudio
+          - cover.persiana_dario
         data:
           position: 0
     - conditions:
@@ -38,7 +42,9 @@
       sequence:
       - action: cover.set_cover_position
         target:
-          entity_id: cover.persiana_estudio
+          entity_id:
+          - cover.persiana_estudio
+          - cover.persiana_dario
         data:
           position: 100
     - conditions:
@@ -47,7 +53,9 @@
       sequence:
       - action: cover.set_cover_position
         target:
-          entity_id: cover.persiana_estudio
+          entity_id:
+          - cover.persiana_estudio
+          - cover.persiana_dario
         data:
           position: 0
   mode: single
