@@ -18,3 +18,4 @@ hisense/
 image/
 .fuse_hidden*
 .ha_run.lock
+.cache/

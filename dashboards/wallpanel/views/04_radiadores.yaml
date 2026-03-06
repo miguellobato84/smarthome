@@ -1,12 +1,12 @@
 type: sections
 max_columns: 4
-title: radiadores
-path: radiadores
+title: calefaccion
+path: calefaccion
 sections:
 - type: grid
   cards:
   - type: heading
-    heading: Radiadores
+    heading: Calefaccion
     heading_style: title
     badges: []
   - type: custom:mushroom-template-card
@@ -16,25 +16,60 @@ sections:
       action: navigate
       navigation_path: /dashboard-wallpanel/0
   - type: custom:mushroom-template-card
-    entity: automation.radiadores_external
-    primary: Automatización radiadores
-    secondary: Activa de 17:00 a 22:00. Fuera de ese horario apaga todos los radiadores.
+    entity: automation.auto_radiadores
+    primary: Radiadores
+    secondary: "{% set last = state_attr(entity, 'last_triggered') %}last triggered:
+      {{ as_timestamp(last) | timestamp_custom('%d/%m %H:%M') if last else 'never' }}"
     icon: mdi:radiator-disabled
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.auto_radiadores
   - type: custom:mushroom-template-card
-    entity: input_boolean.at_home
-    primary: Presencia
-    secondary: "{{ 'En casa' if is_state(entity, 'on') else 'Fuera de casa (todos a 18°C de 17:00 a 22:00)' }}"
-    icon: "{{ 'mdi:home' if is_state(entity, 'on') else 'mdi:home-off' }}"
-    icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
+    entity: automation.auto_radiadores_automation
+    primary: Horario Radiadores
+    secondary: Activa auto_radiadores a las 17:00 y la desactiva a las 22:00.
+    icon: mdi:clock-outline
     multiline_secondary: true
+    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.auto_radiadores_automation
   - type: custom:mushroom-template-card
-    entity: input_boolean.is_holiday
-    primary: Tipo de día
-    secondary: "{{ 'Festivo' if is_state(entity, 'on') else 'Laborable' }}"
-    icon: "{{ 'mdi:calendar-weekend' if is_state(entity, 'on') else 'mdi:calendar' }}"
-    icon_color: "{{ 'green' if is_state(entity, 'on') else 'blue' }}"
+    entity: automation.ac_heat_schedule
+    primary: AC calefaccion
+    secondary: |-
+      {% set alarm = states('input_datetime.alarm') %} {% if alarm in ['unknown', 'unavailable', 'none', ''] %}
+        Enciende 35 min antes de la alarma, apaga a la hora de la alarma
+      {% else %}
+        {% set off = today_at(alarm) %}
+        {% set on = off - timedelta(minutes=35) %}
+        {{ on.strftime('%H:%M') }} -> {{ off.strftime('%H:%M') }}
+      {% endif %}
+    icon: mdi:radiator
+    color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.ac_heat_schedule
   column_span: 4
 - type: grid
   cards:

@@ -1,4 +1,4 @@
-# touched: 2026-03-01 12:40:26 CET - sync marker after adding wallpanel radiadores view and main navigation button
+# touched: 2026-03-06 12:48:22 CET - sync marker after renaming radiadores view to calefaccion and moving AC card
 wallpanel:
   enabled: true
   hide_toolbar: true

@@ -1,0 +1,28 @@
+- id: '1772796841724'
+  alias: auto_radiadores_automation
+  description: Activa auto_radiadores a las 17:00 y la desactiva a las 22:00.
+  triggers:
+  - trigger: time
+    at: "17:00:00"
+    id: enable_auto_radiadores
+  - trigger: time
+    at: "22:00:00"
+    id: disable_auto_radiadores
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: enable_auto_radiadores
+      sequence:
+      - action: automation.turn_on
+        target:
+          entity_id: automation.auto_radiadores
+    - conditions:
+      - condition: trigger
+        id: disable_auto_radiadores
+      sequence:
+      - action: automation.turn_off
+        target:
+          entity_id: automation.auto_radiadores
+  mode: single

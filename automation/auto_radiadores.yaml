@@ -1,5 +1,5 @@
 - id: '1763817999770'
-  alias: radiadores_external
+  alias: auto_radiadores
   description: ''
   triggers:
   - minutes: /30

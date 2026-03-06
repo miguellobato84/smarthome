@@ -52,19 +52,6 @@ sections:
     heading_style: title
     badges: []
   - type: custom:mushroom-template-card
-    entity: automation.ac_heat_schedule
-    primary: AC calefaccion
-    secondary: |-
-      {% set alarm = states('input_datetime.alarm') %} {% if alarm in ['unknown', 'unavailable', 'none', ''] %}
-        Enciende 35 min antes de la alarma, apaga a la hora de la alarma
-      {% else %}
-        {% set off = today_at(alarm) %}
-        {% set on = off - timedelta(minutes=35) %}
-        {{ on.strftime('%H:%M') }} -> {{ off.strftime('%H:%M') }}
-      {% endif %}
-    icon: mdi:radiator
-    color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
-  - type: custom:mushroom-template-card
     entity: automation.ambiente
     primary: Escenas de ambiente
     secondary: |-
@@ -80,6 +67,15 @@ sections:
     icon: mdi:theme-light-dark
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.ambiente
   - type: custom:mushroom-template-card
     entity: automation.luz_estudio
     primary: Luz estudio por presencia
@@ -87,13 +83,15 @@ sections:
     icon: mdi:desk-lamp
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
-  - type: custom:mushroom-template-card
-    entity: automation.radiadores_external
-    primary: Control externo de radiadores
-    secondary: Recalcula objetivos de radiadores por horario, presencia y estado de luces.
-    icon: mdi:radiator-disabled
-    multiline_secondary: true
-    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.luz_estudio
   column_span: 3
 - type: grid
   cards:
@@ -108,6 +106,15 @@ sections:
     icon: mdi:fan
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.ventilador_dario
   - type: custom:mushroom-template-card
     entity: automation.ventilador_dormitorio
     primary: Ventilador dormitorio
@@ -115,6 +122,15 @@ sections:
     icon: mdi:ceiling-fan
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.ventilador_dormitorio
   - type: custom:mushroom-template-card
     entity: automation.autoenable_radiador_smart_mode
     primary: Reactivar modo smart radiador
@@ -122,6 +138,15 @@ sections:
     icon: mdi:radiator
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.autoenable_radiador_smart_mode
   - type: custom:mushroom-template-card
     entity: automation.auto_off_extractor_bano
     primary: Auto apagado extractor
@@ -129,6 +154,15 @@ sections:
     icon: mdi:fan-off
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.auto_off_extractor_bano
   - type: custom:mushroom-template-card
     entity: automation.armarios
     primary: Luces de armarios
@@ -136,6 +170,15 @@ sections:
     icon: mdi:wardrobe
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.armarios
   - type: custom:mushroom-template-card
     entity: automation.humidity_rise_extractor_bano
     primary: Extractor Baño
@@ -143,6 +186,15 @@ sections:
     icon: mdi:water-percent-alert
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.humidity_rise_extractor_bano
   - type: custom:mushroom-template-card
     entity: automation.is_holiday
     primary: Estado festivo
@@ -150,6 +202,15 @@ sections:
     icon: mdi:calendar-weekend
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.is_holiday
   column_span: 3
 cards: []
 dense_section_placement: true
