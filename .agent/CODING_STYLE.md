@@ -14,6 +14,8 @@ docker compose -f compose/home-assistant.yml config
 - Keep automations split by concern under `automation/` (one primary behavior per file).
 - Guard template math/comparisons with `has_value(...)` and safe casts (`| float(0)`).
 - Prefer explicit `mode` in automations (existing repo uses `mode: single` frequently).
+- There is no maximum line length in this repository.
+- In YAML files that include code or templates, prioritize ease of reading over line wrapping or compactness.
 - Keep dashboard structure modular:
   - `dashboards/*/dashboard.yaml` should include views via `!include_dir_list`.
   - Shared resources stay in `dashboards/resources.yaml`.

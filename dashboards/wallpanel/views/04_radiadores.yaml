@@ -1,59 +1,26 @@
 type: sections
 max_columns: 4
-title: calefaccion
+title: heating
 path: calefaccion
 sections:
 - type: grid
   cards:
   - type: heading
-    heading: Calefaccion
+    heading: Heating
     heading_style: title
     badges: []
   - type: custom:mushroom-template-card
-    primary: Volver
+    primary: Back
     icon: mdi:arrow-left
     tap_action:
       action: navigate
       navigation_path: /dashboard-wallpanel/0
   - type: custom:mushroom-template-card
-    entity: automation.auto_radiadores
-    primary: Radiadores
-    secondary: "{% set last = state_attr(entity, 'last_triggered') %}last triggered:
-      {{ as_timestamp(last) | timestamp_custom('%d/%m %H:%M') if last else 'never' }}"
-    icon: mdi:radiator-disabled
-    multiline_secondary: true
-    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
-    tap_action:
-      action: toggle
-    hold_action:
-      action: more-info
-    double_tap_action:
-      action: call-service
-      service: automation.trigger
-      target:
-        entity_id: automation.auto_radiadores
-  - type: custom:mushroom-template-card
-    entity: automation.auto_radiadores_automation
-    primary: Horario Radiadores
-    secondary: Activa auto_radiadores a las 17:00 y la desactiva a las 22:00.
-    icon: mdi:clock-outline
-    multiline_secondary: true
-    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
-    tap_action:
-      action: toggle
-    hold_action:
-      action: more-info
-    double_tap_action:
-      action: call-service
-      service: automation.trigger
-      target:
-        entity_id: automation.auto_radiadores_automation
-  - type: custom:mushroom-template-card
     entity: automation.ac_heat_schedule
-    primary: AC calefaccion
+    primary: AC heating
     secondary: |-
       {% set alarm = states('input_datetime.alarm') %} {% if alarm in ['unknown', 'unavailable', 'none', ''] %}
-        Enciende 35 min antes de la alarma, apaga a la hora de la alarma
+        Turns on 35 min before the alarm, turns off at alarm time
       {% else %}
         {% set off = today_at(alarm) %}
         {% set on = off - timedelta(minutes=35) %}
@@ -74,15 +41,16 @@ sections:
 - type: grid
   cards:
   - type: heading
-    heading: Dormitorio
+    heading: Bedroom
     heading_style: subtitle
   - type: custom:mushroom-template-card
     entity: climate.radiador_dormitorio
-    primary: Radiador dormitorio
-    secondary: >
-      Actual {{ state_attr(entity, 'current_temperature') }}°C · Set {{
-      state_attr(entity, 'temperature') }}°C · {{ state_attr(entity, 'hvac_action')
-      or 'idle' }}
+    primary: >-
+      {% set heating = state_attr(entity, 'hvac_action') == 'heating' and states(entity) not in ['off', 'unknown', 'unavailable'] %}
+      {% set valve = states('number.radiador_dormitorio_valve_opening_degree') if heating else (100 - states('number.radiador_dormitorio_valve_closing_degree') | float(0)) | round(0) %}
+      Status {{ state_attr(entity, 'hvac_action') or 'idle' }}, valve {{ valve }}%
+    secondary: >-
+      Room {{ state_attr(entity, 'current_temperature') }}°C, On 18 - 20
     icon: mdi:radiator
     icon_color: |-
       {% set mode = states(entity) %}
@@ -93,25 +61,35 @@ sections:
         gray
       {% endif %}
     multiline_secondary: true
-  - type: tile
+  - type: custom:mushroom-template-card
     entity: input_boolean.radiador_dormitorio_auto
-    name: Smart dormitorio
+    primary: Bedroom smart
+    secondary: |-
+      {% if is_state(entity, 'off') %}
+        Off · {{ relative_time(states[entity].last_changed) }}
+      {% else %}
+        On
+      {% endif %}
     icon: mdi:creation
-    features_position: bottom
+    icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
   - type: tile
     entity: input_number.radiador_dormitorio_target
-    name: Target dormitorio
+    name: Bedroom target
     features_position: bottom
   - type: heading
-    heading: Darío
+    heading: Dario
     heading_style: subtitle
   - type: custom:mushroom-template-card
     entity: climate.radiador_dario
-    primary: Radiador Darío
-    secondary: >
-      Actual {{ state_attr(entity, 'current_temperature') }}°C · Set {{
-      state_attr(entity, 'temperature') }}°C · {{ state_attr(entity, 'hvac_action')
-      or 'idle' }}
+    primary: >-
+      {% set heating = state_attr(entity, 'hvac_action') == 'heating' and states(entity) not in ['off', 'unknown', 'unavailable'] %}
+      {% set valve = states('number.radiador_dario_valve_opening_degree') if heating else (100 - states('number.radiador_dario_valve_closing_degree') | float(0)) | round(0) %}
+      Status {{ state_attr(entity, 'hvac_action') or 'idle' }}, valve {{ valve }}%
+    secondary: >-
+      {% set hours = '7 - 19' if is_state('input_boolean.is_holiday', 'on') else '7 - 9, 17 - 20' %}
+      Room {{ state_attr(entity, 'current_temperature') }}°C, On {{ hours }}
     icon: mdi:radiator
     icon_color: |-
       {% set mode = states(entity) %}
@@ -122,25 +100,35 @@ sections:
         gray
       {% endif %}
     multiline_secondary: true
-  - type: tile
+  - type: custom:mushroom-template-card
     entity: input_boolean.radiador_dario_auto
-    name: Smart Darío
+    primary: Dario smart
+    secondary: |-
+      {% if is_state(entity, 'off') %}
+        Off · {{ relative_time(states[entity].last_changed) }}
+      {% else %}
+        On
+      {% endif %}
     icon: mdi:creation
-    features_position: bottom
+    icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
   - type: tile
     entity: input_number.radiador_dario_target
-    name: Target Darío
+    name: Dario target
     features_position: bottom
   - type: heading
-    heading: Estudio
+    heading: Office
     heading_style: subtitle
   - type: custom:mushroom-template-card
     entity: climate.radiador_estudio
-    primary: Radiador estudio
-    secondary: >
-      Actual {{ state_attr(entity, 'current_temperature') }}°C · Set {{
-      state_attr(entity, 'temperature') }}°C · {{ state_attr(entity, 'hvac_action')
-      or 'idle' }}
+    primary: >-
+      {% set heating = state_attr(entity, 'hvac_action') == 'heating' and states(entity) not in ['off', 'unknown', 'unavailable'] %}
+      {% set valve = states('number.radiador_estudio_valve_opening_degree') if heating else (100 - states('number.radiador_estudio_valve_closing_degree') | float(0)) | round(0) %}
+      Status {{ state_attr(entity, 'hvac_action') or 'idle' }}, valve {{ valve }}%
+    secondary: >-
+      {% set hours = '7 - 16' if not is_state('input_boolean.is_holiday', 'on') else 'not today' %}
+      Room {{ state_attr(entity, 'current_temperature') }}°C, On {{ hours }}
     icon: mdi:radiator
     icon_color: |-
       {% set mode = states(entity) %}
@@ -151,25 +139,34 @@ sections:
         gray
       {% endif %}
     multiline_secondary: true
-  - type: tile
+  - type: custom:mushroom-template-card
     entity: input_boolean.radiador_estudio_auto
-    name: Smart estudio
+    primary: Office smart
+    secondary: |-
+      {% if is_state(entity, 'off') %}
+        Off · {{ relative_time(states[entity].last_changed) }}
+      {% else %}
+        On
+      {% endif %}
     icon: mdi:creation
-    features_position: bottom
+    icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
   - type: tile
     entity: input_number.radiador_estudio_target
-    name: Target estudio
+    name: Office target
     features_position: bottom
   - type: heading
-    heading: Entrada
+    heading: Entry
     heading_style: subtitle
   - type: custom:mushroom-template-card
     entity: climate.radiador_entrada
-    primary: Radiador entrada
-    secondary: >
-      Comparte control smart/target con salón en la automatización. Actual {{
-      state_attr(entity, 'current_temperature') }}°C · Set {{ state_attr(entity,
-      'temperature') }}°C · {{ state_attr(entity, 'hvac_action') or 'idle' }}
+    primary: >-
+      {% set heating = state_attr(entity, 'hvac_action') == 'heating' and states(entity) not in ['off', 'unknown', 'unavailable'] %}
+      {% set valve = states('number.radiador_entrada_valve_opening_degree') if heating else (100 - states('number.radiador_entrada_valve_closing_degree') | float(0)) | round(0) %}
+      Status {{ state_attr(entity, 'hvac_action') or 'idle' }}, valve {{ valve }}%
+    secondary: >-
+      Room {{ state_attr(entity, 'current_temperature') }}°C, On 7 - 22
     icon: mdi:radiator
     icon_color: |-
       {% set mode = states(entity) %}
@@ -180,25 +177,34 @@ sections:
         gray
       {% endif %}
     multiline_secondary: true
-  - type: tile
-    entity: input_boolean.radiador_salon_auto
-    name: Smart entrada (compartido)
+  - type: custom:mushroom-template-card
+    entity: input_boolean.radiador_entrada_auto
+    primary: Entry smart
+    secondary: |-
+      {% if is_state(entity, 'off') %}
+        Off · {{ relative_time(states[entity].last_changed) }}
+      {% else %}
+        On
+      {% endif %}
     icon: mdi:creation
-    features_position: bottom
+    icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
   - type: tile
-    entity: input_number.radiador_salon_target
-    name: Target entrada (compartido)
+    entity: input_number.radiador_entrada_target
+    name: Entry target
     features_position: bottom
   - type: heading
-    heading: Salón
+    heading: Living room
     heading_style: subtitle
   - type: custom:mushroom-template-card
     entity: climate.radiador_salon
-    primary: Radiador salón
-    secondary: >
-      Actual {{ state_attr(entity, 'current_temperature') }}°C · Set {{
-      state_attr(entity, 'temperature') }}°C · {{ state_attr(entity, 'hvac_action')
-      or 'idle' }}
+    primary: >-
+      {% set heating = state_attr(entity, 'hvac_action') == 'heating' and states(entity) not in ['off', 'unknown', 'unavailable'] %}
+      {% set valve = states('number.radiador_salon_valve_opening_degree') if heating else (100 - states('number.radiador_salon_valve_closing_degree') | float(0)) | round(0) %}
+      Status {{ state_attr(entity, 'hvac_action') or 'idle' }}, valve {{ valve }}%
+    secondary: >-
+      Room {{ state_attr(entity, 'current_temperature') }}°C, On 7 - 22
     icon: mdi:radiator
     icon_color: |-
       {% set mode = states(entity) %}
@@ -209,14 +215,22 @@ sections:
         gray
       {% endif %}
     multiline_secondary: true
-  - type: tile
+  - type: custom:mushroom-template-card
     entity: input_boolean.radiador_salon_auto
-    name: Smart salón
+    primary: Living room smart
+    secondary: |-
+      {% if is_state(entity, 'off') %}
+        Off · {{ relative_time(states[entity].last_changed) }}
+      {% else %}
+        On
+      {% endif %}
     icon: mdi:creation
-    features_position: bottom
+    icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
   - type: tile
     entity: input_number.radiador_salon_target
-    name: Target salón
+    name: Living room target
     features_position: bottom
   column_span: 4
 cards: []

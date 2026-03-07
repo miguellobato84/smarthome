@@ -34,7 +34,7 @@ entity_config:
     expose: true
     name: "Federico aspira la casa"
 
-  ####### Sensores
+  ####### Sensors
   sensor.madrid_temperature:
     expose: true
     name: "Sensor Temperatura Calle"

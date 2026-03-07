@@ -6,11 +6,11 @@ sections:
 - type: grid
   cards:
   - type: heading
-    heading: Configuraciones
+    heading: Settings
     heading_style: title
     badges: []
   - type: custom:mushroom-template-card
-    primary: Volver
+    primary: Back
     icon: mdi:arrow-left
     features_position: bottom
     tap_action:
@@ -18,49 +18,66 @@ sections:
       navigation_path: /dashboard-wallpanel/0
   - type: custom:mushroom-template-card
     entity: input_boolean.at_home
-    primary: "{{ 'En casa' if is_state(entity, 'on') else 'Fuera de casa' }}"
+    primary: "{{ 'At home' if is_state(entity, 'on') else 'Away' }}"
     icon: "{{ 'mdi:home' if is_state(entity, 'on') else 'mdi:home-off' }}"
     icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
   - type: custom:mushroom-template-card
     entity: input_boolean.is_holiday
-    primary: "{{ 'Día festivo' if is_state(entity, 'on') else 'Día laborable' }}"
+    primary: "{{ 'Holiday' if is_state(entity, 'on') else 'Workday' }}"
     icon: "{{ 'mdi:beach' if is_state(entity, 'on') else 'mdi:briefcase' }}"
     icon_color: "{{ 'green' if is_state(entity, 'on') else 'blue' }}"
   - type: custom:mushroom-template-card
     entity: input_datetime.go_to_school
-    primary: Ir al colegio
-    secondary: Programada a las {{ states('input_datetime.go_to_school')[0:5] }}
+    primary: School run
+    secondary: Scheduled at {{ states('input_datetime.go_to_school')[0:5] }}
     icon: mdi:school
     icon_color: blue
   - type: custom:mushroom-template-card
     entity: input_datetime.go_to_bed
-    primary: Ir a la cama
-    secondary: Programada a las {{ states('input_datetime.go_to_bed')[0:5] }}
+    primary: Bedtime
+    secondary: Scheduled at {{ states('input_datetime.go_to_bed')[0:5] }}
     icon: mdi:bed-clock
     icon_color: indigo
   - type: custom:mushroom-template-card
     entity: input_datetime.alarm
-    primary: Alarma
-    secondary: Programada a las {{ states('input_datetime.alarm')[0:5] }}
+    primary: Alarm
+    secondary: Scheduled at {{ states('input_datetime.alarm')[0:5] }}
     icon: mdi:alarm
     icon_color: red
   column_span: 3
 - type: grid
   cards:
   - type: heading
-    heading: Automatizaciones
+    heading: Automations
     heading_style: title
     badges: []
   - type: custom:mushroom-template-card
+    entity: automation.auto_radiadores
+    primary: Radiators
+    secondary: "{% set last = state_attr(entity, 'last_triggered') %}last triggered:
+      {{ as_timestamp(last) | timestamp_custom('%d/%m %H:%M') if last else 'never' }}"
+    icon: mdi:radiator-disabled
+    multiline_secondary: true
+    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.auto_radiadores
+  - type: custom:mushroom-template-card
     entity: automation.ambiente
-    primary: Escenas de ambiente
+    primary: Ambient scenes
     secondary: |-
       {% set morning_on = states('input_datetime.alarm') %}
       {% set morning_off = states('input_datetime.go_to_school') %}
       {% set night_off = states('input_datetime.go_to_bed') %}
       {% set sunset = as_timestamp(state_attr('sun.sun', 'next_setting')) %}
       {% if morning_on in ['unknown', 'unavailable', 'none', ''] or morning_off in ['unknown', 'unavailable', 'none', ''] or night_off in ['unknown', 'unavailable', 'none', ''] or sunset is none %}
-        Horas no disponibles
+        Hours unavailable
       {% else %}
         {{ morning_on[0:5] }} -> {{ morning_off[0:5] }} / {{ sunset | timestamp_custom('%H:%M') }} -> {{ night_off[0:5] }}
       {% endif %}
@@ -78,8 +95,8 @@ sections:
         entity_id: automation.ambiente
   - type: custom:mushroom-template-card
     entity: automation.luz_estudio
-    primary: Luz estudio por presencia
-    secondary: Enciende por ocupacion con brillo segun hora y apaga sin presencia.
+    primary: Office light by presence
+    secondary: Turns on with occupancy using time-based brightness and turns off without presence.
     icon: mdi:desk-lamp
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
@@ -96,13 +113,13 @@ sections:
 - type: grid
   cards:
   - type: heading
-    heading: Menos usadas
+    heading: Less used
     heading_style: title
     badges: []
   - type: custom:mushroom-template-card
     entity: automation.ventilador_dario
-    primary: Ventilador Dario
-    secondary: Encendido y luz del ventilador.
+    primary: Dario fan
+    secondary: Fan power and light.
     icon: mdi:fan
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
@@ -117,8 +134,8 @@ sections:
         entity_id: automation.ventilador_dario
   - type: custom:mushroom-template-card
     entity: automation.ventilador_dormitorio
-    primary: Ventilador dormitorio
-    secondary: Encendido y luz del ventilador.
+    primary: Bedroom fan
+    secondary: Fan power and light.
     icon: mdi:ceiling-fan
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
@@ -133,8 +150,8 @@ sections:
         entity_id: automation.ventilador_dormitorio
   - type: custom:mushroom-template-card
     entity: automation.autoenable_radiador_smart_mode
-    primary: Reactivar modo smart radiador
-    secondary: Si queda en manual, vuelve a auto tras 4 horas.
+    primary: Re-enable radiator smart mode
+    secondary: If it stays manual, it returns to auto after 4 hours.
     icon: mdi:radiator
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
@@ -149,8 +166,8 @@ sections:
         entity_id: automation.autoenable_radiador_smart_mode
   - type: custom:mushroom-template-card
     entity: automation.auto_off_extractor_bano
-    primary: Auto apagado extractor
-    secondary: Apaga el extractor del bano tras 15 minutos encendido.
+    primary: Bathroom fan auto-off
+    secondary: Turns off the bathroom fan after 15 minutes on.
     icon: mdi:fan-off
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
@@ -165,8 +182,8 @@ sections:
         entity_id: automation.auto_off_extractor_bano
   - type: custom:mushroom-template-card
     entity: automation.armarios
-    primary: Luces de armarios
-    secondary: Enciende a las {{ states('input_datetime.alarm')[0:5] }} y apaga a las {{ states('input_datetime.go_to_bed')[0:5] }}.
+    primary: Wardrobe lights
+    secondary: Turns on at {{ states('input_datetime.alarm')[0:5] }} and off at {{ states('input_datetime.go_to_bed')[0:5] }}.
     icon: mdi:wardrobe
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
@@ -181,8 +198,8 @@ sections:
         entity_id: automation.armarios
   - type: custom:mushroom-template-card
     entity: automation.humidity_rise_extractor_bano
-    primary: Extractor Baño
-    secondary: Enciende si hay humedad.
+    primary: Bathroom fan
+    secondary: Turns on when humidity rises.
     icon: mdi:water-percent-alert
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
@@ -197,8 +214,8 @@ sections:
         entity_id: automation.humidity_rise_extractor_bano
   - type: custom:mushroom-template-card
     entity: automation.is_holiday
-    primary: Estado festivo
-    secondary: Marca festivo en fin de semana y laborable entre semana.
+    primary: Holiday status
+    secondary: Marks weekends as holidays and weekdays as workdays.
     icon: mdi:calendar-weekend
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"

@@ -1,0 +1,139 @@
+set_radiador_config:
+  alias: set_radiador_config
+  description: Configura los parametros base de cada radiador
+  mode: single
+  fields:
+    option:
+      description: Opcion para los selects de sensor de temperatura
+      example: external
+  variables:
+    sensor_option: "{{ option | default('external') }}"
+    temporary_mode_duration: 90
+    temperature_accuracy: -0.4
+    frost_protection_temperature: 4
+  sequence:
+  # Bedroom: use the internal sensor and apply temporary mode, accuracy, and frost protection settings.
+  - action: select.select_option
+    target:
+      entity_id: select.radiador_dormitorio_temperature_sensor_select
+    data:
+      option: internal
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_dormitorio_temporary_mode_duration
+    data:
+      value: "{{ temporary_mode_duration }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_dormitorio_temperature_accuracy
+    data:
+      value: "{{ temperature_accuracy }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_dormitorio_frost_protection_temperature
+    data:
+      value: "{{ frost_protection_temperature }}"
+  # Dario: use the room external sensor and apply the same base settings.
+  - action: select.select_option
+    target:
+      entity_id: select.radiador_dario_temperature_sensor_select
+    data:
+      option: "{{ sensor_option }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_dario_external_temperature_input
+    data:
+      value: "{{ states('sensor.sensor_temp_dario_temperature') | float(0) }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_dario_temporary_mode_duration
+    data:
+      value: "{{ temporary_mode_duration }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_dario_temperature_accuracy
+    data:
+      value: "{{ temperature_accuracy }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_dario_frost_protection_temperature
+    data:
+      value: "{{ frost_protection_temperature }}"
+  # Study: use the office external sensor and apply the same base settings.
+  - action: select.select_option
+    target:
+      entity_id: select.radiador_estudio_temperature_sensor_select
+    data:
+      option: "{{ sensor_option }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_estudio_external_temperature_input
+    data:
+      value: "{{ states('sensor.sensor_temp_estudio_temperature') | float(0) }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_estudio_temporary_mode_duration
+    data:
+      value: "{{ temporary_mode_duration }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_estudio_temperature_accuracy
+    data:
+      value: "{{ temperature_accuracy }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_estudio_frost_protection_temperature
+    data:
+      value: "{{ frost_protection_temperature }}"
+  # Entryway: use the shared living room external sensor and apply the same base settings.
+  - action: select.select_option
+    target:
+      entity_id: select.radiador_entrada_temperature_sensor_select
+    data:
+      option: "{{ sensor_option }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_entrada_external_temperature_input
+    data:
+      value: "{{ states('sensor.sensor_temp_salon_temperature') | float(0) }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_entrada_temporary_mode_duration
+    data:
+      value: "{{ temporary_mode_duration }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_entrada_temperature_accuracy
+    data:
+      value: "{{ temperature_accuracy }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_entrada_frost_protection_temperature
+    data:
+      value: "{{ frost_protection_temperature }}"
+  # Living room: use its external sensor and apply the same base settings.
+  - action: select.select_option
+    target:
+      entity_id: select.radiador_salon_temperature_sensor_select
+    data:
+      option: "{{ sensor_option }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_salon_external_temperature_input
+    data:
+      value: "{{ states('sensor.sensor_temp_salon_temperature') | float(0) }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_salon_temporary_mode_duration
+    data:
+      value: "{{ temporary_mode_duration }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_salon_temperature_accuracy
+    data:
+      value: "{{ temperature_accuracy }}"
+  - action: number.set_value
+    target:
+      entity_id: number.radiador_salon_frost_protection_temperature
+    data:
+      value: "{{ frost_protection_temperature }}"

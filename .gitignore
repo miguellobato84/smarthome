@@ -19,3 +19,7 @@ image/
 .fuse_hidden*
 .ha_run.lock
 .cache/
+.vscode/
+.vscode/*
+.HA_VERSION
+.agent/plans/

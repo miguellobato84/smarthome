@@ -1,4 +1,4 @@
-# touched: 2026-03-06 12:48:22 CET - sync marker after renaming radiadores view to calefaccion and moving AC card
+# touched: 2026-03-07 13:22:00 CET - sync marker after translating wallpanel view text to English
 wallpanel:
   enabled: true
   hide_toolbar: true

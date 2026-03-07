@@ -50,6 +50,7 @@ This repository stores Home Assistant configuration, automations, templates, das
 ## Coding Style & Naming Conventions
 - Style/lint tools: YAML syntax/shape checks and human review workflow (details: `.agent/CODING_STYLE.md`)
 - Naming patterns: snake_case YAML filenames, automation aliases aligned to file purpose.
+- All generated text and code must be written in English, regardless of the language used in the user request.
 - Formatting rules not covered by tools: `.agent/CODING_STYLE.md`
 - Dashboard UI/design rules: `.agent/standards/home-assistant-dashboard-design.md`
 - YAML duplication/refactor rules: `.agent/standards/home-assistant-yaml-dry.md`

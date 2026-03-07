@@ -8,7 +8,7 @@ This folder contains Home Assistant scripts split into individual files (`!inclu
 - `federico_location.yaml`: locate robot.
 - `federico_start.yaml`: start full cleaning.
 - `federico_volver.yaml`: return robot to base.
-- `radiadores_set_external.yaml`: configure radiator sensors/modes to external values.
+- `set_radiador_config.yaml`: configure the base sensor and tuning parameters for each radiator.
 - `set_radiador.yaml`: generic radiator target/valve adjustment routine.
 
 ## Federico Current Location (x/y)

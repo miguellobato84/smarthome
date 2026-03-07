@@ -9,7 +9,7 @@ sections:
     heading: Federico
     heading_style: title
   - type: custom:mushroom-template-card
-    primary: Volver
+    primary: Back
     icon: mdi:arrow-left
     tap_action:
       action: navigate
@@ -25,7 +25,7 @@ sections:
     - state
     - battery_level
   - type: custom:mushroom-template-card
-    primary: Iniciar
+    primary: Start
     icon: mdi:play
     tap_action:
       action: call-service
@@ -36,7 +36,7 @@ sections:
       columns: 6
       rows: 1
   - type: custom:mushroom-template-card
-    primary: Volver base
+    primary: Return to base
     icon: mdi:home-map-marker
     tap_action:
       action: call-service
@@ -47,7 +47,7 @@ sections:
       columns: 6
       rows: 1
   - type: custom:mushroom-template-card
-    primary: Localizar
+    primary: Locate
     icon: mdi:map-marker-radius
     tap_action:
       action: call-service
@@ -58,7 +58,7 @@ sections:
       columns: 6
       rows: 1
   - type: custom:mushroom-template-card
-    primary: Limpieza
+    primary: Cleaning
     icon: mdi:spray-bottle
     tap_action:
       action: call-service
@@ -72,10 +72,10 @@ sections:
 - type: grid
   cards:
   - type: heading
-    heading: Mapa manual por habitaciones
+    heading: Manual room map
     heading_style: subtitle
   - type: custom:mushroom-template-card
-    primary: Bañera
+    primary: Bathtub
     icon: mdi:bathtub-outline
     icon_color: blue
     tap_action:
@@ -90,7 +90,7 @@ sections:
       columns: 6
       rows: 1
   - type: custom:mushroom-template-card
-    primary: Ducha
+    primary: Shower
     icon: mdi:shower
     icon_color: light-blue
     tap_action:
@@ -105,7 +105,7 @@ sections:
       columns: 6
       rows: 1
   - type: custom:mushroom-template-card
-    primary: Estudio
+    primary: Office
     icon: mdi:desk
     icon_color: teal
     tap_action:
@@ -120,7 +120,7 @@ sections:
       columns: 6
       rows: 1
   - type: custom:mushroom-template-card
-    primary: Darío
+    primary: Dario
     icon: mdi:human-male-boy
     icon_color: cyan
     tap_action:
@@ -135,7 +135,7 @@ sections:
       columns: 6
       rows: 1
   - type: custom:mushroom-template-card
-    primary: Dormitorio
+    primary: Bedroom
     icon: mdi:bed
     icon_color: indigo
     tap_action:
@@ -150,7 +150,7 @@ sections:
       columns: 6
       rows: 1
   - type: custom:mushroom-template-card
-    primary: Cocina
+    primary: Kitchen
     icon: mdi:chef-hat
     icon_color: orange
     tap_action:
@@ -165,7 +165,7 @@ sections:
       columns: 6
       rows: 1
   - type: custom:mushroom-template-card
-    primary: Salón
+    primary: Living room
     icon: mdi:sofa
     icon_color: green
     tap_action:
@@ -180,7 +180,7 @@ sections:
       columns: 6
       rows: 1
   - type: custom:mushroom-template-card
-    primary: Terraza
+    primary: Terrace
     icon: mdi:flower
     icon_color: lime
     tap_action:

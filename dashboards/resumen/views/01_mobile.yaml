@@ -181,8 +181,7 @@ sections:
   - type: custom:mushroom-template-card
     entity: climate.radiador_dormitorio
     primary: |
-      Dormitorio ({{ states('sensor.sensor_temp_dormitorio_temperature') }}°C
-      {{states('sensor.sensor_temp_dormitorio_humidity') }}% )
+      Dormitorio ({{ states('sensor.radiador_dormitorio_local_temperature') }}°C)
     secondary: |
       Set {{ state_attr(entity, 'temperature') }}°C  ({{ states("number.radiador_dormitorio_valve_closing_degree") }}vc 
        {{ states("number.radiador_dormitorio_valve_opening_degree") }}vo)
@@ -218,6 +217,11 @@ sections:
     heading_style: title
     heading: Radiadores ajuste
   - type: tile
+    entity: input_number.radiador_entrada_target
+    name: Entrada
+    vertical: false
+    features_position: bottom
+  - type: tile
     entity: input_number.radiador_salon_target
     name: Salón
     vertical: false
@@ -225,6 +229,11 @@ sections:
   - type: tile
     entity: input_boolean.radiador_salon_auto
     name: Smart
+    vertical: false
+    features_position: bottom
+  - type: tile
+    entity: input_boolean.radiador_entrada_auto
+    name: Entrada smart
     vertical: false
     features_position: bottom
   - type: tile

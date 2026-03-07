@@ -1,61 +1,78 @@
 set_radiador:
   alias: Set Radiador
-  description: Establece temperatura y ajusta apertura de válvula según diferencial
+  description: Use radiator helpers to control heating state, target temperature, and valve opening
   mode: parallel
   fields:
     entity:
-      description: Entidad del radiador (climate.*) o lista de entidades
+      description: Radiator entity (climate.*) or a list of entities
       example: climate.radiador_dormitorio
-    target:
-      description: Temperatura objetivo (opcional, defecto final 19)
-      example: 21
+    heating:
+      description: Whether the radiator should actively heat
+      example: true
   variables:
-    entities: '{{ [entity] if entity is string else entity }}'
-    t_obj: '{{ (target | default(18, true) | float(18)) }}'
+    entities: "{{ [entity] if entity is string else entity }}"
+    heating_requested: "{{ heating | default(false) | bool }}"
   sequence:
-  - repeat:
-      for_each: '{{ entities }}'
-      sequence:
-      - variables:
-          clim_entity: '{{ repeat.item }}'
-          t_act: '{{ state_attr(clim_entity, ''current_temperature'') | float(0) }}'
-          diff: '{{ t_obj - t_act }}'
-          valve_entity: '{{ clim_entity | replace(''climate.'', ''number.'') ~ ''_valve_opening_degree''
-            }}'
-      - action: logbook.log
-        data:
-          name: Radiador Debug
-          message: 'Entity: {{ clim_entity }}, Current Temp: {{ t_act }}, Target Temp:
-            {{ t_obj }}, Diff: {{ diff }}, Valve Entity: {{ valve_entity }}
-
-            '
-      - action: climate.set_temperature
-        target:
-          entity_id: '{{ clim_entity }}'
-        data:
-          temperature: '{{ t_obj }}'
-      - choose:
-        - conditions:
-          - condition: template
-            value_template: '{{ diff >= 1 }}'
-          sequence:
-          - action: number.set_value
-            target:
-              entity_id: '{{ valve_entity }}'
+    - repeat:
+        for_each: "{{ entities }}"
+        sequence:
+          - variables:
+              clim_entity: "{{ repeat.item }}"
+              auto_entity: >-
+                {{ clim_entity | replace('climate.', 'input_boolean.') ~ '_auto' }}
+              target_entity: >-
+                {{ clim_entity | replace('climate.', 'input_number.') ~ '_target' }}
+              target_helper_value: "{{ states(target_entity) | float(18) }}"
+              t_act: "{{ state_attr(clim_entity, 'current_temperature') | float(0) }}"
+              diff: "{{ target_helper_value - t_act }}"
+              valve_entity: >-
+                {{ clim_entity | replace('climate.', 'number.') ~ '_valve_opening_degree' }}
+          - action: logbook.log
             data:
-              value: 100
-        - conditions:
-          - condition: template
-            value_template: '{{ diff > 0 and diff < 1 }}'
-          sequence:
-          - action: number.set_value
-            target:
-              entity_id: '{{ valve_entity }}'
-            data:
-              value: 50
-        default:
-        - action: number.set_value
-          target:
-            entity_id: '{{ valve_entity }}'
-          data:
-            value: 0
+              name: Radiator Debug
+              message: "Entity: {{ clim_entity }}, Heating: {{ heating_requested }}, Auto Entity: {{ auto_entity }}, Target Entity: {{ target_entity }}, Target Helper Value: {{ target_helper_value }}, Current Temp: {{ t_act }}, Diff: {{ diff }}, Valve Entity: {{ valve_entity }}"
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ is_state(auto_entity, 'off') or (heating_requested and diff >= 1) }}"
+                sequence:
+                  - action: climate.set_hvac_mode
+                    target:
+                      entity_id: "{{ clim_entity }}"
+                    data:
+                      hvac_mode: "heat"
+                  - action: climate.set_temperature
+                    target:
+                      entity_id: "{{ clim_entity }}"
+                    data:
+                      temperature: "{{ target_helper_value }}"
+                  - action: number.set_value
+                    target:
+                      entity_id: "{{ valve_entity }}"
+                    data:
+                      value: 100
+              - conditions:
+                  - condition: template
+                    value_template: "{{ heating_requested and diff > 0 and diff < 1 }}"
+                sequence:
+                  - action: climate.set_hvac_mode
+                    target:
+                      entity_id: "{{ clim_entity }}"
+                    data:
+                      hvac_mode: "heat"
+                  - action: climate.set_temperature
+                    target:
+                      entity_id: "{{ clim_entity }}"
+                    data:
+                      temperature: "{{ target_helper_value }}"
+                  - action: number.set_value
+                    target:
+                      entity_id: "{{ valve_entity }}"
+                    data:
+                      value: 50
+            default:
+              - action: climate.set_hvac_mode
+                target:
+                  entity_id: "{{ clim_entity }}"
+                data:
+                  hvac_mode: "off"

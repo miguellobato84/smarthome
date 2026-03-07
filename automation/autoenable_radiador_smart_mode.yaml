@@ -7,6 +7,7 @@
     - input_boolean.radiador_estudio_auto
     - input_boolean.radiador_dormitorio_auto
     - input_boolean.radiador_dario_auto
+    - input_boolean.radiador_entrada_auto
     - input_boolean.radiador_salon_auto
     trigger: state
     to: 'off'

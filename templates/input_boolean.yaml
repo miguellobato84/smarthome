@@ -7,6 +7,9 @@ radiador_dormitorio_auto:
 radiador_dario_auto:
   name: Activa Smart mode para el radiador de Darío
   icon: mdi:auto-mode
+radiador_entrada_auto:
+  name: Activa Smart mode para el radiador de la entrada
+  icon: mdi:auto-mode
 radiador_salon_auto:
   name: Activa Smart mode para el radiador del salón
   icon: mdi:auto-mode

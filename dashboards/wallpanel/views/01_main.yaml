@@ -242,7 +242,7 @@ sections:
       columns: 4
       rows: 1
   - type: custom:mushroom-template-card
-    primary: Calefaccion
+    primary: Heating
     icon: mdi:radiator
     tap_action:
       action: navigate

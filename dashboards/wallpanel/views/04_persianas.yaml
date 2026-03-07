@@ -1,15 +1,15 @@
 type: sections
 max_columns: 2
-title: persianas
+title: blinds
 path: persianas
 sections:
 - type: grid
   cards:
   - type: heading
-    heading: Persianas
+    heading: Blinds
     heading_style: title
   - type: button
-    name: Volver
+    name: Back
     icon: mdi:arrow-left
     show_icon: true
     tap_action:
@@ -17,14 +17,14 @@ sections:
       navigation_path: /dashboard-wallpanel/0
   - type: tile
     entity: cover.persiana_estudio
-    name: Persiana estudio
+    name: Office blind
     features_position: bottom
     vertical: false
     features:
     - type: cover-position
   - type: tile
     entity: cover.persiana_dario
-    name: Persiana darío
+    name: Dario blind
     features_position: bottom
     vertical: false
     features:
