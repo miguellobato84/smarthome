@@ -1,4 +1,4 @@
-# touched: 2026-03-07 13:22:00 CET - sync marker after translating wallpanel view text to English
+# touched: 2026-03-13 20:52:33 CET - sync marker after removing at_home from wallpanel automations view
 wallpanel:
   enabled: true
   hide_toolbar: true

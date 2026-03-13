@@ -17,11 +17,6 @@ sections:
       action: navigate
       navigation_path: /dashboard-wallpanel/0
   - type: custom:mushroom-template-card
-    entity: input_boolean.at_home
-    primary: "{{ 'At home' if is_state(entity, 'on') else 'Away' }}"
-    icon: "{{ 'mdi:home' if is_state(entity, 'on') else 'mdi:home-off' }}"
-    icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
-  - type: custom:mushroom-template-card
     entity: input_boolean.is_holiday
     primary: "{{ 'Holiday' if is_state(entity, 'on') else 'Workday' }}"
     icon: "{{ 'mdi:beach' if is_state(entity, 'on') else 'mdi:briefcase' }}"

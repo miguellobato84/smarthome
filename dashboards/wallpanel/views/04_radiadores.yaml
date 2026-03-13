@@ -16,6 +16,13 @@ sections:
       action: navigate
       navigation_path: /dashboard-wallpanel/0
   - type: custom:mushroom-template-card
+    entity: input_boolean.enable_radiators
+    primary: "{{ 'Radiators enabled' if is_state(entity, 'on') else 'Radiators disabled' }}"
+    icon: "{{ 'mdi:radiator' if is_state(entity, 'on') else 'mdi:radiator-disabled' }}"
+    icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+  - type: custom:mushroom-template-card
     entity: automation.ac_heat_schedule
     primary: AC heating
     secondary: |-

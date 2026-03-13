@@ -272,23 +272,6 @@ header:
   badges_wrap: scroll
 badges:
 - type: custom:mushroom-template-badge
-  entity: input_boolean.at_home
-  icon: mdi:home
-  content: |
-    {% if is_state('input_boolean.at_home', 'on') %}
-      En casa
-    {% else %}
-      Fuera de casa
-    {% endif %}
-  tap_action:
-    action: toggle
-  color: |
-    {% if is_state('input_boolean.at_home', 'on') %}
-      green
-    {% else %}
-      red
-    {% endif %}
-- type: custom:mushroom-template-badge
   entity: input_boolean.is_holiday
   icon: |
     {% if is_state('input_boolean.is_holiday', 'on') %}
