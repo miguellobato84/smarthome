@@ -1,5 +1,5 @@
 type: sections
-max_columns: 3
+max_columns: 4
 title: heating
 path: calefaccion
 sections:
@@ -44,7 +44,7 @@ sections:
       service: automation.trigger
       target:
         entity_id: automation.ac_heat_schedule
-  column_span: 3
+  column_span: 4
 - type: grid
   cards:
   - type: heading
@@ -239,6 +239,6 @@ sections:
     entity: input_number.radiador_salon_target
     name: Living room target
     features_position: bottom
-  column_span: 3
+  column_span: 4
 cards: []
 dense_section_placement: true

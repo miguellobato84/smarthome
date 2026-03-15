@@ -1,4 +1,4 @@
-# touched: 2026-03-15 09:12:00 CET - sync marker after restoring a clean 3-column heating layout
+# touched: 2026-03-15 09:16:00 CET - sync marker after widening the heating view container
 wallpanel:
   enabled: true
   hide_toolbar: true
