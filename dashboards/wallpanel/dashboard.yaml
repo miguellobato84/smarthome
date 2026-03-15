@@ -1,4 +1,4 @@
-# touched: 2026-03-15 09:30:00 CET - sync marker after switching the heating view to a wider 2-column layout
+# touched: 2026-03-15 11:12:22 CET - sync marker after converting the heating view to a full-width masonry layout
 wallpanel:
   enabled: true
   hide_toolbar: true
