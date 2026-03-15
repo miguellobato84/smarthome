@@ -1,4 +1,4 @@
-# touched: 2026-03-15 09:22:00 CET - sync marker after forcing full-width 3-up cards in the heating view
+# touched: 2026-03-15 09:30:00 CET - sync marker after switching the heating view to a wider 2-column layout
 wallpanel:
   enabled: true
   hide_toolbar: true
