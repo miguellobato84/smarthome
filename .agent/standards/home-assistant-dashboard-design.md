@@ -32,6 +32,8 @@
 - Keep entity references stable and explicit (`entity:` on interactive cards).
 
 ## Validation
+- If you modify any file under `dashboards/*/views/*.yaml`, also update the matching `dashboards/*/dashboard.yaml` timestamp comment in the same change.
+- Treat that timestamp comment update as required even for small follow-up UI fixes; do not defer it to a later commit.
 - Sync dashboard changes to `casa` using `.agent/standards/home-assistant-git-sync.md`.
 - Open every modified view and verify:
   - cards render without "Custom element doesn't exist" errors

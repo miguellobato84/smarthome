@@ -1,0 +1,41 @@
+type: sections
+max_columns: 4
+title: weather
+path: weather
+sections:
+- type: grid
+  cards:
+  - type: heading
+    heading: Weather
+    heading_style: title
+    tap_action:
+      action: navigate
+      navigation_path: /dashboard-wallpanel/0
+    icon: mdi:arrow-left
+    card_mod:
+      style: |
+        ha-icon-next {
+          display: none !important;
+        }
+  - show_current: true
+    show_forecast: true
+    type: weather-forecast
+    entity: weather.forecast_majadahonda
+    forecast_type: hourly
+    secondary_info_attribute: wind_speed
+    grid_options:
+      columns: 48
+      rows: 3
+  - show_current: false
+    show_forecast: true
+    type: weather-forecast
+    entity: weather.forecast_majadahonda
+    forecast_type: daily
+    grid_options:
+      columns: 48
+      rows: 3
+    forecast_slots: 5
+    round_temperature: false
+  column_span: 4
+cards: []
+dense_section_placement: true

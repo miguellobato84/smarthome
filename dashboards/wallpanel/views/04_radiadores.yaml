@@ -7,14 +7,27 @@ sections:
   cards:
   - type: heading
     heading: Heating
-    heading_style: title
-    badges: []
-  - type: custom:mushroom-template-card
-    primary: Back
-    icon: mdi:arrow-left
     tap_action:
       action: navigate
       navigation_path: /dashboard-wallpanel/0
+    icon: mdi:arrow-left
+    heading_style: title
+    badges: []
+    card_mod:
+      style: |
+        ha-icon-next {
+          display: none !important;
+        }
+  - type: custom:mushroom-template-card
+    entity: input_boolean.enable_radiators
+    primary: "{{ 'Radiators enabled' if is_state(entity, 'on') else 'Radiators disabled' }}"
+    icon: "{{ 'mdi:radiator' if is_state(entity, 'on') else 'mdi:radiator-disabled' }}"
+    icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
+    tap_action:
+      action: toggle
+    grid_options:
+      columns: 8
+      rows: 1
   - type: custom:mushroom-template-card
     entity: automation.ac_heat_schedule
     primary: AC heating
@@ -37,6 +50,9 @@ sections:
       service: automation.trigger
       target:
         entity_id: automation.ac_heat_schedule
+    grid_options:
+      columns: 8
+      rows: 1
   column_span: 4
 - type: grid
   cards:
@@ -61,6 +77,9 @@ sections:
         gray
       {% endif %}
     multiline_secondary: true
+    grid_options:
+      columns: 8
+      rows: 1
   - type: custom:mushroom-template-card
     entity: input_boolean.radiador_dormitorio_auto
     primary: Bedroom smart
@@ -74,10 +93,16 @@ sections:
     icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
     tap_action:
       action: toggle
+    grid_options:
+      columns: 8
+      rows: 1
   - type: tile
     entity: input_number.radiador_dormitorio_target
     name: Bedroom target
     features_position: bottom
+    grid_options:
+      columns: 8
+      rows: 1
   - type: heading
     heading: Dario
     heading_style: subtitle
@@ -100,6 +125,9 @@ sections:
         gray
       {% endif %}
     multiline_secondary: true
+    grid_options:
+      columns: 8
+      rows: 1
   - type: custom:mushroom-template-card
     entity: input_boolean.radiador_dario_auto
     primary: Dario smart
@@ -113,10 +141,16 @@ sections:
     icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
     tap_action:
       action: toggle
+    grid_options:
+      columns: 8
+      rows: 1
   - type: tile
     entity: input_number.radiador_dario_target
     name: Dario target
     features_position: bottom
+    grid_options:
+      columns: 8
+      rows: 1
   - type: heading
     heading: Office
     heading_style: subtitle
@@ -139,6 +173,9 @@ sections:
         gray
       {% endif %}
     multiline_secondary: true
+    grid_options:
+      columns: 8
+      rows: 1
   - type: custom:mushroom-template-card
     entity: input_boolean.radiador_estudio_auto
     primary: Office smart
@@ -152,10 +189,16 @@ sections:
     icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
     tap_action:
       action: toggle
+    grid_options:
+      columns: 8
+      rows: 1
   - type: tile
     entity: input_number.radiador_estudio_target
     name: Office target
     features_position: bottom
+    grid_options:
+      columns: 8
+      rows: 1
   - type: heading
     heading: Entry
     heading_style: subtitle
@@ -177,6 +220,9 @@ sections:
         gray
       {% endif %}
     multiline_secondary: true
+    grid_options:
+      columns: 8
+      rows: 1
   - type: custom:mushroom-template-card
     entity: input_boolean.radiador_entrada_auto
     primary: Entry smart
@@ -190,10 +236,16 @@ sections:
     icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
     tap_action:
       action: toggle
+    grid_options:
+      columns: 8
+      rows: 1
   - type: tile
     entity: input_number.radiador_entrada_target
     name: Entry target
     features_position: bottom
+    grid_options:
+      columns: 8
+      rows: 1
   - type: heading
     heading: Living room
     heading_style: subtitle
@@ -215,6 +267,9 @@ sections:
         gray
       {% endif %}
     multiline_secondary: true
+    grid_options:
+      columns: 8
+      rows: 1
   - type: custom:mushroom-template-card
     entity: input_boolean.radiador_salon_auto
     primary: Living room smart
@@ -228,10 +283,16 @@ sections:
     icon_color: "{{ 'green' if is_state(entity, 'on') else 'red' }}"
     tap_action:
       action: toggle
+    grid_options:
+      columns: 8
+      rows: 1
   - type: tile
     entity: input_number.radiador_salon_target
     name: Living room target
     features_position: bottom
+    grid_options:
+      columns: 8
+      rows: 1
   column_span: 4
 cards: []
 dense_section_placement: true

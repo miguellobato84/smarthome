@@ -18,4 +18,5 @@ This folder contains short, task-focused docs used by Codex in this repository.
 - Follow `standards/commits.md` before creating commits.
 - For Home Assistant sync/deploy flow, follow `standards/home-assistant-git-sync.md`.
 - For Lovelace/UI work, follow `standards/home-assistant-dashboard-design.md`.
+- When editing any file under `dashboards/*/views/`, also update the matching `dashboards/*/dashboard.yaml` timestamp comment in the same commit.
 - For YAML duplication cleanup/refactors, follow `standards/home-assistant-yaml-dry.md`.

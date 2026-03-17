@@ -88,7 +88,8 @@ This repository stores Home Assistant configuration, automations, templates, das
 
 ## Standards
 - Load standards from `.agent/standards/index.yml` based on the task.
-- When modifying any dashboard view file under `dashboards/*/views/*.yaml`, also update the matching `dashboards/*/dashboard.yaml` with a timestamp comment to ensure the dashboard change is picked up during sync/reload.
+- When modifying any dashboard view file under `dashboards/*/views/*.yaml`, always update the matching `dashboards/*/dashboard.yaml` timestamp comment in the same change set.
+- This timestamp update is mandatory for every view edit, including small follow-up tweaks to a single card or one-line fix, because the sync/reload flow depends on it.
 
 ## Maintenance
 - After large changes, review `AGENTS.md` and all `.agent/` docs (including standards) to keep them current.

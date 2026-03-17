@@ -11,6 +11,7 @@
         - input_boolean.radiador_estudio_auto
         - input_boolean.radiador_entrada_auto
         - input_boolean.radiador_salon_auto
+        - input_boolean.enable_radiators
     - trigger: state
       entity_id:
         - input_number.radiador_dormitorio_target
@@ -26,7 +27,7 @@
     - choose:
         - conditions:
             - condition: state
-              entity_id: input_boolean.at_home
+              entity_id: input_boolean.enable_radiators
               state: 'off'
           sequence:
             - action: script.set_radiador

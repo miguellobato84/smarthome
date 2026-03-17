@@ -1,2 +1,2 @@
-# touched: 2026-03-07 10:42:00 CET - sync marker after splitting entrada and living room target helpers in the resumen view
+# touched: 2026-03-13 21:02:00 CET - sync marker after reorganizing the resumen mobile view by control type
 views: !include_dir_list /config/dashboards/resumen/views

@@ -7,16 +7,16 @@ sections:
   cards:
   - type: heading
     heading: Federico
-    heading_style: title
-  - type: custom:mushroom-template-card
-    primary: Back
-    icon: mdi:arrow-left
     tap_action:
       action: navigate
       navigation_path: /dashboard-wallpanel/0
-    grid_options:
-      columns: 6
-      rows: 1
+    icon: mdi:arrow-left
+    heading_style: title
+    card_mod:
+      style: |
+        ha-icon-next {
+          display: none !important;
+        }
   - type: tile
     entity: vacuum.federico
     features_position: bottom
@@ -24,6 +24,9 @@ sections:
     state_content:
     - state
     - battery_level
+    grid_options:
+      columns: 8
+      rows: 1
   - type: custom:mushroom-template-card
     primary: Start
     icon: mdi:play
@@ -33,7 +36,7 @@ sections:
       target:
         entity_id: script.federico_start
     grid_options:
-      columns: 6
+      columns: 8
       rows: 1
   - type: custom:mushroom-template-card
     primary: Return to base
@@ -44,7 +47,7 @@ sections:
       target:
         entity_id: script.federico_volver
     grid_options:
-      columns: 6
+      columns: 8
       rows: 1
   - type: custom:mushroom-template-card
     primary: Locate
@@ -55,7 +58,7 @@ sections:
       target:
         entity_id: script.federico_location
     grid_options:
-      columns: 6
+      columns: 8
       rows: 1
   - type: custom:mushroom-template-card
     primary: Cleaning
@@ -66,7 +69,7 @@ sections:
       target:
         entity_id: script.federico_limpieza
     grid_options:
-      columns: 6
+      columns: 8
       rows: 1
   column_span: 4
 - type: grid
@@ -87,7 +90,7 @@ sections:
       target:
         entity_id: script.federico_habitacion
     grid_options:
-      columns: 6
+      columns: 8
       rows: 1
   - type: custom:mushroom-template-card
     primary: Shower
@@ -102,7 +105,7 @@ sections:
       target:
         entity_id: script.federico_habitacion
     grid_options:
-      columns: 6
+      columns: 8
       rows: 1
   - type: custom:mushroom-template-card
     primary: Office
@@ -117,7 +120,7 @@ sections:
       target:
         entity_id: script.federico_habitacion
     grid_options:
-      columns: 6
+      columns: 8
       rows: 1
   - type: custom:mushroom-template-card
     primary: Dario
@@ -132,7 +135,7 @@ sections:
       target:
         entity_id: script.federico_habitacion
     grid_options:
-      columns: 6
+      columns: 8
       rows: 1
   - type: custom:mushroom-template-card
     primary: Bedroom
@@ -147,7 +150,7 @@ sections:
       target:
         entity_id: script.federico_habitacion
     grid_options:
-      columns: 6
+      columns: 8
       rows: 1
   - type: custom:mushroom-template-card
     primary: Kitchen
@@ -162,7 +165,7 @@ sections:
       target:
         entity_id: script.federico_habitacion
     grid_options:
-      columns: 6
+      columns: 8
       rows: 1
   - type: custom:mushroom-template-card
     primary: Living room
@@ -177,7 +180,7 @@ sections:
       target:
         entity_id: script.federico_habitacion
     grid_options:
-      columns: 6
+      columns: 8
       rows: 1
   - type: custom:mushroom-template-card
     primary: Terrace
@@ -192,7 +195,7 @@ sections:
       target:
         entity_id: script.federico_habitacion
     grid_options:
-      columns: 6
+      columns: 8
       rows: 1
   column_span: 4
 cards: []
