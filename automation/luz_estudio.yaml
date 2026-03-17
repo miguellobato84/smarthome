@@ -18,15 +18,15 @@
       hours: 0
       minutes: 5
       seconds: 0
-  conditions: []
+  conditions:
+  - condition: time
+    after: "07:00:00"
+    before: "19:00:00"
   actions:
   - choose:
     - conditions:
       - condition: trigger
         id: occupied
-      - condition: time
-        after: "07:00:00"
-        before: "19:00:00"
       - condition: state
         entity_id: light.luz_estudio
         state: 'off'
