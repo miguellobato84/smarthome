@@ -27,15 +27,11 @@
     - conditions:
       - condition: trigger
         id: occupied
-      - condition: state
-        entity_id: light.luz_estudio
-        state: 'off'
       sequence:
       - target:
           entity_id: light.luz_estudio
         data:
-          brightness_pct: '{% if now().hour >= 21 or now().hour < 7 %}50{% elif now().hour
-            >= 7 and now().hour < 16 %}100{% else %}70{% endif %}'
+          brightness_pct: 100
         action: light.turn_on
     - conditions:
       - condition: trigger
