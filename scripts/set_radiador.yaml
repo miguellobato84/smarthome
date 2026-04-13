@@ -30,12 +30,13 @@ set_radiador:
           - action: logbook.log
             data:
               name: Radiator Debug
-              message: "Entity: {{ clim_entity }}, Heating: {{ heating_requested }}, Auto Entity: {{ auto_entity }}, Target Entity: {{ target_entity }}, Target Helper Value: {{ target_helper_value }}, Current Temp: {{ t_act }}, Diff: {{ diff }}, Valve Entity: {{ valve_entity }}"
+              message: "Priority: global-off request > auto_entity off when heating requested > heating request > off | Entity: {{ clim_entity }}, Heating: {{ heating_requested }}, Auto Entity: {{ auto_entity }}, Target Entity: {{ target_entity }}, Target Helper Value: {{ target_helper_value }}, Current Temp: {{ t_act }}, Diff: {{ diff }}, Valve Entity: {{ valve_entity }}"
           - choose:
               - conditions:
                   - condition: template
-                    value_template: "{{ is_state(auto_entity, 'off') or (heating_requested and diff >= 1) }}"
+                    value_template: "{{ heating_requested and is_state(auto_entity, 'off') }}"
                 sequence:
+                  # Smart mode off forces heat only when the caller is requesting heating.
                   - action: climate.set_hvac_mode
                     target:
                       entity_id: "{{ clim_entity }}"
@@ -55,6 +56,7 @@ set_radiador:
                   - condition: template
                     value_template: "{{ heating_requested and diff > 0 and diff < 1 }}"
                 sequence:
+                  # Lower heating demand still keeps the radiator in heat mode with a smaller valve opening.
                   - action: climate.set_hvac_mode
                     target:
                       entity_id: "{{ clim_entity }}"
@@ -70,7 +72,28 @@ set_radiador:
                       entity_id: "{{ valve_entity }}"
                     data:
                       value: 50
+              - conditions:
+                  - condition: template
+                    value_template: "{{ heating_requested and diff >= 1 }}"
+                sequence:
+                  # Normal heating request with smart mode on keeps the radiator in heat mode.
+                  - action: climate.set_hvac_mode
+                    target:
+                      entity_id: "{{ clim_entity }}"
+                    data:
+                      hvac_mode: "heat"
+                  - action: climate.set_temperature
+                    target:
+                      entity_id: "{{ clim_entity }}"
+                    data:
+                      temperature: "{{ target_helper_value }}"
+                  - action: number.set_value
+                    target:
+                      entity_id: "{{ valve_entity }}"
+                    data:
+                      value: 100
             default:
+              # No heating request, or the global-disable branch asked to turn the radiator off.
               - action: climate.set_hvac_mode
                 target:
                   entity_id: "{{ clim_entity }}"

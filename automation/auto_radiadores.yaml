@@ -25,6 +25,7 @@
       data:
         option: external
     - choose:
+        # Global disable wins first: when enable_radiators is off, every radiator is forced off.
         - conditions:
             - condition: state
               entity_id: input_boolean.enable_radiators
@@ -40,6 +41,7 @@
                   - climate.radiador_salon
                 heating: false
       default:
+        # With enable_radiators on, per-radiator smart mode can still force heating on for a room.
         - action: script.set_radiador
           data:
             entity: climate.radiador_dormitorio

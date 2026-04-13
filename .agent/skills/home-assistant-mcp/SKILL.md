@@ -8,6 +8,8 @@ description: Validate and troubleshoot Home Assistant MCP server connectivity, a
 ## Endpoint and auth
 - Use MCP endpoint: `https://casa.miguellobato.com/api/mcp`
 - Read token from local env var: `HA_MCP_TOKEN`
+- If the env var is unset, fetch it from 1Password item `HomeAssistant` in the `Employee` vault with:
+  `export HA_MCP_TOKEN="$(op item get \"HomeAssistant\" --vault Employee --reveal --field password)"`
 - Never write tokens to tracked files, logs, or commits.
 
 ## Validation workflow
