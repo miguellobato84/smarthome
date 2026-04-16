@@ -96,6 +96,20 @@ services:
     networks:
       - homeassistant
 
+  samsung-tv-art:
+    image: ghcr.io/kohlerryan/samsung-tv-art:latest
+    container_name: samsung-tv-art
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      SAMSUNG_TV_ART_TV_IP: ${SAMSUNG_TV_ART_TV_IP}
+      SAMSUNG_TV_ART_MQTT_HOST: 192.168.0.2
+      SAMSUNG_TV_ART_MQTT_PORT: 1883
+      SAMSUNG_TV_ART_LOCAL_WEB: "true"
+    volumes:
+      - /docker/samsung-tv-art/data:/data
+      - /docker/samsung-tv-art/media:/app/frame_tv_art_collections
+
   filebrowser:
     image: filebrowser/filebrowser
     container_name: filebrowser
