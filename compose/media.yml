@@ -100,7 +100,8 @@ services:
     image: ghcr.io/kohlerryan/samsung-tv-art:latest
     container_name: samsung-tv-art
     restart: unless-stopped
-    network_mode: host
+    ports:
+      - 9027:8080
     environment:
       SAMSUNG_TV_ART_TV_IP: ${SAMSUNG_TV_ART_TV_IP}
       SAMSUNG_TV_ART_MQTT_HOST: 192.168.0.2
