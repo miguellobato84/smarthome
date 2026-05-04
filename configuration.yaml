@@ -8,7 +8,7 @@ input_boolean: !include templates/input_boolean.yaml
 input_number: !include templates/input_number.yaml
 sensor: !include templates/sensor.yaml
 input_datetime: !include templates/input_datetime.yaml
-
+input_text: !include templates/input_text.yaml
 
 
 http:

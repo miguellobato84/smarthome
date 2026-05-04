@@ -1,0 +1,64 @@
+luz_cama:
+  alias: luz_cama
+  description: Controla la intensidad combinada de una luz Moes con dos canales
+  mode: single
+  fields:
+    entity:
+      description: Base entity for the device, without the _l1/_l2 suffix
+      example: light.luz_cama_miguel
+    l1:
+      description: Percentage for channel L1
+      example: 100
+    l2:
+      description: Percentage for channel L2
+      example: 50
+  variables:
+    base_entity: "{{ entity }}"
+    l1_entity: "{{ base_entity ~ '_l1' }}"
+    l2_entity: "{{ base_entity ~ '_l2' }}"
+    helper_entity_id: "{{ 'input_text.' ~ entity.split('.')[1] ~ '_state' }}"
+    requested_l1: "{{ l1 | int(0) }}"
+    requested_l2: "{{ l2 | int(0) }}"
+    dimmer_state_payload: >-
+      {% set l1_state = 'on' if requested_l1 > 0 else 'off' %}
+      {% set l1_pct = requested_l1 if requested_l1 > 0 else 0 %}
+      {% set l2_state = 'on' if requested_l2 > 0 else 'off' %}
+      {% set l2_pct = requested_l2 if requested_l2 > 0 else 0 %}
+      {{ {
+        'l1': {'state': l1_state, 'pct': l1_pct},
+        'l2': {'state': l2_state, 'pct': l2_pct}
+      } | tojson }}
+  sequence:
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ requested_l1 > 0 }}"
+          sequence:
+            - action: light.turn_on
+              target:
+                entity_id: "{{ l1_entity }}"
+              data:
+                brightness_pct: "{{ requested_l1 }}"
+      default:
+        - action: light.turn_off
+          target:
+            entity_id: "{{ l1_entity }}"
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ requested_l2 > 0 }}"
+          sequence:
+            - action: light.turn_on
+              target:
+                entity_id: "{{ l2_entity }}"
+              data:
+                brightness_pct: "{{ requested_l2 }}"
+      default:
+        - action: light.turn_off
+          target:
+            entity_id: "{{ l2_entity }}"
+    - action: input_text.set_value
+      target:
+        entity_id: "{{ helper_entity_id }}"
+      data:
+        value: "{{ dimmer_state_payload }}"

@@ -1,0 +1,36 @@
+- id: '1767579012000'
+  alias: luz_cama_monitor
+  description: Restores any luz_cama_* from the cached helper state after a device power cycle.
+  triggers:
+    - trigger: state
+      entity_id:
+        - light.luz_cama_alba_l1
+        - light.luz_cama_alba_l2
+        - light.luz_cama_miguel_l1
+        - light.luz_cama_miguel_l2
+  variables:
+    base_entity: "{{ trigger.entity_id.split('.')[1].rsplit('_', 1)[0] }}"
+    helper_entity_id: "{{ 'input_text.' ~ base_entity ~ '_state' }}"
+    helper_state: "{{ states(helper_entity_id) | from_json }}"
+    helper_l1_state: "{{ helper_state.l1.state }}"
+    helper_l2_state: "{{ helper_state.l2.state }}"
+    helper_l1_pct: "{{ helper_state.l1.pct | int(0) }}"
+    helper_l2_pct: "{{ helper_state.l2.pct | int(0) }}"
+    actual_l1_entity: "{{ 'light.' ~ base_entity ~ '_l1' }}"
+    actual_l2_entity: "{{ 'light.' ~ base_entity ~ '_l2' }}"
+    actual_l1_state: "{{ states(actual_l1_entity) }}"
+    actual_l2_state: "{{ states(actual_l2_entity) }}"
+    states_match: >-
+      {{ actual_l1_state == helper_l1_state and actual_l2_state == helper_l2_state }}
+  conditions:
+    - condition: template
+      value_template: "{{ trigger.to_state.context.user_id is none }}"
+    - condition: template
+      value_template: "{{ not states_match }}"
+  actions:
+    - action: script.luz_cama
+      data:
+        entity: "{{ 'light.' ~ base_entity }}"
+        l1: "{{ helper_l1_pct }}"
+        l2: "{{ helper_l2_pct }}"
+  mode: single

@@ -22,4 +22,5 @@ image/
 .vscode/
 .vscode/*
 .HA_VERSION
+.env
 .agent/plans/

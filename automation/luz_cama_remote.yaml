@@ -1,0 +1,126 @@
+- id: '1767579400000'
+  alias: luz_cama_remote
+  description: Cycle luz_cama_alba and luz_cama_miguel with the IKEA remote action entity.
+  triggers:
+    - trigger: state
+      entity_id: event.remote_cama_action
+  variables:
+    helper_state: "{{ states('input_text.luz_cama_alba_state') | from_json }}"
+    helper_l1_pct: "{{ helper_state.l1.pct | int(0) }}"
+    helper_l2_pct: "{{ helper_state.l2.pct | int(0) }}"
+    current_step: >-
+      {% if helper_l1_pct == 100 and helper_l2_pct == 100 %}
+        1
+      {% elif helper_l1_pct == 100 and helper_l2_pct == 0 %}
+        2
+      {% elif helper_l1_pct > 0 and helper_l2_pct == 0 %}
+        3
+      {% else %}
+        1
+      {% endif %}
+    command: "{{ trigger.to_state.attributes.event_type }}"
+  actions:
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ command == 'on' }}"
+          sequence:
+            - choose:
+                - conditions:
+                    - condition: template
+                      value_template: "{{ current_step | int == 3 }}"
+                  sequence:
+                    - action: script.luz_cama
+                      data:
+                        entity: light.luz_cama_alba
+                        l1: 100
+                        l2: 0
+                    - action: script.luz_cama
+                      data:
+                        entity: light.luz_cama_miguel
+                        l1: 100
+                        l2: 0
+                - conditions:
+                    - condition: template
+                      value_template: "{{ current_step | int == 2 }}"
+                  sequence:
+                    - action: script.luz_cama
+                      data:
+                        entity: light.luz_cama_alba
+                        l1: 100
+                        l2: 100
+                    - action: script.luz_cama
+                      data:
+                        entity: light.luz_cama_miguel
+                        l1: 100
+                        l2: 100
+              default:
+                - action: script.luz_cama
+                  data:
+                    entity: light.luz_cama_alba
+                    l1: 100
+                    l2: 100
+                - action: script.luz_cama
+                  data:
+                    entity: light.luz_cama_miguel
+                    l1: 100
+                    l2: 100
+        - conditions:
+            - condition: template
+              value_template: "{{ command == 'off' }}"
+          sequence:
+            - choose:
+                - conditions:
+                    - condition: template
+                      value_template: "{{ current_step | int == 1 }}"
+                  sequence:
+                    - action: script.luz_cama
+                      data:
+                        entity: light.luz_cama_alba
+                        l1: 100
+                        l2: 0
+                    - action: script.luz_cama
+                      data:
+                        entity: light.luz_cama_miguel
+                        l1: 100
+                        l2: 0
+                - conditions:
+                    - condition: template
+                      value_template: "{{ current_step | int == 2 }}"
+                  sequence:
+                    - action: script.luz_cama
+                      data:
+                        entity: light.luz_cama_alba
+                        l1: 1
+                        l2: 0
+                    - action: script.luz_cama
+                      data:
+                        entity: light.luz_cama_miguel
+                        l1: 1
+                        l2: 0
+                - conditions:
+                    - condition: template
+                      value_template: "{{ current_step | int == 3 }}"
+                  sequence:
+                    - action: script.luz_cama
+                      data:
+                        entity: light.luz_cama_alba
+                        l1: 1
+                        l2: 0
+                    - action: script.luz_cama
+                      data:
+                        entity: light.luz_cama_miguel
+                        l1: 1
+                        l2: 0
+              default:
+                - action: script.luz_cama
+                  data:
+                    entity: light.luz_cama_alba
+                    l1: 1
+                    l2: 0
+                - action: script.luz_cama
+                  data:
+                    entity: light.luz_cama_miguel
+                    l1: 1
+                    l2: 0
+  mode: single
