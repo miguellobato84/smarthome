@@ -95,6 +95,18 @@ sections:
         action: navigate
         navigation_path: /dashboard-wallpanel/persianas
     - type: state-icon
+      entity: cover.persiana_dormitorio_small
+      icon: mdi:blinds
+      style:
+        left: 5%
+        top: 10%
+        transform: translate(-50%, -50%)
+      tap_action:
+        action: toggle
+      hold_action:
+        action: navigate
+        navigation_path: /dashboard-wallpanel/persianas
+    - type: state-icon
       entity: cover.persiana_dormitorio_big
       icon: mdi:blinds
       style:
