@@ -1,6 +1,6 @@
 - id: '1770726745810'
   alias: ventilador_dormitorio
-  description: ''
+  description: Toggle bedroom fan/light from detached wall switch.
   triggers:
   - domain: mqtt
     device_id: 58f83632f446c9d1da2ea97a14bd9478
@@ -11,19 +11,19 @@
   actions:
   - choose:
     - conditions:
-      - condition: state
-        entity_id: switch.ventilador_dormitorio
-        state: 'off'
+      - condition: template
+        value_template: >
+          {{ is_state('fan.tuya_ventilador_dormitorio', 'on')
+             or is_state('light.tuya_ventilador_dormitorio', 'on') }}
       sequence:
       - target:
-          entity_id: switch.ventilador_dormitorio
-        action: switch.turn_on
-    - conditions:
-      - condition: state
-        entity_id: switch.ventilador_dormitorio
-        state: 'on'
-      sequence:
+          entity_id: fan.tuya_ventilador_dormitorio
+        action: fan.turn_off
       - target:
           entity_id: light.tuya_ventilador_dormitorio
-        action: light.toggle
+        action: light.turn_off
+    default:
+    - target:
+        entity_id: fan.tuya_ventilador_dormitorio
+      action: fan.turn_on
   mode: single

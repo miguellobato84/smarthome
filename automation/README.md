@@ -13,6 +13,7 @@ This folder contains Home Assistant automations split by topic. Each file holds 
 - `luz_estudio.yaml`: studio light automation.
 - `persianas_auto.yaml`: automatic blind/shutter automation for studio and Dario.
 - `auto_radiadores.yaml`: external temperature-based radiator control.
+- `globo_dario.yaml`: mirrors Globo Dario switch state to Globito light.
 - `ventilador_dario.yaml`: Dario fan behavior automation.
 - `ventilador_dormitorio.yaml`: bedroom fan behavior automation.
 - `wallpanel_battery_charging.yaml`: starts/stops wallpanel charger based on battery thresholds.
