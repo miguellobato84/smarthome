@@ -1,12 +1,24 @@
 - id: '1770660424312'
   alias: ventilador_dario
+  description: Toggle Dario fan and set startup speed from room temperature.
   triggers:
   - domain: mqtt
     device_id: ef38534b5974f287ab36ab0d9bae35d3
     type: action
     subtype: toggle
     trigger: device
+  conditions: []
   actions:
+  - variables:
+      fan_percentage: >-
+        {% set temp = state_attr('climate.radiador_dario', 'current_temperature') | float(0) %}
+        {% if temp >= 29 %}
+          50
+        {% elif temp >= 26 %}
+          33
+        {% else %}
+          16
+        {% endif %}
   - choose:
     - conditions:
       - condition: state
@@ -16,12 +28,23 @@
       - target:
           entity_id: switch.ventilador_dario
         action: switch.turn_on
+      - target:
+          entity_id: fan.tuya_ventilador_dario
+        action: fan.turn_on
+      - target:
+          entity_id: fan.tuya_ventilador_dario
+        data:
+          percentage: '{{ fan_percentage | int }}'
+        action: fan.set_percentage
     - conditions:
       - condition: state
         entity_id: switch.ventilador_dario
         state: 'on'
       sequence:
       - target:
-          entity_id: light.tuya_ventilador_dario
-        action: light.toggle
+          entity_id: fan.tuya_ventilador_dario
+        action: fan.turn_off
+      - target:
+          entity_id: switch.ventilador_dario
+        action: switch.turn_off
   mode: single
