@@ -1,4 +1,4 @@
-# touched: 2026-03-17 23:57:38 CET - sync marker after normalizing wallpanel heading hierarchy
+# touched: 2026-06-08 00:10:00 CEST - sync marker after updating wallpanel blinds view order and entities
 wallpanel:
   enabled: true
   hide_toolbar: true

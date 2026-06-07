@@ -18,8 +18,18 @@ sections:
           display: none !important;
         }
   - type: tile
-    entity: cover.persiana_estudio
-    name: Office blind
+    entity: cover.persiana_dormitorio_small
+    name: Bedroom small blind
+    features_position: bottom
+    vertical: false
+    features:
+    - type: cover-position
+    grid_options:
+      columns: 8
+      rows: 1
+  - type: tile
+    entity: cover.persiana_dormitorio_big
+    name: Bedroom big blind
     features_position: bottom
     vertical: false
     features:
@@ -30,6 +40,16 @@ sections:
   - type: tile
     entity: cover.persiana_dario
     name: Dario blind
+    features_position: bottom
+    vertical: false
+    features:
+    - type: cover-position
+    grid_options:
+      columns: 8
+      rows: 1
+  - type: tile
+    entity: cover.persiana_estudio
+    name: Office blind
     features_position: bottom
     vertical: false
     features:
