@@ -1,6 +1,6 @@
 - id: '1770660424312'
   alias: ventilador_dario
-  description: Toggle Dario fan and set startup speed from room temperature.
+  description: Toggle Dario fan/light from detached wall switch.
   triggers:
   - domain: mqtt
     device_id: ef38534b5974f287ab36ab0d9bae35d3
@@ -21,30 +21,24 @@
         {% endif %}
   - choose:
     - conditions:
-      - condition: state
-        entity_id: switch.ventilador_dario
-        state: 'off'
-      sequence:
-      - target:
-          entity_id: switch.ventilador_dario
-        action: switch.turn_on
-      - target:
-          entity_id: fan.tuya_ventilador_dario
-        action: fan.turn_on
-      - target:
-          entity_id: fan.tuya_ventilador_dario
-        data:
-          percentage: '{{ fan_percentage | int }}'
-        action: fan.set_percentage
-    - conditions:
-      - condition: state
-        entity_id: switch.ventilador_dario
-        state: 'on'
+      - condition: template
+        value_template: >
+          {{ is_state('fan.tuya_ventilador_dario', 'on')
+             or is_state('light.tuya_ventilador_dario', 'on') }}
       sequence:
       - target:
           entity_id: fan.tuya_ventilador_dario
         action: fan.turn_off
       - target:
-          entity_id: switch.ventilador_dario
-        action: switch.turn_off
+          entity_id: light.tuya_ventilador_dario
+        action: light.turn_off
+    default:
+    - target:
+        entity_id: fan.tuya_ventilador_dario
+      action: fan.turn_on
+    - target:
+        entity_id: fan.tuya_ventilador_dario
+      data:
+        percentage: '{{ fan_percentage | int }}'
+      action: fan.set_percentage
   mode: single
