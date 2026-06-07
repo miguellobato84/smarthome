@@ -102,6 +102,20 @@ sections:
     show_brightness_control: true
     collapsible_controls: true
   - type: custom:mushroom-light-card
+    entity: light.light_abuelo
+    name: Abuelo side light
+    icon: mdi:lamp
+    use_light_color: true
+    show_brightness_control: true
+    collapsible_controls: true
+  - type: custom:mushroom-light-card
+    entity: light.light_cestita
+    name: Basket light
+    icon: mdi:lamp-outline
+    use_light_color: true
+    show_brightness_control: true
+    collapsible_controls: true
+  - type: custom:mushroom-light-card
     entity: light.luz_sofa
     name: Sofa light
     icon: mdi:floor-lamp
@@ -119,6 +133,34 @@ sections:
     entity: light.luz_estudio
     name: Office light
     icon: mdi:desk-lamp
+    use_light_color: true
+    show_brightness_control: true
+    collapsible_controls: true
+  - type: custom:mushroom-light-card
+    entity: light.armario_dormitorio
+    name: Bedroom wardrobe
+    icon: mdi:wardrobe-outline
+    use_light_color: true
+    show_brightness_control: true
+    collapsible_controls: true
+  - type: custom:mushroom-light-card
+    entity: light.armario_vestidor
+    name: Dressing room wardrobe
+    icon: mdi:wardrobe-outline
+    use_light_color: true
+    show_brightness_control: true
+    collapsible_controls: true
+  - type: custom:mushroom-light-card
+    entity: light.luz_cama_miguel_l1
+    name: Miguel bedside L1
+    icon: mdi:wall-sconce-flat
+    use_light_color: true
+    show_brightness_control: true
+    collapsible_controls: true
+  - type: custom:mushroom-light-card
+    entity: light.luz_cama_miguel_l2
+    name: Miguel bedside L2
+    icon: mdi:wall-sconce-flat
     use_light_color: true
     show_brightness_control: true
     collapsible_controls: true
@@ -163,6 +205,11 @@ sections:
     name: Dario fan
     vertical: false
     features_position: bottom
+  - type: tile
+    entity: fan.xiaomi_smart_fan
+    name: Xiaomi smart fan
+    vertical: false
+    features_position: bottom
   - type: custom:mushroom-entity-card
     entity: switch.extractor_bano
     name: Bathroom extractor
@@ -192,6 +239,20 @@ sections:
   - type: tile
     entity: cover.persiana_dario
     name: Dario blind
+    vertical: false
+    features_position: bottom
+    features:
+    - type: cover-position
+  - type: tile
+    entity: cover.persiana_dormitorio_big
+    name: Bedroom big blind
+    vertical: false
+    features_position: bottom
+    features:
+    - type: cover-position
+  - type: tile
+    entity: cover.persiana_dormitorio_small
+    name: Bedroom small blind
     vertical: false
     features_position: bottom
     features:

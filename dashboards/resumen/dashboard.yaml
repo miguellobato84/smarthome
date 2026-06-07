@@ -1,2 +1,2 @@
-# touched: 2026-03-13 21:02:00 CET - sync marker after reorganizing the resumen mobile view by control type
+# touched: 2026-06-07 23:57:13 CEST - sync marker after adding missing live entities to the resumen mobile view
 views: !include_dir_list /config/dashboards/resumen/views
