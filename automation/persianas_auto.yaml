@@ -16,57 +16,71 @@
     id: go_to_bed
   conditions: []
   actions:
-  - choose:
-    - conditions:
-      - condition: trigger
-        id: alarm
-      sequence:
-      - action: cover.set_cover_position
-        target:
-          entity_id:
-          - cover.persiana_estudio
-          - cover.persiana_dario
-        data:
-          position: 100
-    - conditions:
-      - condition: trigger
-        id: morning_bedroom
-      sequence:
-      - action: cover.set_cover_position
-        target:
-          entity_id:
-          - cover.persiana_dormitorio_small
-          - cover.persiana_dormitorio_big
-        data:
-          position: 100
-    - conditions:
-      - condition: trigger
-        id: afternoon
-      sequence:
-      - action: cover.set_cover_position
-        target:
-          entity_id:
-          - cover.persiana_estudio
-          - cover.persiana_dario
-          - cover.persiana_dormitorio_small
-          - cover.persiana_dormitorio_big
-        data:
-          position: 30
-    - conditions:
-      - condition: trigger
-        id: go_to_bed
-      sequence:
-      - action: cover.set_cover_position
-        target:
-          entity_id:
-          - cover.persiana_dormitorio_small
-          - cover.persiana_dormitorio_big
-          - cover.persiana_dario
-        data:
-          position: 0
-      - action: cover.set_cover_position
-        target:
-          entity_id: cover.persiana_estudio
-        data:
-          position: 30
+  - if:
+    - condition: time
+      after: input_datetime.alarm
+      before: "14:00:00"
+    then:
+    - action: cover.set_cover_position
+      target:
+        entity_id:
+        - cover.persiana_estudio
+        - cover.persiana_dario
+      data:
+        position: 100
+  - if:
+    - condition: time
+      after: "09:00:00"
+      before: "14:00:00"
+    then:
+    - action: cover.set_cover_position
+      target:
+        entity_id:
+        - cover.persiana_dormitorio_small
+        - cover.persiana_dormitorio_big
+      data:
+        position: 100
+  - if:
+    - condition: time
+      after: "14:00:00"
+      before: input_datetime.go_to_bed
+    then:
+    - action: cover.set_cover_position
+      target:
+        entity_id: cover.persiana_estudio
+      data:
+        position: "{{ [30, state_attr('cover.persiana_estudio', 'current_position') | int(30)] | min }}"
+    - action: cover.set_cover_position
+      target:
+        entity_id: cover.persiana_dario
+      data:
+        position: "{{ [30, state_attr('cover.persiana_dario', 'current_position') | int(30)] | min }}"
+    - action: cover.set_cover_position
+      target:
+        entity_id: cover.persiana_dormitorio_small
+      data:
+        position: "{{ [30, state_attr('cover.persiana_dormitorio_small', 'current_position') | int(30)] | min }}"
+    - action: cover.set_cover_position
+      target:
+        entity_id: cover.persiana_dormitorio_big
+      data:
+        position: "{{ [30, state_attr('cover.persiana_dormitorio_big', 'current_position') | int(30)] | min }}"
+  - if:
+    - condition: time
+      after: input_datetime.go_to_bed
+      before: input_datetime.alarm
+    then:
+    - action: cover.set_cover_position
+      target:
+        entity_id:
+        - cover.persiana_dormitorio_small
+        - cover.persiana_dormitorio_big
+        - cover.persiana_dario
+      data:
+        position: 0
+    - action: cover.set_cover_position
+      target:
+        entity_id: cover.persiana_estudio
+      data:
+        position: 30
   mode: single
