@@ -6,9 +6,6 @@
     at: input_datetime.alarm
     id: alarm
   - trigger: time
-    at: "09:00:00"
-    id: morning_bedroom
-  - trigger: time
     at: "14:00:00"
     id: afternoon
   - trigger: time
@@ -26,18 +23,6 @@
         entity_id:
         - cover.persiana_estudio
         - cover.persiana_dario
-      data:
-        position: 100
-  - if:
-    - condition: time
-      after: "09:00:00"
-      before: "14:00:00"
-    then:
-    - action: cover.set_cover_position
-      target:
-        entity_id:
-        - cover.persiana_dormitorio_small
-        - cover.persiana_dormitorio_big
       data:
         position: 100
   - if:
