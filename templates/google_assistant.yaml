@@ -13,27 +13,6 @@ entity_config:
     expose: true
     name: "Escena Dia"
         
-  ####### Scripts
-  script.federico_location:
-    expose: true
-    name: "Dónde está Federico"
-  script.federico_limpieza:
-    expose: true
-    name: "Federico toca limpieza"
-    aliases:
-      - "Federico ve al baño"
-  script.federico_volver:
-    expose: true
-    name: "Federico vuelve a la base"
-    aliases:
-      - "Federico vuelve a casa"
-  script.federico_habitacion:
-    expose: true
-    name: "Federico aspira una habitación"
-  script.federico_start:
-    expose: true
-    name: "Federico aspira la casa"
-
   ####### Sensors
   sensor.madrid_temperature:
     expose: true

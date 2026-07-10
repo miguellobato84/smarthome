@@ -1,4 +1,4 @@
-# touched: 2026-06-08 00:20:00 CEST - sync marker after adding bedroom small blind control to wallpanel main view
+# touched: 2026-07-10 00:00:00 CEST - sync marker after dashboard cleanup
 wallpanel:
   enabled: true
   hide_toolbar: true
