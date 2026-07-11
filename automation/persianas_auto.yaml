@@ -9,9 +9,6 @@
     at: "14:00:00"
     id: afternoon
   - trigger: time
-    at: "05:00:00"
-    id: early_close
-  - trigger: time
     at: input_datetime.go_to_bed
     id: go_to_bed
   conditions: []
@@ -58,17 +55,4 @@
           - cover.persiana_dormitorio_big
         data:
           position: 30
-    - conditions:
-      - condition: trigger
-        id: early_close
-      sequence:
-      - action: cover.set_cover_position
-        target:
-          entity_id:
-          - cover.persiana_estudio
-          - cover.persiana_dario
-          - cover.persiana_dormitorio_small
-          - cover.persiana_dormitorio_big
-        data:
-          position: 0
   mode: single
