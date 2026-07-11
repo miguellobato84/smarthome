@@ -1,2 +1,2 @@
-# touched: 2026-07-10 00:00:00 CEST - sync marker after dashboard cleanup
+# touched: 2026-07-11 00:00:00 CEST - sync marker after removing Xiaomi fan card
 views: !include_dir_list /config/dashboards/resumen/views

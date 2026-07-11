@@ -205,11 +205,6 @@ sections:
     name: Dario fan
     vertical: false
     features_position: bottom
-  - type: tile
-    entity: fan.xiaomi_smart_fan
-    name: Xiaomi smart fan
-    vertical: false
-    features_position: bottom
   - type: custom:mushroom-entity-card
     entity: switch.extractor_bano
     name: Bathroom extractor
