@@ -32,32 +32,98 @@
       - condition: trigger
         id: afternoon
       sequence:
-      - action: cover.set_cover_position
-        target:
+      - if:
+        - condition: numeric_state
           entity_id: cover.persiana_estudio
-        data:
-          position: 50
-      - action: cover.set_cover_position
-        target:
-          entity_id:
-          - cover.persiana_dario
-          - cover.persiana_dormitorio_small
-          - cover.persiana_dormitorio_big
-        data:
-          position: 30
+          attribute: current_position
+          above: 50
+        then:
+        - action: cover.set_cover_position
+          target:
+            entity_id: cover.persiana_estudio
+          data:
+            position: 50
+      - if:
+        - condition: numeric_state
+          entity_id: cover.persiana_dario
+          attribute: current_position
+          above: 30
+        then:
+        - action: cover.set_cover_position
+          target:
+            entity_id: cover.persiana_dario
+          data:
+            position: 30
+      - if:
+        - condition: numeric_state
+          entity_id: cover.persiana_dormitorio_small
+          attribute: current_position
+          above: 30
+        then:
+        - action: cover.set_cover_position
+          target:
+            entity_id: cover.persiana_dormitorio_small
+          data:
+            position: 30
+      - if:
+        - condition: numeric_state
+          entity_id: cover.persiana_dormitorio_big
+          attribute: current_position
+          above: 30
+        then:
+        - action: cover.set_cover_position
+          target:
+            entity_id: cover.persiana_dormitorio_big
+          data:
+            position: 30
     - conditions:
       - condition: trigger
         id: go_to_bed
       sequence:
-      - action: cover.set_cover_position
-        target:
-          entity_id:
-          - cover.persiana_estudio
-          - cover.persiana_dario
-          - cover.persiana_dormitorio_small
-          - cover.persiana_dormitorio_big
-        data:
-          position: 30
+      - if:
+        - condition: numeric_state
+          entity_id: cover.persiana_estudio
+          attribute: current_position
+          above: 30
+        then:
+        - action: cover.set_cover_position
+          target:
+            entity_id: cover.persiana_estudio
+          data:
+            position: 30
+      - if:
+        - condition: numeric_state
+          entity_id: cover.persiana_dario
+          attribute: current_position
+          above: 30
+        then:
+        - action: cover.set_cover_position
+          target:
+            entity_id: cover.persiana_dario
+          data:
+            position: 30
+      - if:
+        - condition: numeric_state
+          entity_id: cover.persiana_dormitorio_small
+          attribute: current_position
+          above: 30
+        then:
+        - action: cover.set_cover_position
+          target:
+            entity_id: cover.persiana_dormitorio_small
+          data:
+            position: 30
+      - if:
+        - condition: numeric_state
+          entity_id: cover.persiana_dormitorio_big
+          attribute: current_position
+          above: 30
+        then:
+        - action: cover.set_cover_position
+          target:
+            entity_id: cover.persiana_dormitorio_big
+          data:
+            position: 30
     - conditions:
       - condition: trigger
         id: bedroom_close
