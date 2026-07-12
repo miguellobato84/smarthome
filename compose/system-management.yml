@@ -12,6 +12,12 @@ services:
       - PGID=1000
       - TZ=Europe/Madrid
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:3000/ >/dev/null"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     networks:
       - homeassistant
 
@@ -49,6 +55,12 @@ services:
       - /docker/duplicati/config:/config
       - /docker/duplicati/data:/data
       - /docker:/source:ro
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8200/ >/dev/null"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     networks:
       - homeassistant
 
@@ -60,6 +72,12 @@ services:
       - /docker/adguard/work:/opt/adguardhome/work
       - /docker/adguard/conf:/opt/adguardhome/conf
     network_mode: host
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:9005/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
 
   mailserver:
     image: miguellobato84/smtp-gmail-relay:latest
@@ -68,6 +86,12 @@ services:
       - SMTP_USER=${SMTP_USER}
       - SMTP_PASS=${SMTP_PASS}
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c 'import socket; s=socket.create_connection((\"127.0.0.1\",25),5); s.close()'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
     networks:
       - homeassistant
 
@@ -95,6 +119,12 @@ services:
       - APP_TIMEZONE=Europe/Madrid
     volumes:
       - /docker/speedtest/data:/config
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1/ >/dev/null"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 45s
     networks:
       - homeassistant
 
@@ -139,6 +169,12 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://127.0.0.1:2375/_ping | grep -qx OK"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     networks:
       - homeassistant
 
