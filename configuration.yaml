@@ -2,7 +2,6 @@ default_config:
 automation: !include_dir_merge_list automation
 script: !include_dir_merge_named scripts
 scene: !include_dir_merge_list scenes
-fan: !include templates/fan.yaml
 google_assistant: !include templates/google_assistant.yaml
 input_boolean: !include templates/input_boolean.yaml
 input_number: !include templates/input_number.yaml
@@ -24,7 +23,6 @@ frontend:
 logger:
   default: info
 #  logs:
-#    custom_components.xiaomi_miio_fan: debug
 #    miio.miioprotocol: debug
 lovelace:
   resource_mode: yaml
