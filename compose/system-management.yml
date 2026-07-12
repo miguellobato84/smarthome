@@ -15,15 +15,21 @@ services:
     networks:
       - homeassistant
 
-  watchtower:
-    image: ghcr.io/nicholas-fedor/watchtower:latest
-    container_name: watchtower
+  tugtainer:
+    image: ghcr.io/quenary/tugtainer:1
+    container_name: tugtainer
     restart: unless-stopped
-    command: --schedule "0 0 4 * * *" --cleanup --remove-volumes
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 9011:80
     environment:
-      WATCHTOWER_NOTIFICATION_URL: ${WATCHTOWER_NOTIFICATION_URL}
+      AGENT_SECRET: ${TUGTAINER_AGENT_SECRET}
+      JWT_SECRET_KEY: ${TUGTAINER_JWT_SECRET_KEY}
+      ACCESS_TOKEN_LIFETIME_MIN: "60"
+    volumes:
+      - /docker/tugtainer/data:/tugtainer
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      dev.quenary.tugtainer.protected: "true"
     networks:
       - homeassistant
 
