@@ -31,6 +31,7 @@ services:
       AGENT_SECRET: ${TUGTAINER_AGENT_SECRET}
       JWT_SECRET_KEY: ${TUGTAINER_JWT_SECRET_KEY}
       ACCESS_TOKEN_LIFETIME_MIN: "60"
+      ENABLE_PUBLIC_API: "true"
       NOTIFICATION_ALLOW_ENDPOINTS: mailserver:25
     volumes:
       - /docker/tugtainer/data:/tugtainer
