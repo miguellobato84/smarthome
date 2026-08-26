@@ -82,6 +82,27 @@ services:
       retries: 3
       start_period: 45s
 
+  jackett:
+    image: lscr.io/linuxserver/jackett
+    container_name: jackett
+    networks:
+      - homeassistant
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Madrid
+    volumes:
+      - /docker/jackett-config:/config
+    ports:
+      - 9027:9117
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:9117/ >/dev/null"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 45s
+
   bazarr:
     image: ghcr.io/linuxserver/bazarr
     container_name: bazarr
