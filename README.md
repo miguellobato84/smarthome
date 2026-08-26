@@ -11,6 +11,7 @@ This repository contains Home Assistant configuration and related infrastructure
 - `templates/`: template entities, helpers, and integration settings.
 - `dashboards/`: Lovelace YAML dashboards and views.
 - `compose/`: Docker Compose stacks for Home Assistant and related services.
+- `docs/`: operational runbooks and incident references.
 - `www/`: static assets served by Home Assistant.
 - `.agent/`: Codex project guidance and standards.
 
@@ -23,6 +24,10 @@ This repository contains Home Assistant configuration and related infrastructure
 
 ## Directory documentation
 Each project directory contains a local `README.md` describing its purpose and files.
+
+## Operational references
+
+- [SONOFF MINI-ZBRBS leave and recovery runbook](docs/mini-zbrbs-leave-recovery.md)
 
 ## Host mount layout (casa)
 - Source config directory on host: `/docker/homeassistant`
