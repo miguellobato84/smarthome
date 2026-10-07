@@ -1,4 +1,4 @@
-# touched: 2026-10-01 07:22:53 CEST - add blinds navigation to main
+# touched: 2026-10-07 21:59:07 CEST - replace sofa light with Akari on wallpanel
 wallpanel:
   enabled: true
   hide_toolbar: true
