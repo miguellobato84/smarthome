@@ -20,6 +20,22 @@
       friendly_name: luz_mouille
       supported_features: 44
       state: 'on'
+    light.luz_akari:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - brightness
+      effect:
+      color_mode: brightness
+      brightness: 112
+      friendly_name: luz_akari
+      supported_features: 44
+      state: 'on'
     light.luz_globito:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
@@ -77,37 +93,5 @@
       friendly_name: luz_abuelo
       supported_features: 44
       state: 'off'
-    light.luz_sofa:
-      min_color_temp_kelvin: 2202
-      max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - color_temp
-      effect:
-      color_mode: color_temp
-      brightness: 148
-      color_temp_kelvin: 2439
-      color_temp: 410
-      hs_color:
-      - 29.04
-      - 74.777
-      rgb_color:
-      - 255
-      - 157
-      - 64
-      xy_color:
-      - 0.553
-      - 0.39
-      friendly_name: luz_sofa
-      supported_features: 44
-      state: 'on'
   metadata: {}
   icon: mdi:weather-sunset
