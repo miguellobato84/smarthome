@@ -171,6 +171,22 @@ services:
       - 9026:80
     restart: unless-stopped
 
+  calibre:
+    image: lscr.io/linuxserver/calibre:latest
+    container_name: calibre
+    networks:
+      - homeassistant
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Madrid
+    volumes:
+      - /docker/calibre-config:/config
+    ports:
+      - 9028:8181
+    shm_size: "1gb"
+    restart: unless-stopped
+
 networks:
   homeassistant:
     external: true
