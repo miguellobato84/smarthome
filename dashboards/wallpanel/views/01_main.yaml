@@ -191,8 +191,8 @@ sections:
       tap_action:
         action: toggle
     - type: state-icon
-      entity: light.luz_sofa
-      icon: mdi:lightbulb
+      entity: light.luz_akari
+      icon: mdi:lamp-outline
       style:
         left: 52%
         top: 75%
