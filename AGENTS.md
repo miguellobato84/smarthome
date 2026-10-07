@@ -25,16 +25,13 @@ This repository stores Home Assistant configuration, automations, templates, das
 - Never push directly to `main`; use a feature branch and merge when complete.
 - Use `ssh casa` only for git operations unless explicitly requested otherwise.
 
-## Home Assistant MCP
-- MCP endpoint for this environment: `https://casa.miguellobato.com/api/mcp`
-- Never store MCP bearer tokens in repository files; use local env vars (for example `HA_MCP_TOKEN`).
-- For MCP checks, always validate:
-  - Base API health: `GET /api/` with bearer token.
-  - MCP handshake: `POST /api/mcp` with JSON-RPC `initialize`.
-- Interpretation:
-  - `200` on initialize = MCP server reachable and working.
-  - `404` on `/api/mcp` = MCP server integration not enabled.
-  - `401`/`403` = auth/permissions issue.
+## Home Assistant API
+- Use the Home Assistant API at `https://casa.miguellobato.com`.
+- Read the bearer token from the local `HA_TOKEN` environment variable; never store or print it.
+- Authenticate API requests with `Authorization: Bearer $HA_TOKEN`.
+- Use the REST API for HTTP requests and the WebSocket API at `/api/websocket` for streaming or WebSocket-only commands.
+- Check API access with `GET /api/`; expect HTTP `200` when authentication succeeds.
+- Treat HTTP `401`/`403` as authentication or permission failures.
 
 ## Project Structure & Module Organization
 - Source code: Home Assistant YAML at repository root and `automation/`, `templates/`, `dashboards/` (details: `.agent/ARCHITECTURE.md`)
@@ -97,4 +94,3 @@ This repository stores Home Assistant configuration, automations, templates, das
 - If updates seem necessary, ask whether to update these docs as part of the same change.
 
 ## Skills
-- home-assistant-mcp: validate and troubleshoot Home Assistant MCP endpoint/auth behavior for this repo. (file: `.agent/skills/home-assistant-mcp/SKILL.md`)
