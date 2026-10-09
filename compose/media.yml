@@ -181,8 +181,9 @@ services:
       - PGID=1000
       - TZ=Europe/Madrid
     volumes:
-      - /docker/calibre-web-config:/config
-      - /docker/calibre-config/Calibre Library:/books
+      - /docker/calibre-web-config/config:/config
+      - /docker/calibre-web-config/books:/books
+      - /docker/calibre-web-config/calibre-web-overrides/src/calibre_web_overrides/goodreads_support.py:/app/calibre-web/cps/services/goodreads_support.py:ro
     ports:
       - 9028:8083
     restart: unless-stopped
