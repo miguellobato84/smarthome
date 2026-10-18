@@ -1,2 +1,2 @@
-# touched: 2026-10-18 14:44:39 CEST - disable controls for broken bedroom big blind
+# touched: 2026-10-18 14:48:12 CEST - add bedroom small blind as read-only
 views: !include_dir_list /config/dashboards/resumen/views

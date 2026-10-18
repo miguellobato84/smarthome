@@ -253,6 +253,23 @@ sections:
       action: none
     icon_double_tap_action:
       action: none
+  - type: tile
+    entity: cover.persiana_dormitorio_small
+    name: Bedroom small blind (disabled)
+    vertical: false
+    features_position: bottom
+    tap_action:
+      action: none
+    hold_action:
+      action: none
+    double_tap_action:
+      action: none
+    icon_tap_action:
+      action: none
+    icon_hold_action:
+      action: none
+    icon_double_tap_action:
+      action: none
   column_span: 4
 - type: grid
   cards:
