@@ -19,41 +19,81 @@ sections:
         }
   - type: tile
     entity: cover.persiana_dormitorio_small
-    name: Bedroom small blind
+    name: Bedroom small blind (read-only)
     features_position: bottom
     vertical: false
-    features:
-    - type: cover-position
+    tap_action:
+      action: none
+    hold_action:
+      action: none
+    double_tap_action:
+      action: none
+    icon_tap_action:
+      action: none
+    icon_hold_action:
+      action: none
+    icon_double_tap_action:
+      action: none
     grid_options:
       columns: 8
       rows: 1
   - type: tile
     entity: cover.persiana_dormitorio_big
-    name: Bedroom big blind
+    name: Bedroom big blind (read-only)
     features_position: bottom
     vertical: false
-    features:
-    - type: cover-position
+    tap_action:
+      action: none
+    hold_action:
+      action: none
+    double_tap_action:
+      action: none
+    icon_tap_action:
+      action: none
+    icon_hold_action:
+      action: none
+    icon_double_tap_action:
+      action: none
     grid_options:
       columns: 8
       rows: 1
   - type: tile
     entity: cover.persiana_dario
-    name: Dario blind
+    name: Dario blind (read-only)
     features_position: bottom
     vertical: false
-    features:
-    - type: cover-position
+    tap_action:
+      action: none
+    hold_action:
+      action: none
+    double_tap_action:
+      action: none
+    icon_tap_action:
+      action: none
+    icon_hold_action:
+      action: none
+    icon_double_tap_action:
+      action: none
     grid_options:
       columns: 8
       rows: 1
   - type: tile
     entity: cover.persiana_estudio
-    name: Office blind
+    name: Office blind (read-only)
     features_position: bottom
     vertical: false
-    features:
-    - type: cover-position
+    tap_action:
+      action: none
+    hold_action:
+      action: none
+    double_tap_action:
+      action: none
+    icon_tap_action:
+      action: none
+    icon_hold_action:
+      action: none
+    icon_double_tap_action:
+      action: none
     grid_options:
       columns: 8
       rows: 1
