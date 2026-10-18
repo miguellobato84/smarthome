@@ -102,27 +102,6 @@ sections:
     show_brightness_control: true
     collapsible_controls: true
   - type: custom:mushroom-light-card
-    entity: light.light_abuelo
-    name: Abuelo side light
-    icon: mdi:lamp
-    use_light_color: true
-    show_brightness_control: true
-    collapsible_controls: true
-  - type: custom:mushroom-light-card
-    entity: light.light_cestita
-    name: Basket light
-    icon: mdi:lamp-outline
-    use_light_color: true
-    show_brightness_control: true
-    collapsible_controls: true
-  - type: custom:mushroom-light-card
-    entity: light.luz_sofa
-    name: Sofa light
-    icon: mdi:floor-lamp
-    use_light_color: true
-    show_brightness_control: true
-    collapsible_controls: true
-  - type: custom:mushroom-light-card
     entity: light.luz_globito
     name: Dario globe
     icon: mdi:desk-lamp
@@ -147,6 +126,13 @@ sections:
     entity: light.armario_vestidor
     name: Dressing room wardrobe
     icon: mdi:wardrobe-outline
+    use_light_color: true
+    show_brightness_control: true
+    collapsible_controls: true
+  - type: custom:mushroom-light-card
+    entity: light.luz_akari
+    name: Akari light
+    icon: mdi:floor-lamp
     use_light_color: true
     show_brightness_control: true
     collapsible_controls: true
@@ -178,6 +164,13 @@ sections:
     icon_color: amber
     tap_action:
       action: toggle
+  - type: custom:mushroom-entity-card
+    entity: switch.luz_arbol
+    name: Tree light
+    icon: mdi:pine-tree
+    icon_color: green
+    tap_action:
+      action: toggle
   column_span: 4
 - type: grid
   cards:
@@ -203,6 +196,11 @@ sections:
   - type: tile
     entity: fan.tuya_ventilador_dario
     name: Dario fan
+    vertical: false
+    features_position: bottom
+  - type: tile
+    entity: fan.living_room_melcloudhome_1986_5325_a_c_fan
+    name: Living room AC fan
     vertical: false
     features_position: bottom
   - type: custom:mushroom-entity-card
@@ -240,18 +238,38 @@ sections:
     - type: cover-position
   - type: tile
     entity: cover.persiana_dormitorio_big
-    name: Bedroom big blind
+    name: Bedroom big blind (disabled)
     vertical: false
     features_position: bottom
-    features:
-    - type: cover-position
+    tap_action:
+      action: none
+    hold_action:
+      action: none
+    double_tap_action:
+      action: none
+    icon_tap_action:
+      action: none
+    icon_hold_action:
+      action: none
+    icon_double_tap_action:
+      action: none
   - type: tile
     entity: cover.persiana_dormitorio_small
-    name: Bedroom small blind
+    name: Bedroom small blind (disabled)
     vertical: false
     features_position: bottom
-    features:
-    - type: cover-position
+    tap_action:
+      action: none
+    hold_action:
+      action: none
+    double_tap_action:
+      action: none
+    icon_tap_action:
+      action: none
+    icon_hold_action:
+      action: none
+    icon_double_tap_action:
+      action: none
   column_span: 4
 - type: grid
   cards:

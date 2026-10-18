@@ -1,2 +1,2 @@
-# touched: 2026-07-11 00:00:00 CEST - sync marker after removing Xiaomi fan card
+# touched: 2026-10-18 14:48:12 CEST - add bedroom small blind as read-only
 views: !include_dir_list /config/dashboards/resumen/views
