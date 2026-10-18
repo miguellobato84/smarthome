@@ -59,41 +59,21 @@ sections:
       rows: 1
   - type: tile
     entity: cover.persiana_dario
-    name: Dario blind (read-only)
+    name: Dario blind
     features_position: bottom
     vertical: false
-    tap_action:
-      action: none
-    hold_action:
-      action: none
-    double_tap_action:
-      action: none
-    icon_tap_action:
-      action: none
-    icon_hold_action:
-      action: none
-    icon_double_tap_action:
-      action: none
+    features:
+    - type: cover-position
     grid_options:
       columns: 8
       rows: 1
   - type: tile
     entity: cover.persiana_estudio
-    name: Office blind (read-only)
+    name: Office blind
     features_position: bottom
     vertical: false
-    tap_action:
-      action: none
-    hold_action:
-      action: none
-    double_tap_action:
-      action: none
-    icon_tap_action:
-      action: none
-    icon_hold_action:
-      action: none
-    icon_double_tap_action:
-      action: none
+    features:
+    - type: cover-position
     grid_options:
       columns: 8
       rows: 1

@@ -1,4 +1,4 @@
-# touched: 2026-10-18 14:51:59 CEST - make wallpanel blinds read-only
+# touched: 2026-10-18 14:54:17 CEST - keep bedroom blinds read-only only
 wallpanel:
   enabled: true
   hide_toolbar: true
