@@ -1,16 +1,10 @@
 - id: '1771866324220'
   alias: persianas_auto
-  description: Schedule automatic blind positions for alarm, afternoon, bedtime, and early morning.
+  description: Open the office and Dario blinds to 80% at alarm and close them at bedtime.
   triggers:
   - trigger: time
     at: input_datetime.alarm
     id: alarm
-  - trigger: time
-    at: "14:00:00"
-    id: afternoon
-  - trigger: time
-    at: "04:00:00"
-    id: bedroom_close
   - trigger: time
     at: input_datetime.go_to_bed
     id: go_to_bed
@@ -27,112 +21,14 @@
           - cover.persiana_estudio
           - cover.persiana_dario
         data:
-          position: 100
-    - conditions:
-      - condition: trigger
-        id: afternoon
-      sequence:
-      - if:
-        - condition: numeric_state
-          entity_id: cover.persiana_estudio
-          attribute: current_position
-          above: 50
-        then:
-        - action: cover.set_cover_position
-          target:
-            entity_id: cover.persiana_estudio
-          data:
-            position: 50
-      - if:
-        - condition: numeric_state
-          entity_id: cover.persiana_dario
-          attribute: current_position
-          above: 30
-        then:
-        - action: cover.set_cover_position
-          target:
-            entity_id: cover.persiana_dario
-          data:
-            position: 30
-      - if:
-        - condition: numeric_state
-          entity_id: cover.persiana_dormitorio_small
-          attribute: current_position
-          above: 30
-        then:
-        - action: cover.set_cover_position
-          target:
-            entity_id: cover.persiana_dormitorio_small
-          data:
-            position: 30
-      - if:
-        - condition: numeric_state
-          entity_id: cover.persiana_dormitorio_big
-          attribute: current_position
-          above: 30
-        then:
-        - action: cover.set_cover_position
-          target:
-            entity_id: cover.persiana_dormitorio_big
-          data:
-            position: 30
+          position: 80
     - conditions:
       - condition: trigger
         id: go_to_bed
       sequence:
-      - if:
-        - condition: numeric_state
-          entity_id: cover.persiana_estudio
-          attribute: current_position
-          above: 30
-        then:
-        - action: cover.set_cover_position
-          target:
-            entity_id: cover.persiana_estudio
-          data:
-            position: 30
-      - if:
-        - condition: numeric_state
-          entity_id: cover.persiana_dario
-          attribute: current_position
-          above: 30
-        then:
-        - action: cover.set_cover_position
-          target:
-            entity_id: cover.persiana_dario
-          data:
-            position: 30
-      - if:
-        - condition: numeric_state
-          entity_id: cover.persiana_dormitorio_small
-          attribute: current_position
-          above: 30
-        then:
-        - action: cover.set_cover_position
-          target:
-            entity_id: cover.persiana_dormitorio_small
-          data:
-            position: 30
-      - if:
-        - condition: numeric_state
-          entity_id: cover.persiana_dormitorio_big
-          attribute: current_position
-          above: 30
-        then:
-        - action: cover.set_cover_position
-          target:
-            entity_id: cover.persiana_dormitorio_big
-          data:
-            position: 30
-    - conditions:
-      - condition: trigger
-        id: bedroom_close
-      sequence:
-      - action: cover.set_cover_position
+      - action: cover.close_cover
         target:
           entity_id:
-          - cover.persiana_dormitorio_small
-          - cover.persiana_dormitorio_big
-        data:
-          position: 0
+          - cover.persiana_estudio
+          - cover.persiana_dario
   mode: single
