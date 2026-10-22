@@ -7,6 +7,7 @@
     id: alarm
   - trigger: state
     entity_id: sensor.sun_next_dusk
+    for: "01:00:00"
     id: dusk_changed
   conditions: []
   actions:
@@ -25,16 +26,7 @@
     - conditions:
       - condition: trigger
         id: dusk_changed
-      - condition: template
-        value_template: >-
-          {{ has_value('sensor.sun_next_dusk')
-             and trigger.from_state is not none
-             and as_timestamp(trigger.from_state.state, 0) > 0
-             and as_timestamp(trigger.from_state.state, 0) <= as_timestamp(now()) }}
       sequence:
-      - delay:
-          seconds: >-
-            {{ [as_timestamp(trigger.from_state.state) + 3600 - as_timestamp(now()), 0] | max | int }}
       - action: cover.close_cover
         target:
           entity_id:
