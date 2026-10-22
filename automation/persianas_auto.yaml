@@ -5,10 +5,12 @@
   - trigger: time
     at: input_datetime.alarm
     id: alarm
-  - trigger: state
-    entity_id: sensor.sun_next_dusk
-    for: "01:00:00"
-    id: dusk_changed
+  - trigger: sun.dusk
+    options:
+      type: civil
+      offset: "01:00:00"
+      offset_type: after
+    id: dusk
   conditions: []
   actions:
   - choose:
@@ -25,7 +27,7 @@
           position: 80
     - conditions:
       - condition: trigger
-        id: dusk_changed
+        id: dusk
       sequence:
       - action: cover.close_cover
         target:
