@@ -5,9 +5,9 @@ set_radiador_config:
   fields:
     option:
       description: Opcion para los selects de sensor de temperatura
-      example: external
+      example: remote_temperature
   variables:
-    sensor_option: "{{ option | default('external') }}"
+    sensor_option: "{{ option | default('remote_temperature') }}"
     temporary_mode_duration: 90
     temperature_accuracy: -0.4
     frost_protection_temperature: 4
