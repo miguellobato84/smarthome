@@ -12,12 +12,12 @@ set_radiador_config:
     temperature_accuracy: -0.4
     frost_protection_temperature: 4
   sequence:
-  # Bedroom: use the internal sensor and apply temporary mode, accuracy, and frost protection settings.
+  # Bedroom: use the local sensor and apply temporary mode, accuracy, and frost protection settings.
   - action: select.select_option
     target:
       entity_id: select.radiador_dormitorio_temperature_sensor_select
     data:
-      option: internal
+      option: local_temperature
   - action: number.set_value
     target:
       entity_id: number.radiador_dormitorio_temporary_mode_duration
