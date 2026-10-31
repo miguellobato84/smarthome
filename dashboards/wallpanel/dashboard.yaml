@@ -1,4 +1,4 @@
-# touched: 2026-10-18 14:54:17 CEST - keep bedroom blinds read-only only
+# touched: 2026-10-31 17:41:13 CET - remove retired blind controls
 wallpanel:
   enabled: true
   hide_toolbar: true

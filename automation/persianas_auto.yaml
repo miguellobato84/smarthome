@@ -1,14 +1,24 @@
 - id: '1771866324220'
   alias: persianas_auto
-  description: Open the office and Dario blinds to 80% at alarm and close them one hour after dusk.
+  description: On weekdays, open the office and Dario blinds to 90% at alarm and close them one hour after dusk. Skip both actions on weekends.
   triggers:
   - trigger: time
     at: input_datetime.alarm
     id: alarm
-  - trigger: state
-    entity_id: sensor.sun_next_dusk
-    id: dusk_changed
-  conditions: []
+  - trigger: sun.dusk
+    options:
+      type: civil
+      offset: "01:00:00"
+      offset_type: after
+    id: dusk
+  conditions:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
   actions:
   - choose:
     - conditions:
@@ -21,20 +31,11 @@
           - cover.persiana_estudio
           - cover.persiana_dario
         data:
-          position: 80
+          position: 90
     - conditions:
       - condition: trigger
-        id: dusk_changed
-      - condition: template
-        value_template: >-
-          {{ has_value('sensor.sun_next_dusk')
-             and trigger.from_state is not none
-             and as_timestamp(trigger.from_state.state, 0) > 0
-             and as_timestamp(trigger.from_state.state, 0) <= as_timestamp(now()) }}
+        id: dusk
       sequence:
-      - delay:
-          seconds: >-
-            {{ [as_timestamp(trigger.from_state.state) + 3600 - as_timestamp(now()), 0] | max | int }}
       - action: cover.close_cover
         target:
           entity_id:

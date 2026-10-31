@@ -38,27 +38,12 @@ sections:
       columns: 8
       rows: 1
   - type: tile
-    entity: cover.persiana_dormitorio_big
-    name: Bedroom big blind (read-only)
-    features_position: bottom
-    vertical: false
-    tap_action:
-      action: none
-    hold_action:
-      action: none
-    double_tap_action:
-      action: none
-    icon_tap_action:
-      action: none
-    icon_hold_action:
-      action: none
-    icon_double_tap_action:
-      action: none
-    grid_options:
-      columns: 8
-      rows: 1
-  - type: tile
     entity: cover.persiana_dario
+    icon_tap_action:
+      action: perform-action
+      perform_action: script.toggle_blind
+      data:
+        entity: cover.persiana_dario
     name: Dario blind
     features_position: bottom
     vertical: false
@@ -69,6 +54,11 @@ sections:
       rows: 1
   - type: tile
     entity: cover.persiana_estudio
+    icon_tap_action:
+      action: perform-action
+      perform_action: script.toggle_blind
+      data:
+        entity: cover.persiana_estudio
     name: Office blind
     features_position: bottom
     vertical: false

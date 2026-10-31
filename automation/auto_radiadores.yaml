@@ -23,7 +23,7 @@
   actions:
     - action: script.set_radiador_config
       data:
-        option: external
+        option: remote_temperature
     - choose:
         # Global disable wins first: when enable_radiators is off, every radiator is forced off.
         - conditions:
