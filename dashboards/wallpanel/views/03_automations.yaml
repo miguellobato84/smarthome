@@ -136,9 +136,9 @@ sections:
     badges: []
   - type: custom:mushroom-template-card
     entity: automation.ventilador_dario
-    primary: Dario fan
-    secondary: Fan + light
-    icon: mdi:fan
+    primary: Dario light
+    secondary: Wall switch
+    icon: mdi:ceiling-light
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
     tap_action:
@@ -155,9 +155,9 @@ sections:
       rows: 1
   - type: custom:mushroom-template-card
     entity: automation.ventilador_dormitorio
-    primary: Bedroom fan
-    secondary: Fan + light
-    icon: mdi:ceiling-fan
+    primary: Bedroom light
+    secondary: Wall switch
+    icon: mdi:ceiling-light
     multiline_secondary: true
     icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
     tap_action:

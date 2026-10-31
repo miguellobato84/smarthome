@@ -1,4 +1,4 @@
-# touched: 2026-10-31 21:51:36 CET - add automatic blinds control
+# touched: 2026-10-31 22:15:35 CET - describe wall-switch light automations
 wallpanel:
   enabled: true
   hide_toolbar: true
