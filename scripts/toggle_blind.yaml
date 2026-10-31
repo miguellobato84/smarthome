@@ -14,7 +14,7 @@ toggle_blind:
   - condition: template
     value_template: >-
       {{ entity in ['cover.persiana_estudio', 'cover.persiana_dario',
-                     'cover.persiana_dormitorio_small', 'cover.persiana_dormitorio_big']
+                     'cover.persiana_dormitorio_small']
          and has_value(entity)
          and is_number(state_attr(entity, 'current_position')) }}
   - choose:

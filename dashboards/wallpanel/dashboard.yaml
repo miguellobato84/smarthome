@@ -1,4 +1,4 @@
-# touched: 2026-10-31 17:39:09 CET - toggle blind icons by position
+# touched: 2026-10-31 17:41:13 CET - remove retired blind controls
 wallpanel:
   enabled: true
   hide_toolbar: true

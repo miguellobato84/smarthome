@@ -1,16 +1,13 @@
 # SONOFF MINI-ZBRBS: unexpected Zigbee leave and recovery
 
-This runbook records the incident affecting the large bedroom shutter and the
-safe recovery procedure. It applies to SONOFF `MINI-ZBRBS` roller-shutter
+This runbook records a past Zigbee leave incident and the safe recovery
+procedure. It applies to SONOFF `MINI-ZBRBS` roller-shutter
 modules using Zigbee2MQTT (Z2M).
 
 ## Affected device
 
 | Field | Value |
 | --- | --- |
-| Z2M name | `persiana_dormitorio_big` |
-| Home Assistant entity | `cover.persiana_dormitorio_big` |
-| IEEE address | `0xc02cedfffec07a55` |
 | Model | SONOFF MINI-ZBRBS |
 | Firmware | `1.0.5` (`fileVersion` 4101; date code 20250711) |
 | Device type | Zigbee router, mains powered |
@@ -41,7 +38,7 @@ device, or poor Zigbee link quality.
 | --- | --- | --- |
 | 16 Aug 12:04:52 | Device reported `motorRunStatus: Reverse`, link quality 42--54, and a closed position. | The module was online and receiving the physical switch action. |
 | 16 Aug 12:04:53 | Device reported `motorRunStatus: Stop`, link quality 51. | A rapid follow-up rocker input stopped/reversed the motor almost immediately. |
-| 16 Aug 12:04:54--55 | Three ZNP `ZDO leaveInd` events from `0xc02cedfffec07a55`. | The device had left the Zigbee network. |
+| 16 Aug 12:04:54--55 | Three ZNP `ZDO leaveInd` events from the affected module. | The device had left the Zigbee network. |
 | 17 Aug 04:00 | HA logged `automation.persiana_estudio` running; Z2M sent the position command and retried five times. | The automation ran correctly. |
 | 17 Aug 04:00 | Z2M returned `MAC_NO_ACK`. | The target was no longer joined/reachable. |
 | 17 Aug 05:17 | The same IEEE rejoined, received network address `0x4D42`, and sent live reports. | Recovery completed; no Z2M deletion was needed. |
