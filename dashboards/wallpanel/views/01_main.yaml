@@ -90,7 +90,10 @@ sections:
         top: 10%
         transform: translate(-50%, -50%)
       tap_action:
-        action: toggle
+        action: perform-action
+        perform_action: script.toggle_blind
+        data:
+          entity: cover.persiana_estudio
       hold_action:
         action: navigate
         navigation_path: /dashboard-wallpanel/persianas
@@ -102,7 +105,10 @@ sections:
         top: 10%
         transform: translate(-50%, -50%)
       tap_action:
-        action: toggle
+        action: perform-action
+        perform_action: script.toggle_blind
+        data:
+          entity: cover.persiana_dormitorio_small
       hold_action:
         action: navigate
         navigation_path: /dashboard-wallpanel/persianas
@@ -114,7 +120,10 @@ sections:
         top: 10%
         transform: translate(-50%, -50%)
       tap_action:
-        action: toggle
+        action: perform-action
+        perform_action: script.toggle_blind
+        data:
+          entity: cover.persiana_dormitorio_big
       hold_action:
         action: navigate
         navigation_path: /dashboard-wallpanel/persianas
@@ -126,7 +135,10 @@ sections:
         top: 10%
         transform: translate(-50%, -50%)
       tap_action:
-        action: toggle
+        action: perform-action
+        perform_action: script.toggle_blind
+        data:
+          entity: cover.persiana_dario
       hold_action:
         action: navigate
         navigation_path: /dashboard-wallpanel/persianas

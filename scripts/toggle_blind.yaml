@@ -1,0 +1,33 @@
+toggle_blind:
+  alias: Toggle blind by position
+  description: Close above 50%; otherwise open to 90%. Ignore unavailable or missing positions.
+  mode: parallel
+  max: 4
+  fields:
+    entity:
+      description: Blind to control
+      required: true
+      selector:
+        entity:
+          domain: cover
+  sequence:
+  - condition: template
+    value_template: >-
+      {{ entity in ['cover.persiana_estudio', 'cover.persiana_dario',
+                     'cover.persiana_dormitorio_small', 'cover.persiana_dormitorio_big']
+         and has_value(entity)
+         and is_number(state_attr(entity, 'current_position')) }}
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: "{{ state_attr(entity, 'current_position') | float(0) > 50 }}"
+      sequence:
+      - action: cover.close_cover
+        target:
+          entity_id: "{{ entity }}"
+    default:
+    - action: cover.set_cover_position
+      target:
+        entity_id: "{{ entity }}"
+      data:
+        position: 90

@@ -59,6 +59,11 @@ sections:
       rows: 1
   - type: tile
     entity: cover.persiana_dario
+    icon_tap_action:
+      action: perform-action
+      perform_action: script.toggle_blind
+      data:
+        entity: cover.persiana_dario
     name: Dario blind
     features_position: bottom
     vertical: false
@@ -69,6 +74,11 @@ sections:
       rows: 1
   - type: tile
     entity: cover.persiana_estudio
+    icon_tap_action:
+      action: perform-action
+      perform_action: script.toggle_blind
+      data:
+        entity: cover.persiana_estudio
     name: Office blind
     features_position: bottom
     vertical: false
