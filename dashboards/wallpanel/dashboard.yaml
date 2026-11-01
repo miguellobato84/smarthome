@@ -1,4 +1,4 @@
-# touched: 2026-10-31 22:15:35 CET - describe wall-switch light automations
+# touched: 2026-11-01 08:16:18 CET - enable manual bedroom small blind control
 wallpanel:
   enabled: true
   hide_toolbar: true

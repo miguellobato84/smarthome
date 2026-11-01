@@ -33,19 +33,25 @@ sections:
       rows: 1
   - type: tile
     entity: cover.persiana_dormitorio_small
-    name: Bedroom small blind (read-only)
+    name: Bedroom small blind
     features_position: bottom
     vertical: false
     tap_action:
-      action: none
+      action: perform-action
+      perform_action: script.toggle_blind
+      data:
+        entity: cover.persiana_dormitorio_small
     hold_action:
-      action: none
+      action: more-info
     double_tap_action:
       action: none
     icon_tap_action:
-      action: none
+      action: perform-action
+      perform_action: script.toggle_blind
+      data:
+        entity: cover.persiana_dormitorio_small
     icon_hold_action:
-      action: none
+      action: more-info
     icon_double_tap_action:
       action: none
     grid_options:

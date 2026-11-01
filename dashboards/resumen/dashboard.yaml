@@ -1,2 +1,2 @@
-# touched: 2026-10-31 17:41:13 CET - remove retired blind controls
+# touched: 2026-11-01 08:16:18 CET - enable manual bedroom small blind control
 views: !include_dir_list /config/dashboards/resumen/views
