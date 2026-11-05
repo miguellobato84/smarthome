@@ -13,6 +13,8 @@
         - input_boolean.radiador_salon_auto
         - input_boolean.enable_radiators
     - trigger: state
+      entity_id: light.luz_abuelo
+    - trigger: state
       entity_id:
         - input_number.radiador_dormitorio_target
         - input_number.radiador_dario_target
@@ -63,9 +65,9 @@
         - action: script.set_radiador
           data:
             entity: climate.radiador_entrada
-            heating: "{{ 7 <= now().hour < 22 }}"
+            heating: "{{ 7 <= now().hour < 22 or is_state('light.luz_abuelo', 'on') }}"
         - action: script.set_radiador
           data:
             entity: climate.radiador_salon
-            heating: "{{ 7 <= now().hour < 22 }}"
+            heating: "{{ 7 <= now().hour < 22 or is_state('light.luz_abuelo', 'on') }}"
   mode: single
