@@ -29,33 +29,33 @@ docker ps --filter name=homeassistant
 ## Git-only sync workflow (`local` <-> `casa`)
 - Local host is the source of truth for edits.
 - Move changes to `casa` only via git (no manual file copy, no ad-hoc SSH edits).
-- Never push directly to `main`.
+- Use `main` as the working and deployment branch.
 
-1. Create/use a feature branch locally, commit, and push:
+1. Edit and commit changes locally on `main`, then push:
 ```bash
-git checkout -b <feature-branch>
 git add <files>
 git commit --no-gpg-sign -m "<message>"
-git push -u origin <feature-branch>
+git push origin main
 ```
 
-2. Sync branch on `casa` using SSH for git operations only:
+2. Sync `main` on `casa` using SSH for git operations only:
 ```bash
 ssh casa 'cd /docker/homeassistant-bind && git status -sb'
-ssh casa 'cd /docker/homeassistant-bind && git checkout <feature-branch>'
+ssh casa 'cd /docker/homeassistant-bind && git checkout main'
 ```
 
-3. If `casa` has local pending changes, commit them on the same branch before pulling:
+3. If `casa` has local pending changes, commit them on `main` before pulling:
 ```bash
 ssh casa 'cd /docker/homeassistant-bind && git add -A && git commit --no-gpg-sign -m "<message>"'
 ```
 
-4. Pull branch updates on `casa`:
+4. Pull `main` on `casa`:
 ```bash
-ssh casa 'cd /docker/homeassistant-bind && git pull --ff-only origin <feature-branch>'
+ssh casa 'cd /docker/homeassistant-bind && git pull --ff-only origin main'
 ```
 
-5. Merge to `main` only after the feature is complete and reviewed.
+5. For Compose changes, apply the updated stack manually through Portainer. Git sync alone does not recreate or start containers.
+6. For Home Assistant YAML and dashboard changes, follow `.agent/standards/home-assistant-git-sync.md` for API validation, reload, and runtime checks.
 
 ## Troubleshooting
 - Config does not load: verify the latest synced branch on `casa`, then inspect Home Assistant logs and integration states from the UI.

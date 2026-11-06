@@ -19,6 +19,17 @@ services:
     #ports:
     #    - 8443:8443
 
+  glasshome:
+    image: ghcr.io/glasshome/dash:latest
+    container_name: glasshome-dash
+    restart: unless-stopped
+    ports:
+      - "3123:3123"
+    volumes:
+      - /docker/glasshome:/data
+    networks:
+      - homeassistant
+
   zigbee2mqtt:
     image: koenkk/zigbee2mqtt:latest
     container_name: zigbee2mqtt

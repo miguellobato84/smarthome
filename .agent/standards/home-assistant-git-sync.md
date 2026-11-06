@@ -31,24 +31,30 @@ ssh casa 'cd /docker/homeassistant-bind && git add -A && git commit --no-gpg-sig
 ssh casa 'cd /docker/homeassistant-bind && git pull --ff-only origin main'
 ```
 
-3. Validate and apply through the API after every successful sync, including syncs
-   to `main`. `./sync.sh` handles Git transfer only; the agent must complete these
-   steps locally using the API and token rules in `AGENTS.md`:
+3. For Home Assistant YAML and dashboard changes, validate and apply through the
+   API after every successful sync, including syncs to `main`. `./sync.sh` handles
+   Git transfer only; the agent must complete these steps locally using the API
+   and token rules in `AGENTS.md`:
    - `POST /api/config/core/check_config` with `{}`. Continue only on HTTP `200`
      with `result: valid`; report errors and stop before reloading otherwise.
    - `POST /api/services/homeassistant/reload_all` with `{}`. Require HTTP `200`;
-     report API failures rather than treating Git sync as a completed deployment.
+     this reload applies supported Home Assistant YAML only. It does not deploy
+     Compose changes. Report API failures rather than treating Git sync as a
+     completed Home Assistant configuration update.
    - `GET /api/` must return HTTP `200`. Verify affected automation/script entities
      and live dashboard configuration when relevant. Report validation warnings
      and any behavior or visual checks that could not be performed.
 
-This quick reload applies supported YAML configuration without restarting Home
-Assistant. If a change requires a restart, report that requirement separately;
+This quick reload applies supported Home Assistant YAML without restarting Home
+Assistant. For Compose changes, apply the stack manually through Portainer. If a
+Home Assistant change requires a restart, report that requirement separately;
 the sync step authorizes the quick reload, not a full restart.
 
 ## Validation
 - `git status -sb` is clean locally after push.
 - `ssh casa 'cd /docker/homeassistant-bind && git status -sb'` shows expected branch/state after sync.
 - Local and `casa` are on `main` at the expected commit.
-- API validation, quick reload, and health verification succeeded after sync;
-  affected runtime configuration matches the deployed change.
+- For Home Assistant YAML and dashboards, API validation, quick reload, health
+  verification, and relevant runtime checks succeeded after sync.
+- For Compose changes, verify the stack was applied through Portainer and the
+  affected container is healthy.

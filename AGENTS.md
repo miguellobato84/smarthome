@@ -40,7 +40,7 @@ This repository stores Home Assistant configuration, automations, templates, das
 - CI/CD: not detected in-repo
 
 ## Build, Test, and Development Commands
-- Build/Run: `docker compose -f compose/home-assistant.yml up -d` (details: `.agent/SETUP.md`)
+- Build/Run: apply Compose stack changes manually through Portainer (details: `.agent/SETUP.md`)
 - Test: no reliable local automated test command; validate after git sync on `casa` via manual human checks (details: `.agent/TESTING.md`)
 - Lint/Style checks: YAML-focused review commands in `.agent/CODING_STYLE.md`
 - Docs index: `.agent/README.md`
@@ -62,7 +62,7 @@ This repository stores Home Assistant configuration, automations, templates, das
 - Commit conventions: see `.agent/standards/commits.md`
 - In this repo environment, use unsigned commits (`--no-gpg-sign`) unless told otherwise.
 - In iterative work, after each user-requested change set is finished, commit and push to `origin main` immediately (do not batch multiple requests without push).
-- After each push, run `./sync.sh` unless the user explicitly asks to skip it. Complete every successful `casa` sync with API configuration validation, `homeassistant.reload_all`, and runtime verification; follow `.agent/standards/home-assistant-git-sync.md` for the required sequence and failure handling.
+- After each push, run `./sync.sh` unless the user explicitly asks to skip it. For Home Assistant YAML and dashboards, complete successful `casa` syncs with API configuration validation, `homeassistant.reload_all`, and relevant runtime verification. Apply Compose changes manually through Portainer. Follow `.agent/standards/home-assistant-git-sync.md` for the required sequence and failure handling.
 - PR expectations: include behavior summary, impacted entities, and validation steps.
 - Home Assistant git-sync workflow: see `.agent/standards/home-assistant-git-sync.md`
 
