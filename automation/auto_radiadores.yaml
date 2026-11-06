@@ -1,6 +1,6 @@
 - id: '1763817999770'
   alias: auto_radiadores
-  description: ''
+  description: Smart mode applies the automatic schedule; when Smart mode is off, manual radiator control is preserved. The global radiator switch still forces every radiator off.
   triggers:
     - trigger: time_pattern
       minutes: /30
@@ -43,31 +43,61 @@
                   - climate.radiador_salon
                 heating: false
       default:
-        # With enable_radiators on, per-radiator smart mode can still force heating on for a room.
-        - action: script.set_radiador
-          data:
-            entity: climate.radiador_dormitorio
-            heating: "{{ 18 <= now().hour < 20 }}"
-        - action: script.set_radiador
-          data:
-            entity: climate.radiador_dario
-            heating: |
-              {% set hour = now().hour %}
-              {% if is_state('input_boolean.is_holiday', 'on') %}
-                {{ 7 <= hour < 19 }}
-              {% else %}
-                {{ (7 <= hour < 9) or (17 <= hour < 20) }}
-              {% endif %}
-        - action: script.set_radiador
-          data:
-            entity: climate.radiador_estudio
-            heating: "{{ not is_state('input_boolean.is_holiday', 'on') and 7 <= now().hour < 16 }}"
-        - action: script.set_radiador
-          data:
-            entity: climate.radiador_entrada
-            heating: "{{ 7 <= now().hour < 22 or is_state('light.luz_abuelo', 'on') }}"
-        - action: script.set_radiador
-          data:
-            entity: climate.radiador_salon
-            heating: "{{ 7 <= now().hour < 22 or is_state('light.luz_abuelo', 'on') }}"
+        # Only Smart-enabled radiators follow the automatic schedule; manual mode leaves them untouched.
+        - choose:
+            - conditions:
+                - condition: state
+                  entity_id: input_boolean.radiador_dormitorio_auto
+                  state: 'on'
+              sequence:
+                - action: script.set_radiador
+                  data:
+                    entity: climate.radiador_dormitorio
+                    heating: "{{ 18 <= now().hour < 20 }}"
+        - choose:
+            - conditions:
+                - condition: state
+                  entity_id: input_boolean.radiador_dario_auto
+                  state: 'on'
+              sequence:
+                - action: script.set_radiador
+                  data:
+                    entity: climate.radiador_dario
+                    heating: |
+                      {% set hour = now().hour %}
+                      {% if is_state('input_boolean.is_holiday', 'on') %}
+                        {{ 7 <= hour < 19 }}
+                      {% else %}
+                        {{ (7 <= hour < 9) or (17 <= hour < 20) }}
+                      {% endif %}
+        - choose:
+            - conditions:
+                - condition: state
+                  entity_id: input_boolean.radiador_estudio_auto
+                  state: 'on'
+              sequence:
+                - action: script.set_radiador
+                  data:
+                    entity: climate.radiador_estudio
+                    heating: "{{ not is_state('input_boolean.is_holiday', 'on') and 7 <= now().hour < 16 }}"
+        - choose:
+            - conditions:
+                - condition: state
+                  entity_id: input_boolean.radiador_entrada_auto
+                  state: 'on'
+              sequence:
+                - action: script.set_radiador
+                  data:
+                    entity: climate.radiador_entrada
+                    heating: "{{ 7 <= now().hour < 22 or is_state('light.luz_abuelo', 'on') }}"
+        - choose:
+            - conditions:
+                - condition: state
+                  entity_id: input_boolean.radiador_salon_auto
+                  state: 'on'
+              sequence:
+                - action: script.set_radiador
+                  data:
+                    entity: climate.radiador_salon
+                    heating: "{{ 7 <= now().hour < 22 or is_state('light.luz_abuelo', 'on') }}"
   mode: single

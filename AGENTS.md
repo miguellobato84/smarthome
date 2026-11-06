@@ -22,7 +22,7 @@ This repository stores Home Assistant configuration, automations, templates, das
 - Keep changes scoped to requested behavior; avoid broad refactors unless asked.
 - Transfer Home Assistant config between local and `casa` via git only.
 - Use `./sync.sh` from the repository root as the default git-only sync path to `casa`.
-- Never push directly to `main`; use a feature branch and merge when complete.
+- Work directly on `main` and push each completed change to `origin/main`.
 - Use `ssh casa` only for git operations unless explicitly requested otherwise.
 
 ## Home Assistant API
@@ -61,9 +61,8 @@ This repository stores Home Assistant configuration, automations, templates, das
 ## Commit & Pull Request Guidelines
 - Commit conventions: see `.agent/standards/commits.md`
 - In this repo environment, use unsigned commits (`--no-gpg-sign`) unless told otherwise.
-- In iterative work, after each user-requested change set is finished, commit and push the current feature branch to `origin` immediately (do not batch multiple requests without push).
-- After each push, run `./sync.sh` unless the user explicitly asks to skip it.
-- After completing a squash merge or regular merge, clean up the merged feature branch (local and `origin`) and switch back to `main` locally and on `casa`.
+- In iterative work, after each user-requested change set is finished, commit and push to `origin main` immediately (do not batch multiple requests without push).
+- After each push, run `./sync.sh` unless the user explicitly asks to skip it. Complete every successful `casa` sync with API configuration validation, `homeassistant.reload_all`, and runtime verification; follow `.agent/standards/home-assistant-git-sync.md` for the required sequence and failure handling.
 - PR expectations: include behavior summary, impacted entities, and validation steps.
 - Home Assistant git-sync workflow: see `.agent/standards/home-assistant-git-sync.md`
 
