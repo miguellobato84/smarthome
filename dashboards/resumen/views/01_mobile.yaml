@@ -54,12 +54,11 @@ sections:
     tap_action:
       action: toggle
   - type: custom:mushroom-template-card
-    entity: input_boolean.is_holiday
-    primary: "{{ 'Holiday' if is_state(entity, 'on') else 'Workday' }}"
-    icon: "{{ 'mdi:beach' if is_state(entity, 'on') else 'mdi:briefcase' }}"
-    icon_color: "{{ 'green' if is_state(entity, 'on') else 'blue' }}"
-    tap_action:
-      action: toggle
+    entity: binary_sensor.workday_sensor_es_md
+    primary: >-
+      {% if is_state(entity, 'on') %}Workday{% elif is_state(entity, 'off') %}Day off{% else %}Workday status unavailable{% endif %}
+    icon: "{{ 'mdi:briefcase' if is_state(entity, 'on') else 'mdi:beach' if is_state(entity, 'off') else 'mdi:help-circle' }}"
+    icon_color: "{{ 'green' if is_state(entity, 'on') else 'amber' if is_state(entity, 'off') else 'red' }}"
   - type: tile
     entity: input_datetime.alarm
     name: Alarm
@@ -631,22 +630,6 @@ sections:
       service: automation.trigger
       target:
         entity_id: automation.humidity_rise_extractor_bano
-  - type: custom:mushroom-template-card
-    entity: automation.is_holiday
-    primary: Holiday status
-    secondary: Sets workday or holiday automatically
-    icon: mdi:calendar-weekend
-    multiline_secondary: true
-    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
-    tap_action:
-      action: toggle
-    hold_action:
-      action: more-info
-    double_tap_action:
-      action: call-service
-      service: automation.trigger
-      target:
-        entity_id: automation.is_holiday
   column_span: 4
 header:
   layout: center
@@ -676,26 +659,32 @@ badges:
       red
     {% endif %}
 - type: custom:mushroom-template-badge
-  entity: input_boolean.is_holiday
+  entity: binary_sensor.workday_sensor_es_md
   icon: |
-    {% if is_state('input_boolean.is_holiday', 'on') %}
-      mdi:palm-tree
+    {% if is_state('binary_sensor.workday_sensor_es_md', 'on') %}
+      mdi:briefcase
+    {% elif is_state('binary_sensor.workday_sensor_es_md', 'off') %}
+      mdi:beach
     {% else %}
-      mdi:calendar-remove
+      mdi:help-circle
     {% endif %}
   content: |
-    {% if is_state('input_boolean.is_holiday', 'on') %}
-      Holiday
-    {% else %}
+    {% if is_state('binary_sensor.workday_sensor_es_md', 'on') %}
       Workday
+    {% elif is_state('binary_sensor.workday_sensor_es_md', 'off') %}
+      Day off
+    {% else %}
+      Unknown
     {% endif %}
   tap_action:
-    action: toggle
+    action: more-info
   color: |
-    {% if is_state('input_boolean.is_holiday', 'on') %}
+    {% if is_state('binary_sensor.workday_sensor_es_md', 'on') %}
       green
-    {% else %}
+    {% elif is_state('binary_sensor.workday_sensor_es_md', 'off') %}
       amber
+    {% else %}
+      red
     {% endif %}
 - type: custom:mushroom-template-badge
   entity: input_number.max_temp

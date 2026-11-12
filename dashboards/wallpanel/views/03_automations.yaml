@@ -19,10 +19,11 @@ sections:
           display: none !important;
         }
   - type: custom:mushroom-template-card
-    entity: input_boolean.is_holiday
-    primary: "{{ 'Holiday' if is_state(entity, 'on') else 'Workday' }}"
-    icon: "{{ 'mdi:beach' if is_state(entity, 'on') else 'mdi:briefcase' }}"
-    icon_color: "{{ 'green' if is_state(entity, 'on') else 'blue' }}"
+    entity: binary_sensor.workday_sensor_es_md
+    primary: >-
+      {% if is_state(entity, 'on') %}Workday{% elif is_state(entity, 'off') %}Day off{% else %}Workday status unavailable{% endif %}
+    icon: "{{ 'mdi:briefcase' if is_state(entity, 'on') else 'mdi:beach' if is_state(entity, 'off') else 'mdi:help-circle' }}"
+    icon_color: "{{ 'green' if is_state(entity, 'on') else 'amber' if is_state(entity, 'off') else 'red' }}"
     grid_options:
       columns: 8
       rows: 1
@@ -245,25 +246,6 @@ sections:
       service: automation.trigger
       target:
         entity_id: automation.humidity_rise_extractor_bano
-    grid_options:
-      columns: 8
-      rows: 1
-  - type: custom:mushroom-template-card
-    entity: automation.is_holiday
-    primary: Holiday status
-    secondary: Weekend -> holiday
-    icon: mdi:calendar-weekend
-    multiline_secondary: true
-    icon_color: "{{ 'yellow' if is_state(entity, 'on') else 'red' }}"
-    tap_action:
-      action: toggle
-    hold_action:
-      action: more-info
-    double_tap_action:
-      action: call-service
-      service: automation.trigger
-      target:
-        entity_id: automation.is_holiday
     grid_options:
       columns: 8
       rows: 1

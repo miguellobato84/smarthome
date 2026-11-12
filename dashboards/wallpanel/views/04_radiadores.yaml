@@ -113,7 +113,8 @@ sections:
       {% set valve = states('number.radiador_dario_valve_opening_degree') if heating else (100 - states('number.radiador_dario_valve_closing_degree') | float(0)) | round(0) %}
       Status {{ state_attr(entity, 'hvac_action') or 'idle' }}, valve {{ valve }}%
     secondary: >-
-      {% set hours = '7 - 19' if is_state('input_boolean.is_holiday', 'on') else '7 - 9, 17 - 20' %}
+      {% set workday = states('binary_sensor.workday_sensor_es_md') %}
+      {% set hours = '7 - 9, 17 - 20' if workday == 'on' else '7 - 19' if workday == 'off' else 'unknown' %}
       Room {{ state_attr(entity, 'current_temperature') }}°C, On {{ hours }}
     icon: mdi:radiator
     icon_color: |-
@@ -161,7 +162,8 @@ sections:
       {% set valve = states('number.radiador_estudio_valve_opening_degree') if heating else (100 - states('number.radiador_estudio_valve_closing_degree') | float(0)) | round(0) %}
       Status {{ state_attr(entity, 'hvac_action') or 'idle' }}, valve {{ valve }}%
     secondary: >-
-      {% set hours = '7 - 16' if not is_state('input_boolean.is_holiday', 'on') else 'not today' %}
+      {% set workday = states('binary_sensor.workday_sensor_es_md') %}
+      {% set hours = '7 - 16' if workday == 'on' else 'not today' if workday == 'off' else 'unknown' %}
       Room {{ state_attr(entity, 'current_temperature') }}°C, On {{ hours }}
     icon: mdi:radiator
     icon_color: |-

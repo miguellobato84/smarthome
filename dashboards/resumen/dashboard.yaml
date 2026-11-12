@@ -1,2 +1,2 @@
-# touched: 2026-11-01 08:16:18 CET - enable manual bedroom small blind control
+# touched: 2026-11-12 23:09:27 CET - align radiator and blind schedules with Workday
 views: !include_dir_list /config/dashboards/resumen/views
