@@ -1,0 +1,61 @@
+update_radiador_external_temperatures:
+  alias: Update radiator external temperatures
+  description: Update external radiator readings only when the source sensor has a valid numeric value.
+  mode: single
+  sequence:
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: >-
+                {{ is_number(states('sensor.sensor_temp_dario_temperature')) and
+                   (not is_number(states('number.radiador_dario_external_temperature_input')) or
+                    (states('sensor.sensor_temp_dario_temperature') | float -
+                     states('number.radiador_dario_external_temperature_input') | float) | abs > 0.1) }}
+          sequence:
+            - action: number.set_value
+              target:
+                entity_id: number.radiador_dario_external_temperature_input
+              data:
+                value: "{{ states('sensor.sensor_temp_dario_temperature') | float }}"
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: >-
+                {{ is_number(states('sensor.sensor_temp_estudio_temperature')) and
+                   (not is_number(states('number.radiador_estudio_external_temperature_input')) or
+                    (states('sensor.sensor_temp_estudio_temperature') | float -
+                     states('number.radiador_estudio_external_temperature_input') | float) | abs > 0.1) }}
+          sequence:
+            - action: number.set_value
+              target:
+                entity_id: number.radiador_estudio_external_temperature_input
+              data:
+                value: "{{ states('sensor.sensor_temp_estudio_temperature') | float }}"
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: >-
+                {{ is_number(states('sensor.sensor_temp_salon_temperature')) and
+                   (not is_number(states('number.radiador_entrada_external_temperature_input')) or
+                    (states('sensor.sensor_temp_salon_temperature') | float -
+                     states('number.radiador_entrada_external_temperature_input') | float) | abs > 0.1) }}
+          sequence:
+            - action: number.set_value
+              target:
+                entity_id: number.radiador_entrada_external_temperature_input
+              data:
+                value: "{{ states('sensor.sensor_temp_salon_temperature') | float }}"
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: >-
+                {{ is_number(states('sensor.sensor_temp_salon_temperature')) and
+                   (not is_number(states('number.radiador_salon_external_temperature_input')) or
+                    (states('sensor.sensor_temp_salon_temperature') | float -
+                     states('number.radiador_salon_external_temperature_input') | float) | abs > 0.1) }}
+          sequence:
+            - action: number.set_value
+              target:
+                entity_id: number.radiador_salon_external_temperature_input
+              data:
+                value: "{{ states('sensor.sensor_temp_salon_temperature') | float }}"

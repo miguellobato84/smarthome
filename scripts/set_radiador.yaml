@@ -22,19 +22,30 @@ set_radiador:
                 {{ clim_entity | replace('climate.', 'input_boolean.') ~ '_auto' }}
               target_entity: >-
                 {{ clim_entity | replace('climate.', 'input_number.') ~ '_target' }}
+              external_sensor: >-
+                {{ {
+                  'climate.radiador_dario': 'sensor.sensor_temp_dario_temperature',
+                  'climate.radiador_estudio': 'sensor.sensor_temp_estudio_temperature',
+                  'climate.radiador_entrada': 'sensor.sensor_temp_salon_temperature',
+                  'climate.radiador_salon': 'sensor.sensor_temp_salon_temperature'
+                }.get(clim_entity, '') }}
               target_helper_value: "{{ states(target_entity) | float(18) }}"
               t_act: "{{ state_attr(clim_entity, 'current_temperature') | float(0) }}"
+              valid_readings: >-
+                {{ is_number(states(target_entity)) and
+                   is_number(state_attr(clim_entity, 'current_temperature')) and
+                   (external_sensor == '' or is_number(states(external_sensor))) }}
               diff: "{{ target_helper_value - t_act }}"
               valve_entity: >-
                 {{ clim_entity | replace('climate.', 'number.') ~ '_valve_opening_degree' }}
           - action: logbook.log
             data:
               name: Radiator Debug
-              message: "Priority: global-off request > auto_entity off when heating requested > heating request > off | Entity: {{ clim_entity }}, Heating: {{ heating_requested }}, Auto Entity: {{ auto_entity }}, Target Entity: {{ target_entity }}, Target Helper Value: {{ target_helper_value }}, Current Temp: {{ t_act }}, Diff: {{ diff }}, Valve Entity: {{ valve_entity }}"
+              message: "Priority: global-off request > invalid readings > auto_entity off when heating requested > heating request > off | Entity: {{ clim_entity }}, Heating: {{ heating_requested }}, Auto Entity: {{ auto_entity }}, Target Entity: {{ target_entity }}, External Sensor: {{ external_sensor or 'local climate sensor' }}, Valid Readings: {{ valid_readings }}, Target Helper Value: {{ target_helper_value }}, Current Temp: {{ t_act }}, Diff: {{ diff }}, Valve Entity: {{ valve_entity }}"
           - choose:
               - conditions:
                   - condition: template
-                    value_template: "{{ heating_requested and is_state(auto_entity, 'off') }}"
+                    value_template: "{{ heating_requested and valid_readings and is_state(auto_entity, 'off') }}"
                 sequence:
                   # Smart mode off forces heat only when the caller is requesting heating.
                   - action: climate.set_hvac_mode
@@ -54,7 +65,7 @@ set_radiador:
                       value: 100
               - conditions:
                   - condition: template
-                    value_template: "{{ heating_requested and diff > 0 and diff < 1 }}"
+                    value_template: "{{ heating_requested and valid_readings and diff > 0 and diff < 1 }}"
                 sequence:
                   # Lower heating demand still keeps the radiator in heat mode with a smaller valve opening.
                   - action: climate.set_hvac_mode
@@ -74,7 +85,7 @@ set_radiador:
                       value: 50
               - conditions:
                   - condition: template
-                    value_template: "{{ heating_requested and diff >= 1 }}"
+                    value_template: "{{ heating_requested and valid_readings and diff >= 1 }}"
                 sequence:
                   # Normal heating request with smart mode on keeps the radiator in heat mode.
                   - action: climate.set_hvac_mode

@@ -1,6 +1,6 @@
 - id: '1770851026273'
   alias: luz_estudio
-  description: ''
+  description: Turn the office light on for occupancy during daytime and turn it off after 15 minutes without occupancy.
   triggers:
   - id: occupied
     type: occupied
@@ -18,15 +18,14 @@
       hours: 0
       minutes: 15
       seconds: 0
-  conditions:
-  - condition: time
-    after: "07:00:00"
-    before: "19:00:00"
   actions:
   - choose:
     - conditions:
       - condition: trigger
         id: occupied
+      - condition: time
+        after: "07:00:00"
+        before: "19:00:00"
       sequence:
       - target:
           entity_id: light.luz_estudio

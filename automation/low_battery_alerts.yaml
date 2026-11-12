@@ -1,0 +1,55 @@
+- id: low_battery_alerts
+  alias: Low smart-home battery alerts
+  description: Notify the Pixel 10 when a monitored smart-home battery falls below 20 percent and repeat a daily summary while any remain low.
+  triggers:
+    - trigger: numeric_state
+      entity_id:
+        - sensor.radiador_dario_battery
+        - sensor.radiador_estudio_battery
+        - sensor.radiador_entrada_battery
+        - sensor.radiador_salon_battery
+        - sensor.radiador_dormitorio_battery
+        - sensor.sensor_temp_estudio_battery
+        - sensor.sensor_temp_dario_battery
+        - sensor.sensor_temp_salon_battery
+        - sensor.sensor_temp_banod_battery
+        - sensor.sensor_movimiento_estudio_battery
+        - sensor.0xa4c13897a4308868_battery
+        - sensor.0xbc026efffed3a37e_battery
+        - sensor.remote_cama_battery
+      below: 20
+    - trigger: time
+      at: "09:00:00"
+  conditions: []
+  actions:
+    - variables:
+        low_batteries: >-
+          {% set monitored = [
+            'sensor.radiador_dario_battery',
+            'sensor.radiador_estudio_battery',
+            'sensor.radiador_entrada_battery',
+            'sensor.radiador_salon_battery',
+            'sensor.radiador_dormitorio_battery',
+            'sensor.sensor_temp_estudio_battery',
+            'sensor.sensor_temp_dario_battery',
+            'sensor.sensor_temp_salon_battery',
+            'sensor.sensor_temp_banod_battery',
+            'sensor.sensor_movimiento_estudio_battery',
+            'sensor.0xa4c13897a4308868_battery',
+            'sensor.0xbc026efffed3a37e_battery',
+            'sensor.remote_cama_battery'
+          ] %}
+          {% set ns = namespace(items=[]) %}
+          {% for entity in monitored %}
+            {% if is_number(states(entity)) and states(entity) | float < 20 %}
+              {% set ns.items = ns.items + [state_attr(entity, 'friendly_name') ~ ': ' ~ states(entity) ~ '%'] %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.items | join(', ') }}
+    - condition: template
+      value_template: "{{ low_batteries | trim != '' }}"
+    - action: notify.mobile_app_pixel_10
+      data:
+        title: Low smart-home battery
+        message: "Replace or recharge: {{ low_batteries | trim }}"
+  mode: single

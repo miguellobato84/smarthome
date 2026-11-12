@@ -1,6 +1,6 @@
 set_radiador_config:
   alias: set_radiador_config
-  description: Configura los parametros base de cada radiador
+  description: Configure fixed sensor selection and safety settings for each radiator.
   mode: single
   fields:
     option:
@@ -41,11 +41,6 @@ set_radiador_config:
       option: "{{ sensor_option }}"
   - action: number.set_value
     target:
-      entity_id: number.radiador_dario_external_temperature_input
-    data:
-      value: "{{ states('sensor.sensor_temp_dario_temperature') | float(0) }}"
-  - action: number.set_value
-    target:
       entity_id: number.radiador_dario_temporary_mode_duration
     data:
       value: "{{ temporary_mode_duration }}"
@@ -65,11 +60,6 @@ set_radiador_config:
       entity_id: select.radiador_estudio_temperature_sensor_select
     data:
       option: "{{ sensor_option }}"
-  - action: number.set_value
-    target:
-      entity_id: number.radiador_estudio_external_temperature_input
-    data:
-      value: "{{ states('sensor.sensor_temp_estudio_temperature') | float(0) }}"
   - action: number.set_value
     target:
       entity_id: number.radiador_estudio_temporary_mode_duration
@@ -93,11 +83,6 @@ set_radiador_config:
       option: "{{ sensor_option }}"
   - action: number.set_value
     target:
-      entity_id: number.radiador_entrada_external_temperature_input
-    data:
-      value: "{{ states('sensor.sensor_temp_salon_temperature') | float(0) }}"
-  - action: number.set_value
-    target:
       entity_id: number.radiador_entrada_temporary_mode_duration
     data:
       value: "{{ temporary_mode_duration }}"
@@ -117,11 +102,6 @@ set_radiador_config:
       entity_id: select.radiador_salon_temperature_sensor_select
     data:
       option: "{{ sensor_option }}"
-  - action: number.set_value
-    target:
-      entity_id: number.radiador_salon_external_temperature_input
-    data:
-      value: "{{ states('sensor.sensor_temp_salon_temperature') | float(0) }}"
   - action: number.set_value
     target:
       entity_id: number.radiador_salon_temporary_mode_duration

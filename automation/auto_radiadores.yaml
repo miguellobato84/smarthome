@@ -4,6 +4,18 @@
   triggers:
     - trigger: time_pattern
       minutes: /30
+    - trigger: homeassistant
+      event: start
+      id: startup
+    - trigger: state
+      entity_id:
+        - climate.radiador_dormitorio
+        - climate.radiador_dario
+        - climate.radiador_estudio
+        - climate.radiador_entrada
+        - climate.radiador_salon
+      from: unavailable
+      id: radiator_reconnected
     - trigger: state
       entity_id:
         - input_boolean.radiador_dormitorio_auto
@@ -13,7 +25,9 @@
         - input_boolean.radiador_salon_auto
         - input_boolean.enable_radiators
     - trigger: state
-      entity_id: light.luz_abuelo
+      entity_id:
+        - light.luz_abuelo
+        - binary_sensor.workday_sensor_es_md
     - trigger: state
       entity_id:
         - input_number.radiador_dormitorio_target
@@ -23,9 +37,17 @@
         - input_number.radiador_salon_target
   conditions: []
   actions:
-    - action: script.set_radiador_config
-      data:
-        option: remote_temperature
+    - choose:
+        - conditions:
+            - condition: trigger
+              id:
+                - startup
+                - radiator_reconnected
+          sequence:
+            - action: script.set_radiador_config
+              data:
+                option: remote_temperature
+    - action: script.update_radiador_external_temperatures
     - choose:
         # Global disable wins first: when enable_radiators is off, every radiator is forced off.
         - conditions:
