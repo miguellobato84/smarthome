@@ -65,10 +65,10 @@
                     entity: climate.radiador_dario
                     heating: |
                       {% set hour = now().hour %}
-                      {% if is_state('input_boolean.is_holiday', 'on') %}
-                        {{ 7 <= hour < 19 }}
-                      {% else %}
+                      {% if is_state('binary_sensor.workday_sensor_es_md', 'on') %}
                         {{ (7 <= hour < 9) or (17 <= hour < 20) }}
+                      {% else %}
+                        {{ 7 <= hour < 19 }}
                       {% endif %}
         - choose:
             - conditions:
@@ -79,7 +79,7 @@
                 - action: script.set_radiador
                   data:
                     entity: climate.radiador_estudio
-                    heating: "{{ not is_state('input_boolean.is_holiday', 'on') and 7 <= now().hour < 16 }}"
+                    heating: "{{ is_state('binary_sensor.workday_sensor_es_md', 'on') and 7 <= now().hour < 16 }}"
         - choose:
             - conditions:
                 - condition: state
