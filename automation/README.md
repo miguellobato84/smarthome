@@ -11,6 +11,7 @@ This folder contains Home Assistant automations split by topic. Each file holds 
 - `humidity_rise_extractor_bano.yaml`: bath-oriented extractor activation. Require humidity at least 75%, at least 4 percentage points and 5% above its one-hour baseline, continuously for 30 seconds. Require valid readings, an off extractor, and at least 60 minutes since the last automatic activation. One activation per qualifying humidity episode; the trigger must clear before it can fire again. Manual control and the separate 15-minute auto-off remain unchanged.
 - `luz_estudio.yaml`: studio light automation.
 - `low_battery_alerts.yaml`: notify the Pixel 10 when monitored smart-home batteries fall below 20%, with a daily reminder while any remain low.
+- `system_health_alerts.yaml`: notify the Pixel 10 about sustained Zigbee/MELCloud outages and unavailable critical devices, including recovery notices.
 - `persianas_auto.yaml`: automatic blind/shutter automation for studio and Dario.
 - `auto_radiadores.yaml`: external temperature-based radiator control.
 - `globo_dario.yaml`: mirrors Globo Dario switch state to Globito light.

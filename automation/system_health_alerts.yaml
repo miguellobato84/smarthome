@@ -1,0 +1,92 @@
+- id: system_health_alerts
+  alias: System health alerts
+  description: Notify the Pixel 10 about sustained Zigbee or MELCloud outages and unavailable critical devices, including recovery notices.
+  triggers:
+    - trigger: state
+      id: integration_offline
+      entity_id:
+        - binary_sensor.zigbee2mqtt_bridge_connection_state
+        - binary_sensor.melcloudhome_1986_5325_connection_state
+      to: 'off'
+      for: '00:02:00'
+    - trigger: state
+      id: integration_recovered
+      entity_id:
+        - binary_sensor.zigbee2mqtt_bridge_connection_state
+        - binary_sensor.melcloudhome_1986_5325_connection_state
+      from: 'off'
+      to: 'on'
+    - trigger: state
+      id: device_unavailable
+      entity_id:
+        - climate.melcloudhome_1986_5325
+        - climate.radiador_dormitorio
+        - climate.radiador_dario
+        - climate.radiador_estudio
+        - climate.radiador_entrada
+        - climate.radiador_salon
+        - sensor.sensor_temp_estudio_temperature
+        - sensor.sensor_temp_dario_temperature
+        - sensor.sensor_temp_salon_temperature
+        - sensor.sensor_temp_banod_temperature
+        - sensor.sensor_temp_banod_humidity
+        - binary_sensor.sensor_movimiento_estudio_occupancy
+        - cover.persiana_estudio
+        - cover.persiana_dario
+        - cover.persiana_dormitorio_big
+        - cover.persiana_dormitorio_small
+        - switch.extractor_bano
+      to: unavailable
+      for: '00:03:00'
+    - trigger: state
+      id: device_recovered
+      entity_id:
+        - climate.melcloudhome_1986_5325
+        - climate.radiador_dormitorio
+        - climate.radiador_dario
+        - climate.radiador_estudio
+        - climate.radiador_entrada
+        - climate.radiador_salon
+        - sensor.sensor_temp_estudio_temperature
+        - sensor.sensor_temp_dario_temperature
+        - sensor.sensor_temp_salon_temperature
+        - sensor.sensor_temp_banod_temperature
+        - sensor.sensor_temp_banod_humidity
+        - binary_sensor.sensor_movimiento_estudio_occupancy
+        - cover.persiana_estudio
+        - cover.persiana_dario
+        - cover.persiana_dormitorio_big
+        - cover.persiana_dormitorio_small
+        - switch.extractor_bano
+      from: unavailable
+  conditions: []
+  actions:
+    - variables:
+        entity_name: "{{ state_attr(trigger.entity_id, 'friendly_name') or trigger.entity_id }}"
+        entity_state: "{{ trigger.to_state.state }}"
+    - choose:
+        - conditions:
+            - condition: trigger
+              id:
+                - integration_offline
+                - device_unavailable
+          sequence:
+            - action: notify.mobile_app_pixel_10
+              data:
+                title: Home Assistant system alert
+                message: >-
+                  {{ entity_name }} is {{ 'offline' if trigger.id == 'integration_offline' else 'unavailable' }}
+                  ({{ entity_state }}). The condition persisted for
+                  {{ '2 minutes' if trigger.id == 'integration_offline' else '3 minutes' }}.
+        - conditions:
+            - condition: trigger
+              id:
+                - integration_recovered
+                - device_recovered
+          sequence:
+            - action: notify.mobile_app_pixel_10
+              data:
+                title: Home Assistant system recovered
+                message: "{{ entity_name }} is available again ({{ entity_state }})."
+  mode: parallel
+  max: 10
