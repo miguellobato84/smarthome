@@ -1,6 +1,6 @@
 - id: '1771221191925'
   alias: humidity_rise_extractor_bano
-  description: Start only after a sustained shower-like humidity rise, with a one-hour cooldown.
+  description: Start after a sustained bath-like humidity rise, with a one-hour cooldown.
   triggers:
   - trigger: template
     value_template: >-
@@ -11,9 +11,9 @@
          and is_number(humidity) and is_number(baseline)
          and 0 < (baseline | float(0)) <= 100
          and 75 <= (humidity | float(0)) <= 100
-         and (humidity | float(0)) >= (baseline | float(0)) + 12
-         and (humidity | float(0)) >= (baseline | float(0)) * 1.20 }}
-    for: '00:03:00'
+         and (humidity | float(0)) >= (baseline | float(0)) + 4
+         and (humidity | float(0)) >= (baseline | float(0)) * 1.05 }}
+    for: '00:00:30'
   conditions:
   - condition: state
     entity_id: switch.extractor_bano
