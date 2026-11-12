@@ -1,6 +1,6 @@
 - id: '1771866324220'
   alias: persianas_auto
-  description: On weekdays, open the office and Dario blinds to 90% at alarm and close them one hour after dusk. Skip both actions on weekends.
+  description: Open the office and Dario blinds to 90% at alarm on workdays; close them one hour after dusk every day.
   triggers:
   - trigger: time
     at: input_datetime.alarm
@@ -11,19 +11,14 @@
       offset: "01:00:00"
       offset_type: after
     id: dusk
-  conditions:
-  - condition: time
-    weekday:
-    - mon
-    - tue
-    - wed
-    - thu
-    - fri
   actions:
   - choose:
     - conditions:
       - condition: trigger
         id: alarm
+      - condition: state
+        entity_id: binary_sensor.workday_sensor_es_md
+        state: 'on'
       sequence:
       - action: cover.set_cover_position
         target:
